@@ -56,8 +56,7 @@
     <!--config border on accordions  -->
     <div class="page-container grid sm:grid-cols-2 grid-cols-1 gap-4 py-12 md:py-20 grid-rows-1 lg:h-[39rem] sm:h-[41rem] h-auto"
     InterObs intersectChild="true" 
-    app-glowing-border group="myworks" borderColor="var(--color-neutral-800)" backgroundColor="var(--color-neutral-950)" 
-    borderGlowColor="var(--color-neutral-500)" glowSize="650px" borderGlowSize="500px">
+    app-glowing-border group="myworks" borderGlowColor="var(--color-neutral-500)" glowSize="650px" borderGlowSize="500px">
         <div class="flex flex-col gap-4 justify-between delay-2" >
             <div>
                 <h1 class="text-3xl font-semibold mb-2">{{ works.title }}</h1>
@@ -86,9 +85,10 @@
 
 @defer {
     <section id="contact">
-        <div class="page-container py-12 md:py-20">
-            <div class="grid sm:grid-cols-2 grid-cols-1 sm:gap-4 md:gap-12 rounded-3xl border border-neutral-800"
-            InterObs intersectChild="true" selfIntersect="true">
+        <div class="page-container py-12 md:py-20" app-glowing-border group="contact" borderColor="var(--color-neutral-950)"
+        glowColor="hsla(0, 0%, 18%, 0.1)" [glowDelay]="100">
+            <div class="grid sm:grid-cols-2 grid-cols-1 sm:gap-4 md:gap-12 rounded-3xl"
+            InterObs intersectChild="true" selfIntersect="true" app-glowing-border-item group="contact">
                 <div class="flex flex-col justify-between gap-4 p-6 sm:p-8 sm:pr-0 delay-1">
                     <div>
                         <h1 class="text-3xl sm:text-[1.8rem] font-semibold mb-4">{{ contact.title }}</h1>
@@ -115,9 +115,9 @@
 
 
 <section id="techs">
-    <div class="page-container py-12 md:py-20">
+    <div class="page-container py-12 md:py-20" app-glowing-border group="techs" glowColor="hsla(0, 0%, 25%, 0.1)" borderColor="var(--color-neutral-900)">
         @defer (on immediate) {
-            <app-all-techs InterObs intersectChild="true" obsClass="fadeIn"/>
+            <app-all-techs InterObs intersectChild="true" obsClass="fadeIn" group="techs" />
         }
     </div>
 </section>

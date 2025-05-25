@@ -14,21 +14,11 @@ sm:overflow-auto transition-all duration-300"
         </div>
     </div>
     <!-- /header -->
-    <app-tech class="col-span-2 row-span-2 delay-1" iconUrl="./icons/techs/angular.webp" title="Angular" hoveredColor="var(--color-pink-500)"  />
-    <app-tech class="col-span-2 delay-1" iconUrl="./icons/techs/html.webp" title="HTML" hoveredColor="var(--color-amber-700)" />
-    <app-tech class=" delay-2" iconUrl="./icons/techs/pinescript.webp" title="Pine Script" hoveredColor="var(--color-emerald-700)" />
-    <app-tech class="row-span-2 sm:col-span-1 col-span-2 delay-2" iconUrl="./icons/techs/css-3.webp" title="CSS" hoveredColor="var(--color-blue-700)" />
-    <app-tech class="col-span-2 delay-2" iconUrl="./icons/techs/javascript.webp" title="JavaScript" hoveredColor="var(--color-yellow-400)"  />
-    <app-tech class=" delay-3" iconUrl="./icons/techs/ethersjs.webp" title="Ethers.js" hoveredColor="var(--color-blue-800)"  />
-    <app-tech class="row-span-2 delay-3" iconUrl="./icons/techs/photoshop.webp" title="Photoshop" hoveredColor="var(--color-blue-950)" />
-    <app-tech class="col-span-2 delay-3" iconUrl="./icons/techs/tailwind.webp" title="Tailwind CSS" hoveredColor="var(--color-sky-500)"  />
-    <app-tech class=" delay-4" iconUrl="./icons/techs/sass.webp" title="Sass" hoveredColor="var(--color-rose-400)"  />
-    <app-tech class="col-span-2 delay-4" iconUrl="./icons/techs/spring-boot.webp" title="Spring Boot" hoveredColor="var(--color-lime-600)" />
-    <app-tech class=" delay-4" iconUrl="./icons/techs/postgresql.webp" title="PostgreSQL" hoveredColor="var(--color-sky-950)" />
-    <app-tech class="col-span-2 delay-5" iconUrl="./icons/techs/typescript.webp" title="TypeScript" hoveredColor="var(--color-blue-500)" />
-    <app-tech class=" delay-5" iconUrl="./icons/techs/docker.webp" title="Docker" hoveredColor="var(--color-sky-600)" />
-    <app-tech class=" delay-5" iconUrl="./icons/techs/illustrator.webp" title="Illustrator" hoveredColor="var(--color-amber-900)"  />
-    <app-tech class="col-span-2 delay-6" iconUrl="./icons/techs/git.webp" title="Git" hoveredColor="var(--color-orange-600)" />
+    @for (item of technologiesArr; track $index) {
+        <app-tech [ngClass]="item.class" [iconUrl]="item.iconUrl" [title]="item.title"
+        [hoveredColor]="item.hoveredColor" [borderless]="true"
+        app-glowing-border-item group="techs"/>
+    }
 
     <!-- show more container -->
     <div class="left-0 right-0 h-[3rem] bottom-0 absolute flex items-end justify-center bg-gradient-to-b from-transparent to-neutral-950 

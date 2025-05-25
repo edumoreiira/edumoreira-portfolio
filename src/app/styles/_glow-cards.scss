@@ -14,12 +14,12 @@
     }
     &__bg { // border
         inset: var(--border-width);
-        z-index: -2;
+        z-index: -9;
         background-color: var(--bg-color);
     }
     &__border {
         inset: 0;
-        z-index: -3;
+        z-index: -10;
         background-color: var(--border-color);
     }
 
@@ -44,7 +44,7 @@
             var(--glow-color),
             transparent 50%
         );
-        z-index: -1;
+        z-index: -8;
     }
     &::after { // border glow
         background: radial-gradient(
@@ -52,6 +52,6 @@
             var(--border-glow-color),
             transparent 50%
         );
-        z-index: -3;
+        z-index: -10;
     }
 }
