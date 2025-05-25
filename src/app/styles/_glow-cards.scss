@@ -1,27 +1,28 @@
 .gb-wrapper {
-    &:hover > .gb::after {
+    &:hover .gb::after {
         opacity: 1;
     }
 }
 .gb {
     position: relative;
-    display: inline-block;
-    background-color: var(--border-color);
-
-    &__content {
-        position: relative;
-        background-color: transparent;
-        z-index: 3;
-    }
-
-    &__bg {
+    &__bg,
+    &__border {
         position: absolute;
         display: inline-block;
-        inset: var(--border-width);
-        background-color: var(--bg-color);
         border-radius: inherit;
-        z-index: 2;
+        pointer-events: none;
     }
+    &__bg { // border
+        inset: var(--border-width);
+        z-index: -2;
+        background-color: var(--bg-color);
+    }
+    &__border {
+        inset: 0;
+        z-index: -3;
+        background-color: var(--border-color);
+    }
+
     &:hover::before {
         opacity: 1;
     }
@@ -43,7 +44,7 @@
             var(--glow-color),
             transparent 50%
         );
-        z-index: 3;
+        z-index: -1;
     }
     &::after { // border glow
         background: radial-gradient(
@@ -51,6 +52,6 @@
             var(--border-glow-color),
             transparent 50%
         );
-        z-index: 1;
+        z-index: -3;
     }
 }

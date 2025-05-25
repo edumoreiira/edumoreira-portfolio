@@ -1,5 +1,5 @@
 import { DOCUMENT } from "@angular/common";
-import { Directive, ElementRef, inject, input, OnInit, Renderer2 } from "@angular/core";
+import { Directive, ElementRef, inject, input, OnInit, PLATFORM_ID, Renderer2 } from "@angular/core";
 
 @Directive({
     selector: '[app-glowing-border]'
@@ -21,8 +21,10 @@ export class GlowingBorderDirective implements OnInit {
 
     ngOnInit() {
         const elements = this.document.querySelectorAll(`[data-gc="${this.group()}"]`);
-        elements.forEach((element: Element) => { 
-            this.addClasses(element) 
+        setTimeout(() => {
+            elements.forEach((element: Element) => { 
+                this.addClasses(element) 
+            });
         });
         this.renderer.addClass(this.el.nativeElement, 'gb-wrapper');
 
@@ -50,5 +52,29 @@ export class GlowingBorderDirective implements OnInit {
         el.style.setProperty('--bg-color', this.backgroundColor());
         el.style.setProperty('--glow-size', this.glowSize());
         el.style.setProperty('--border-glow-size', this.borderGlowSize());
+    }
+}
+
+@Directive({
+    selector: '[app-glowing-border-item]',
+})
+export class GlowingBorderItemDirective implements OnInit {
+    private el = inject(ElementRef);
+    private renderer = inject(Renderer2);
+    group = input.required<string>();
+    
+    ngOnInit(): void {
+        // if (isPlatformBrowser(this.platformId)) { // Ensure this runs only in the browser
+        this.renderer.setAttribute(this.el.nativeElement, 'data-gc', this.group());
+        this.appendElement('gb__bg', this.el);
+        this.appendElement('gb__border', this.el);
+    }
+
+    appendElement(_class: string, element: ElementRef) {
+        if((this.el.nativeElement as HTMLElement).querySelector(':scope > .gb__bg')) { return }
+        const el = this.el.nativeElement as HTMLElement;
+        const newElement = this.renderer.createElement('div');
+        this.renderer.addClass(newElement, _class);
+        this.renderer.appendChild(el, newElement);
     }
 }

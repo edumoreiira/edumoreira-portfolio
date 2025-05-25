@@ -1,5 +1,5 @@
 import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, effect, ElementRef, inject, input, OnInit, signal, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { NgStyle } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { createAnimation, fadeTrigger } from '../../../animations/default-transitions.animations';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SitePreviewerService } from '../../../services/site-previewer.service';
@@ -18,7 +18,7 @@ type technologies = "angular" | "html" | "css" | "js" | "tailwind"
 
 @Component({
   selector: 'app-site-previewer',
-  imports: [NgStyle],
+  imports: [NgStyle, NgClass],
   templateUrl: './site-previewer.component.html',
   styleUrl: './site-previewer.component.scss',
   animations: [
@@ -36,6 +36,7 @@ export class SitePreviewerComponent implements OnInit {
   private sitePreviewerService = inject(SitePreviewerService);
   protected lg = inject(LANGUAGE_APPLICATION);
   //
+  borderless = input<boolean>(false);
   isOverlayOpen = computed(() => this.sitePreviewerService.isOverlayOpen$());
   websites = input.required<WebSites[]>();
   sanitizedUrl = signal<SafeResourceUrl>('');

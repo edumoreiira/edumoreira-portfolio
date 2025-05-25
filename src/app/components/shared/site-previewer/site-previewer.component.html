@@ -1,5 +1,6 @@
 @if (!isOverlayOpen()) {
-    <div class="border border-neutral-800 rounded-xl overflow-hidden h-full flex flex-col" style="view-transition-name: site-preview">
+    <div class="border rounded-xl overflow-hidden h-full flex flex-col" style="view-transition-name: site-preview"
+    [ngClass]="borderless() ? 'border-transparent' : 'border-neutral-800'">
         <div class="flex items-center gap-2 border-b border-neutral-800 rounded-t-xl p-4 whitespace-nowrap overflow-x-auto overflow-y-hidden" style="view-transition-name: technologies;">
             <span class="font-semibold text-sm" style="view-transition-name: technologies-title;">{{ lg().works.previewer.techsHeader }}</span>
             <div class="flex items-center divide-x-1 divide-neutral-800 text-xs">
