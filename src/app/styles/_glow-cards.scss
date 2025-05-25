@@ -1,0 +1,56 @@
+.gb-wrapper {
+    &:hover > .gb::after {
+        opacity: 1;
+    }
+}
+.gb {
+    position: relative;
+    display: inline-block;
+    background-color: var(--border-color);
+
+    &__content {
+        position: relative;
+        background-color: transparent;
+        z-index: 3;
+    }
+
+    &__bg {
+        position: absolute;
+        display: inline-block;
+        inset: var(--border-width);
+        background-color: var(--bg-color);
+        border-radius: inherit;
+        z-index: 2;
+    }
+    &:hover::before {
+        opacity: 1;
+    }
+    &::before, &::after {
+        content: "";
+        position: absolute;
+        border-radius: inherit;
+        pointer-events: none;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        transition: opacity 0.5s;
+    }
+    &::before { // card glow
+        background: radial-gradient(
+            var(--glow-size) circle at var(--mouse-x) var(--mouse-y),
+            var(--glow-color),
+            transparent 50%
+        );
+        z-index: 3;
+    }
+    &::after { // border glow
+        background: radial-gradient(
+            var(--border-glow-size) circle at var(--mouse-x) var(--mouse-y),
+            var(--border-glow-color),
+            transparent 50%
+        );
+        z-index: 1;
+    }
+}

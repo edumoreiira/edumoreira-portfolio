@@ -1,6 +1,7 @@
 @use "tailwindcss";
 @use "./app/styles/_themes.scss";
-@use "./app/styles/animations.scss";
+@use "./app/styles/_animations.scss";
+@use "./app/styles/_glow-cards.scss";
 
 @theme {
   --default-transition-timing-function: ease-in-out;

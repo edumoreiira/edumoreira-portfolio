@@ -8,18 +8,27 @@ import { NgClass } from "@angular/common";
         tabIndex: '0',
     },
     template: `
-    <div class="border rounded-xl transition-colors hover:border-neutral-600 "
-        [ngClass]="isOpen() ? 'border-neutral-700 bg-neutral-600/5' : 'border-neutral-800'">
+    <div
+      class="rounded-xl transition-colors"
+      [ngClass]="
+        borderless()
+          ? 'border-none hover:border-none'
+          : isOpen()
+            ? 'border border-neutral-700 bg-neutral-600/5 hover:border-neutral-600'
+            : 'border border-neutral-800 hover:border-neutral-600'
+      "
+    >
         <div class="flex items-center justify-between px-6 py-4 cursor-pointer"
         (click)="clicked.emit()">
             <h2 class="text-lg font-semibold">{{ title() }}</h2>
-            <i class="fi fi-rr-angle-small-down flex transition-all"
-            [ngClass]="{'rotate-180': isOpen()}"></i>
+            <i class="fi fi-rr-angle-small-down flex transition-all" 
+            [ngClass]="{ 'rotate-180': isOpen() }"
+            ></i>
         </div>
-        @if(isOpen()) {
-            <div class="px-6 pb-4 overflow-hidden" @slideAccordion>
-                <ng-content></ng-content>
-            </div>
+        @if (isOpen()) {
+          <div class="px-6 pb-4 overflow-hidden" @slideAccordion>
+            <ng-content></ng-content>
+          </div>
         }
     </div>
     `,
@@ -28,6 +37,7 @@ import { NgClass } from "@angular/common";
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionComponent {
+    borderless = input<boolean>(false);
     title = input.required<string>();
     isOpen = input(false);
     clicked = output();

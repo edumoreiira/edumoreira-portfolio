@@ -10,11 +10,14 @@ import { FooterComponent } from '../../components/layout/footer/footer.component
 import { ChatMailComponent } from "../../components/layout/chat-mail/chat-mail.component";
 import { createAnimation } from '../../animations/default-transitions.animations';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
+import { GlowWrapperComponent } from '../../components/shared/glow-wrapper/glow-container-wrapper.component';
+import { GlowingBorderDirective } from '../../directives/glowing-border.directive';
 
 @Component({
   selector: 'app-home',
   imports: [ButtonComponent, SitePreviewerComponent, AccordionComponent,
-    TagComponent, AllTechsComponent, FooterComponent, ChatMailComponent, IntersectionObserverDirective],
+    TagComponent, AllTechsComponent, FooterComponent, ChatMailComponent, IntersectionObserverDirective,
+  GlowWrapperComponent, GlowingBorderDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   animations: [
