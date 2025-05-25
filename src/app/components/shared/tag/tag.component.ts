@@ -7,7 +7,7 @@ import { NgClass } from '@angular/common';
   imports: [NgClass],
   host: {
     tabIndex: '0',
-    class: 'md:max-w-[min(25rem,100%)] lg:max-w-[min(27rem,100%)] md:w-auto w-full flex flex-col py-4 px-6 rounded-2xl border text-neutral-200 cursor-pointer hover:border-neutral-600 transition-all duration-200 overflow-hidden'
+    class: 'md:max-w-[min(25rem,100%)] lg:max-w-[min(27rem,100%)] md:w-auto w-full flex flex-col py-4 px-6 rounded-2xl text-neutral-200 cursor-pointer transition-all duration-200 overflow-hidden'
   },
   template: `
     <div class="flex items-center justify-between gap-2 xs:gap-18 lg:gap-22">
@@ -31,6 +31,7 @@ import { NgClass } from '@angular/common';
 export class TagComponent {
   title = input.required();
   description = input.required();
+  borderless = input(false);
   icon = input('fi-rr-time-fast');
   // 
   opened = signal(false);
@@ -55,6 +56,12 @@ export class TagComponent {
 
   @HostBinding('class')
   get hostClasses() {
-    return this.opened() ? 'border-neutral-700 bg-neutral-600/5' : 'border-neutral-800';
+    if (this.borderless()) {
+      return this.opened() ? 'bg-neutral-600/5' : 'bg-transparent';
+    }
+    // If borderless is false, apply the border styles
+    const borderClasses = 'border hover:border-neutral-600'
+    return this.opened() ? 'border-neutral-700 bg-neutral-600/5' + ' ' + borderClasses
+     : 'border-neutral-800' + ' ' + borderClasses;
   }
 }

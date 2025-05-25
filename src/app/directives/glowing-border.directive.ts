@@ -1,5 +1,5 @@
 import { DOCUMENT } from "@angular/common";
-import { Directive, ElementRef, inject, input, OnInit, PLATFORM_ID, Renderer2 } from "@angular/core";
+import { Directive, effect, ElementRef, inject, input, OnInit, PLATFORM_ID, Renderer2 } from "@angular/core";
 
 @Directive({
     selector: '[app-glowing-border]'
@@ -21,12 +21,27 @@ export class GlowingBorderDirective implements OnInit {
     glowDelay = input<number>(0);
     
 
+  constructor() {
+    effect(() => {
+      this.backgroundColor();
+      this.borderColor();
+      this.borderWidth();
+      this.glowSize();
+      this.glowColor();
+      this.borderGlowColor();
+      this.borderGlowSize();
+      this.group();
+
+      this.applyGlowStyles();
+    });
+  }
 
   ngOnInit() {
     this.renderer.addClass(this.el.nativeElement, 'gb-wrapper');
     this.applyGlowStyles();
     this.observeDomChanges();
     this.listenMouseMove();
+
   }
 
   ngOnDestroy() {

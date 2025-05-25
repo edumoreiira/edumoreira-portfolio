@@ -11,6 +11,7 @@ import { ChatMailComponent } from "../../components/layout/chat-mail/chat-mail.c
 import { createAnimation } from '../../animations/default-transitions.animations';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { GlowingBorderDirective, GlowingBorderItemDirective } from '../../directives/glowing-border.directive';
+import { DocumentListenerService } from '../../services/document-listener.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,10 @@ import { GlowingBorderDirective, GlowingBorderItemDirective } from '../../direct
 export class HomeComponent {
   protected lg = inject(LANGUAGE_APPLICATION);
   private sitePreviewerService = inject(SitePreviewerService);
-  protected currentSiteIndex = computed(() => this.sitePreviewerService.currentIndex$()); 
+  private documentListener = inject(DocumentListenerService);
+  // 
+  protected currentSiteIndex = computed(() => this.sitePreviewerService.currentIndex$());
+  protected screensize = computed(() => this.documentListener.screenSize$());
 
   setCurrentSiteIndex(index: number) {
     this.sitePreviewerService.setCurrentIndex(index);
