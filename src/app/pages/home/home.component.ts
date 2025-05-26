@@ -12,6 +12,8 @@ import { createAnimation } from '../../animations/default-transitions.animations
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { GlowingBorderDirective, GlowingBorderItemDirective } from '../../directives/glowing-border.directive';
 import { DocumentListenerService } from '../../services/document-listener.service';
+import { LanguageService } from '../../services/language.service';
+import { language_pt_br } from '../../models/language.model';
 
 @Component({
   selector: 'app-home',
@@ -29,10 +31,11 @@ export class HomeComponent {
   protected lg = inject(LANGUAGE_APPLICATION);
   private sitePreviewerService = inject(SitePreviewerService);
   private documentListener = inject(DocumentListenerService);
+  private languageService = inject(LanguageService);
   // 
   protected currentSiteIndex = computed(() => this.sitePreviewerService.currentIndex$());
   protected screensize = computed(() => this.documentListener.screenSize$());
-
+  protected isPtBr = computed(() => this.languageService.$currentLanguage() === language_pt_br);
   setCurrentSiteIndex(index: number) {
     this.sitePreviewerService.setCurrentIndex(index);
   }

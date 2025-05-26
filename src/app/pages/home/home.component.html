@@ -14,7 +14,7 @@
 
 
 <main class="relative overflow-hidden" id="home">
-    <img src="./patterns/binary-code.webp" fetchpriority="high" srcset="./patterns/binary-code-400.webp 400w, ./patterns/binary-code-800.webp 800w, ./patterns/binary-code.webp 1920w"
+    <img src="./patterns/binary-code.webp" loading="lazy" decoding="async" srcset="./patterns/binary-code-400.webp 400w, ./patterns/binary-code-800.webp 800w, ./patterns/binary-code.webp 1920w"
     class="saturate-0 halftone-mask absolute mix-blend-exclusion invert w-full h-[calc(100%+5rem)] object-cover -z-10" aria-hidden="true">
     <section class="page-container pt-18 md:pt-24 pb-12 md:pb-20">
         <div class="flex gap-6 flex-col items-center justify-center" InterObs [intersectChild]="true">
@@ -86,11 +86,11 @@
 
 @defer {
     <section id="contact">
-        <div class="page-container py-12 md:py-20" app-glowing-border group="contact" 
-        [borderColor]="screensize() > 740 ? 'var(--color-neutral-950)' : 'var(--color-neutral-800)'"
+        <div class="page-container py-12 md:py-20" app-glowing-border group="contact"
         glowColor="hsla(0, 0%, 18%, 0.1)" [glowDelay]="100">
             <div class="grid sm:grid-cols-2 grid-cols-1 sm:gap-4 md:gap-12 rounded-3xl"
-            InterObs intersectChild="true" selfIntersect="true" app-glowing-border-item group="contact">
+            InterObs intersectChild="true" selfIntersect="true" app-glowing-border-item group="contact"
+            [borderColor]="screensize() > 768 ? 'var(--color-neutral-950)' : 'var(--color-neutral-800)'">
                 <div class="flex flex-col justify-between gap-4 p-6 sm:p-8 sm:pr-0 delay-1">
                     <div>
                         <h1 class="text-3xl sm:text-[1.8rem] font-semibold mb-4">{{ contact.title }}</h1>
@@ -103,7 +103,7 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <i class="fi fi-brands-whatsapp flex"></i>
-                            <p class="text-neutral-400 text-sm lg:text-base">(61) 99611-1423</p>
+                            <p class="text-neutral-400 text-sm lg:text-base">{{isPtBr() ? "(61) 99611-1423" : "+55 (61) 99611-1423"}}</p>
                         </div>
                     </div>
                 </div>
