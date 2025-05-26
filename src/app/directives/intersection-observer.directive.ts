@@ -16,7 +16,7 @@ export class IntersectionObserverDirective implements OnInit {
     }
   });
   obsClass = input('fade-up');
-  rootMargin = input('-50px')
+  rootMargin = input('-140px')
 
   constructor(
     private el: ElementRef,

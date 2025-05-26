@@ -12,7 +12,7 @@ import { IntersectionObserverDirective } from '../../../directives/intersection-
   template: `
     <span class="text-3xl font-medium font-[Kanit] cursor-default">[edumoreira]</span>
     <ul class="flex items-center"
-    InterObs intersectChild="true" obsClass="fadeIn">
+    InterObs intersectChild="true" rootMargin="-80px" obsClass="fadeIn">
         <li class="delay-1"> <app-social-icon icon="ri-instagram-fill text-2xl" url="https://www.instagram.com/edumoreira.dev/" description="Instagram"/> </li>
         <li aria-hidden="true" class="delay-1 h-px xs:w-[1.5rem] w-[1rem] bg-neutral-900"></li>
         <li class="delay-2"> <app-social-icon icon="flex fi fi-brands-behance" url="https://www.behance.net/eduumoreira" description="Behance"/> </li>

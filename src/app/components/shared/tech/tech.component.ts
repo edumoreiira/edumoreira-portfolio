@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, HostListener, input, s
     <span class="h-[28px] xs:h-[35px] sm:h-[45px] aspect-square transition-colors"
     style="mask: url('{{ iconUrl() }}') no-repeat center; mask-size: contain;"
     [ngStyle]="{ 'background-color': hovered() || focused() ?  hoveredColor() : 'hsla(0, 0%, 100%, 0.5)'  }"></span>
-    <div class="absolute inset-[1px] backdrop-blur-[3px] opacity-0 rounded-2xl
+    <div class="absolute inset-[6px] backdrop-blur-xs opacity-0 rounded-2xl
     group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100 transition-all duration-300 ease-out flex justify-center items-center">
         <span class="scale-50 group-hover:scale-100 group-focus:scale-100 group-active:scale-100 transition-transform 
         cursor-default xs:text-base text-sm">{{ title() }}</span>

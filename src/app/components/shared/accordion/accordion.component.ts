@@ -10,13 +10,12 @@ import { NgClass } from "@angular/common";
     template: `
     <div
       class="rounded-xl transition-colors"
-      [ngClass]="
-        borderless()
-          ? 'border-none hover:border-none'
-          : isOpen()
-            ? 'border border-neutral-700 bg-neutral-600/5 hover:border-neutral-600'
-            : 'border border-neutral-800 hover:border-neutral-600'
-      "
+      [ngClass]="{
+        'border border-neutral-700 bg-neutral-600/5 hover:border-neutral-600': isOpen() && !borderless(),
+        'border border-neutral-800 hover:border-neutral-600': !isOpen() && !borderless(),
+        'bg-neutral-600/5': borderless() && isOpen(),
+      }"
+
     >
         <div class="flex items-center justify-between px-6 py-4 cursor-pointer"
         (click)="clicked.emit()">

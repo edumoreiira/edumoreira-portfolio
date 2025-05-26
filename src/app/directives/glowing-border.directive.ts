@@ -18,7 +18,7 @@ export class GlowingBorderDirective implements OnInit {
     borderGlowColor = input<string>('hsla(0, 0%, 100%, 0.3)');
     borderGlowSize = input<string>('600px');
     group = input.required<string>();
-    glowDelay = input<number>(0);
+    glowDelay = input<number>(50);
     
 
   constructor() {
@@ -63,13 +63,19 @@ export class GlowingBorderDirective implements OnInit {
     if (!el.classList.contains('gb')) {
       this.renderer.addClass(el, 'gb');
     } 
-    el.style.setProperty('--glow-color', this.glowColor());
-    el.style.setProperty('--border-glow-color', this.borderGlowColor());
-    el.style.setProperty('--border-color', this.borderColor());
-    el.style.setProperty('--border-width', this.borderWidth());
-    el.style.setProperty('--bg-color', this.backgroundColor());
-    el.style.setProperty('--glow-size', this.glowSize());
-    el.style.setProperty('--border-glow-size', this.borderGlowSize());
+    this.setIfNotExists(el, '--glow-color', this.glowColor());
+    this.setIfNotExists(el, '--border-glow-color', this.borderGlowColor());
+    this.setIfNotExists(el, '--border-color', this.borderColor());
+    this.setIfNotExists(el, '--border-width', this.borderWidth());
+    this.setIfNotExists(el, '--bg-color', this.backgroundColor());
+    this.setIfNotExists(el, '--glow-size', this.glowSize());
+    this.setIfNotExists(el, '--border-glow-size', this.borderGlowSize());
+  }
+  private setIfNotExists(el: HTMLElement, property: string, value: string) {
+    const current = el.style.getPropertyValue(property);
+    if (!current) {
+      el.style.setProperty(property, value);
+    }
   }
 
   private observeDomChanges() {
@@ -105,21 +111,38 @@ export class GlowingBorderDirective implements OnInit {
     selector: '[app-glowing-border-item]',
 })
 export class GlowingBorderItemDirective implements OnInit {
-    private el = inject(ElementRef);
-    private renderer = inject(Renderer2);
-    group = input.required<string>();
-    
-    ngOnInit(): void {
-        this.renderer.setAttribute(this.el.nativeElement, 'data-gc', this.group());
-        this.appendElement('gb__bg');
-        this.appendElement('gb__border');
-    }
+  private el = inject(ElementRef);
+  private renderer = inject(Renderer2);
+  // 
+  borderGlowColor = input<string | undefined>(undefined);
+  borderColor = input<string | undefined>(undefined);
+  group = input.required<string>();
+  constructor() {
+    effect(() => {
+      this.updateStyles();
+    })
+  }
+  
+  ngOnInit(): void {
+      this.renderer.setAttribute(this.el.nativeElement, 'data-gc', this.group());
+      this.appendElement('gb__bg');
+      this.appendElement('gb__border');
+  }
+  appendElement(_class: string) {
+      if((this.el.nativeElement as HTMLElement).querySelector(`:scope > .${_class}`)) { return }
+      const el = this.el.nativeElement as HTMLElement;
+      const newElement = this.renderer.createElement('div');
+      this.renderer.addClass(newElement, _class);
+      this.renderer.appendChild(el, newElement);
+  }
 
-    appendElement(_class: string) {
-        if((this.el.nativeElement as HTMLElement).querySelector(`:scope > .${_class}`)) { return }
-        const el = this.el.nativeElement as HTMLElement;
-        const newElement = this.renderer.createElement('div');
-        this.renderer.addClass(newElement, _class);
-        this.renderer.appendChild(el, newElement);
+  private updateStyles() {
+    const element = this.el.nativeElement as HTMLElement;
+    if(this.borderGlowColor()) {
+      element.style.setProperty('--border-glow-color', this.borderGlowColor()!);
     }
+    if(this.borderColor()) {
+      element.style.setProperty('--border-color', this.borderColor()!);
+    } 
+  }
 }
