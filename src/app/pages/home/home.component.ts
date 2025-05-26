@@ -27,7 +27,7 @@ import { language_pt_br } from '../../models/language.model';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent {
   protected lg = inject(LANGUAGE_APPLICATION);
   private sitePreviewerService = inject(SitePreviewerService);
   private documentListener = inject(DocumentListenerService);
@@ -36,22 +36,7 @@ export class HomeComponent implements AfterViewInit {
   protected currentSiteIndex = computed(() => this.sitePreviewerService.currentIndex$());
   protected screensize = computed(() => this.documentListener.screenSize$());
   protected isPtBr = computed(() => this.languageService.$currentLanguage() === language_pt_br);
-  bgUrl = signal<string>('');
 
-
-  ngAfterViewInit(): void {
-    this.screensize() < 420 ? this.bgUrl.set('./patterns/binary-code-400.webp')
-      : this.screensize() < 800 ? this.bgUrl.set('./patterns/binary-code-800.webp')
-      : this.bgUrl.set('./patterns/binary-code.webp');
-  }
-
-  constructor() {
-    effect(() => {
-      this.screensize() < 420 ? this.bgUrl.set('./patterns/binary-code-400.webp')
-       : this.screensize() < 800 ? this.bgUrl.set('./patterns/binary-code-800.webp')
-       : this.bgUrl.set('./patterns/binary-code.webp');
-    })
-  }
   websites = computed<WebSites[]>(() => [
     {
       technologies: ["angular", "tailwind", "html", "css", "js"],

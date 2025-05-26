@@ -14,11 +14,13 @@
 
 
 <main class="relative overflow-hidden" id="home">
-    <img [src]="bgUrl()" decoding="async"
-    class="saturate-0 halftone-mask absolute mix-blend-exclusion invert w-full h-[calc(100%+5rem)] object-cover -z-10" aria-hidden="true">
+    @defer {
+        <img src="./patterns/binary-code.webp" srcset="./patterns/binary-code-400.webp 400w, ./patterns/binary-code-800.webp 800w, ./patterns/binary-code.webp 1920w"
+        class="saturate-0 halftone-mask absolute mix-blend-exclusion invert w-full h-[calc(100%+5rem)] object-cover -z-10" aria-hidden="true">
+    }
     <section class="page-container pt-18 md:pt-24 pb-12 md:pb-20">
         <div class="flex gap-6 flex-col items-center justify-center" InterObs [intersectChild]="true">
-            <div class="flex flex-col items-center text-center">
+            <div class="flex flex-col items-center text-center out-of-view">
                 <span class="flex flex-col items-center gap-2 sm:mb-0 mb-2 sm:font-medium">
                     {{ main.misc }}
                     <span class="inline-block h-[1px] w-[3rem] bg-neutral-800"></span> 
@@ -27,13 +29,13 @@
                     {{ main.title[0] }} <b class="font-semibold"> {{ main.title[1] }} </b> {{ main.title[2] }} <b class="font-semibold">{{ main.title[3] }}</b> {{ main.title[4] }} <b class="font-semibold">{{ main.title[5] }}</b>
                 </h1>
             </div>
-            <div class="w-[min(33rem,100%)] mx-auto delay-2">
+            <div class="w-[min(33rem,100%)] mx-auto delay-2 out-of-view">
                 <p class="text-xl text-neutral-400 text-center">
                     {{ main.description }}
                 </p>
             </div>
 
-            <div class="flex items-center sm:gap-8 gap-6 delay-4">
+            <div class="flex items-center sm:gap-8 gap-6 delay-4 out-of-view">
                 <button custom-btn variant="contained"
                 class="text-lg min-w-[11rem] py-2 px-4 rounded-xl font-semibold flex items-center justify-center gap-2"
                 (click)="scrollTo('contact')">
@@ -57,7 +59,7 @@
     <div class="page-container grid sm:grid-cols-2 grid-cols-1 gap-4 py-12 md:py-20 grid-rows-1 lg:h-[39rem] sm:h-[41rem] h-auto"
     InterObs intersectChild="true" 
     app-glowing-border group="myworks" borderGlowColor="var(--color-neutral-500)" glowSize="650px" borderGlowSize="500px">
-        <div class="flex flex-col gap-4 justify-between delay-2" >
+        <div class="flex flex-col gap-4 justify-between delay-2 out-of-view" >
             <div>
                 <h1 class="text-3xl font-semibold mb-2">{{ works.title }}</h1>
                 <p class="text-neutral-400 text-lg">
@@ -78,7 +80,7 @@
                 </accordion>
             }
         </div>
-        <div class="aspect-video sm:aspect-auto delay-4 rounded-xl" app-glowing-border-item group="myworks">
+        <div class="aspect-video sm:aspect-auto delay-4 rounded-xl out-of-view" app-glowing-border-item group="myworks">
             <app-site-previewer [borderless]="true" [websites]="websites()"/>
         </div>
     </div>
