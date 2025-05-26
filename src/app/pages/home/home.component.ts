@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { LANGUAGE_APPLICATION } from '../../tokens/language.tokens';
 import { ButtonComponent } from '../../components/base/button.component';
 import { SitePreviewerComponent, WebSites } from "../../components/shared/site-previewer/site-previewer.component";
@@ -27,7 +27,7 @@ import { language_pt_br } from '../../models/language.model';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
   protected lg = inject(LANGUAGE_APPLICATION);
   private sitePreviewerService = inject(SitePreviewerService);
   private documentListener = inject(DocumentListenerService);
@@ -36,8 +36,21 @@ export class HomeComponent {
   protected currentSiteIndex = computed(() => this.sitePreviewerService.currentIndex$());
   protected screensize = computed(() => this.documentListener.screenSize$());
   protected isPtBr = computed(() => this.languageService.$currentLanguage() === language_pt_br);
-  setCurrentSiteIndex(index: number) {
-    this.sitePreviewerService.setCurrentIndex(index);
+  bgUrl = signal<string>('');
+
+
+  ngAfterViewInit(): void {
+    this.screensize() < 420 ? this.bgUrl.set('./patterns/binary-code-400.webp')
+      : this.screensize() < 800 ? this.bgUrl.set('./patterns/binary-code-800.webp')
+      : this.bgUrl.set('./patterns/binary-code.webp');
+  }
+
+  constructor() {
+    effect(() => {
+      this.screensize() < 420 ? this.bgUrl.set('./patterns/binary-code-400.webp')
+       : this.screensize() < 800 ? this.bgUrl.set('./patterns/binary-code-800.webp')
+       : this.bgUrl.set('./patterns/binary-code.webp');
+    })
   }
   websites = computed<WebSites[]>(() => [
     {
@@ -65,6 +78,10 @@ export class HomeComponent {
       websiteUrl: "https://edumoreiira.github.io/aju-films/"
     },
   ]);
+
+  setCurrentSiteIndex(index: number) {
+    this.sitePreviewerService.setCurrentIndex(index);
+  }
 
   scrollTo(id: string) {
     const element = document.getElementById(id);

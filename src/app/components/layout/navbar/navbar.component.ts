@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, HostListener, inject, OnInit, signal } from "@angular/core";
+import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, HostListener, inject, OnInit, signal, ViewChild } from "@angular/core";
 import { LANGUAGE_APPLICATION } from "../../../tokens/language.tokens";
 import { LanguageService } from "../../../services/language.service";
 import { language_en_us, language_pt_br } from "../../../models/language.model";
@@ -19,7 +19,7 @@ import { NgClass } from "@angular/common";
     [ngClass]="scrollFromTop() > 100 ? 'text-2xl lg:text-xl' : 'text-[1.6rem]'">[edumoreira]</span>
     
     @if((isNavbarExpanded() === true && screenWidth() <= 640) || screenWidth() > 640) {
-        <nav class="sm:static absolute max-w-[calc(100%-1.5rem)] right-0 top-full sm:py-0 sm:px-0 py-6 px-8 sm:bg-transparent bg-neutral-950/95 
+        <nav #navContainer class="sm:static absolute max-w-[calc(100%-1.5rem)] right-0 top-full sm:py-0 sm:px-0 py-6 px-8 sm:bg-transparent bg-neutral-950/95 
         sm:rounded-none rounded-bl-2xl sm:border-none border-l border-b border-neutral-700/50 overflow-hidden z-10" @slideNavbar>
             <ul class="flex sm:items-center sm:gap-8 gap-6 flex-col sm:flex-row text-neutral-200 font-semibold">
 
@@ -94,6 +94,16 @@ export class NavbarComponent {
         { name: 'Português', value: 'pt_br', isActive: this.languageService.$currentLanguage() === language_pt_br },
         { name: 'English', value: 'en_us', isActive: this.languageService.$currentLanguage() === language_en_us },
     ]);
+    @ViewChild('navContainer') navContainer!: ElementRef; // ViewChild to access the navbar element
+
+    constructor() {
+        effect(()=> {
+          const event = this.documentListener.event$();
+          if(event instanceof MouseEvent ) {
+            this.onClickOutside(event);
+          }
+        })
+    }
 
     changeLanguage(language: 'pt_br' | 'en_us') {
         this.languageService.setLanguage(language);
@@ -114,6 +124,16 @@ export class NavbarComponent {
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             this.scrollTo(idToScroll);
+        }
+    }
+
+    onClickOutside(event: MouseEvent){ // close dropdown when click outside the element
+        if(this.isNavbarExpanded() == true && this.navContainer){
+          const element = event.target as HTMLElement;
+          const clickInsideDropdown = this.navContainer.nativeElement.contains(element);
+          if(!clickInsideDropdown){
+            this.toggleNavbar();
+          }
         }
     }
 }

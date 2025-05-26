@@ -1,4 +1,4 @@
-import { DOCUMENT } from "@angular/common";
+import { DOCUMENT, isPlatformBrowser } from "@angular/common";
 import { Directive, effect, ElementRef, inject, input, OnInit, PLATFORM_ID, Renderer2 } from "@angular/core";
 
 @Directive({
@@ -9,6 +9,7 @@ export class GlowingBorderDirective implements OnInit {
     private renderer = inject(Renderer2);
     private document = inject(DOCUMENT);
     private observer?: MutationObserver;
+    private platformId = inject(PLATFORM_ID);
     // 
     backgroundColor = input<string>('var(--color-neutral-950)');
     borderColor = input<string>('var(--color-neutral-800)');
@@ -79,6 +80,7 @@ export class GlowingBorderDirective implements OnInit {
   }
 
   private observeDomChanges() {
+    if (!isPlatformBrowser(this.platformId)) return;
     this.observer = new MutationObserver(() => this.applyGlowStyles());
     this.observer.observe(this.el.nativeElement, {
       childList: true,
