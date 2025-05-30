@@ -1,3 +1,5 @@
+import { PredefinedMessage } from "../components/layout/chat-mail/chat-mail.component";
+
 export interface LanguageApllication {
     navbar: {
         menu: {
@@ -36,7 +38,7 @@ export interface LanguageApllication {
         title: string;
         description: string;
         chat: {
-            initial_message: string;
+            predefined_messages: PredefinedMessage[]
             placeholder: string;
             button: string;
         }
@@ -122,7 +124,10 @@ export const language_pt_br: LanguageApllication = {
         title: "Vamos conversar sobre seu site?",
         description: "Escreva sua ideia, objetivos e o que espera da sua nova página. Vou verificar e responder rapidinho!",
         chat: {
-            initial_message: "Gostaria de fazer um site para o meu negócio. Pode me explicar os próximos passos?",
+            predefined_messages: [
+                { label: "Pedir informações...", value: "Gostaria de fazer um site para o meu negócio. Pode me explicar os próximos passos?" },
+                { label: "Solicitar orçamento...", value: "Olá, gostaria de solicitar um orçamento para desenvolvimento de um site. Pode me informar os valores e prazos?" }
+            ],
             placeholder: "Preciso de um site profissional, você pode me ajudar?",
             button: "Enviar"
         },
@@ -213,7 +218,10 @@ export const language_en_us: LanguageApllication = {
         title: "Let's talk about your website?",
         description: "Write down your idea, goals, and what you expect from your new page. I'll check it out and respond quickly!",
         chat: {
-            initial_message: "I would like to make a website for my business. Can you explain the next steps?",
+            predefined_messages: [
+                { label: "Request information...", value: "I would like to create a website for my business. Can you explain the next steps?" },
+                { label: "Request quote...", value: "Hello, I would like to request a quote for website development. Can you provide me with the prices and deadlines?" }
+            ],
             placeholder: "I need a professional website, can you help me?",
             button: "Send"
         },

@@ -12,6 +12,15 @@ focus-within:outline-1 focus-within:outline-neutral-600 transition-colors relati
     (mousedown)="$event.preventDefault()"
     (mouseup)="surfaceClick()"></div>
     <!-- clickable surface -->
+    <div class="flex items-center gap-2 mb-2 overflow-auto" id="predefined-messages">
+        @for (item of predefinedMessages(); track $index) {
+            <button custom-btn variant="outline"
+            class="py-1 px-3 text-xs" 
+            (click)="applyPredefinedMessage(item)"> 
+                {{ item.label }} 
+            </button>
+        }
+    </div>
     <div class="flex gap-2 items-center justify-between">
         <div class="flex items-center gap-2 text-sm"
         role="radiogroup" aria-label="Escolha o método de contato">

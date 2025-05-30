@@ -3,9 +3,12 @@ import { ButtonComponent } from '../../base/button.component';
 import { NgClass } from '@angular/common';
 import { DocumentListenerService } from '../../../services/document-listener.service';
 import { LANGUAGE_APPLICATION } from '../../../tokens/language.tokens';
-import { language_en_us, language_pt_br } from '../../../models/language.model';
 
 type ContactChannel = 'whatsapp' | 'email';
+export interface PredefinedMessage {
+  label: string;
+  value: string;
+}
 @Component({
   selector: 'app-chat-mail',
   host: {
@@ -13,39 +16,28 @@ type ContactChannel = 'whatsapp' | 'email';
   },
   imports: [ButtonComponent, NgClass],
   templateUrl: './chat-mail.component.html',
+  styles: `
+  #contactme, #predefined-messages { scrollbar-width: thin; }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatMailComponent implements AfterViewInit, OnInit {
+export class ChatMailComponent implements AfterViewInit {
   private documentListener = inject(DocumentListenerService);
   lg = inject(LANGUAGE_APPLICATION);
-  // 
+  //
   type = signal<ContactChannel>('email');
-  message = signal(' ');
-  // isTouched = false;
-  isTouched = computed(() => {
-    const us_message = language_en_us.contact.chat.initial_message;
-    const br_message = language_pt_br.contact.chat.initial_message;
-    return this.message() !== us_message && this.message() !== br_message;
-  });
+  message = signal('');
+  predefinedMessages = computed<PredefinedMessage[]>(() => this.lg().contact.chat.predefined_messages)
   @ViewChild('textarea') textarea!: ElementRef<HTMLTextAreaElement>;
 
   ngAfterViewInit(): void {
     this.resizeTextArea();
   }
 
-  ngOnInit(): void {
-    this.message.set(this.lg().contact.chat.initial_message); // set initial message
-  }
-
   constructor() {
     effect(() => {
       const detectScreenChange = this.documentListener.screenSize$(); // trigger effect on screen size change
       this.resizeTextArea();
-    })
-    effect(() => {
-      if (!this.isTouched()) {
-        this.message.set(this.lg().contact.chat.initial_message); // set translated initial message if textarea is not touched
-      }
     })
   }
 
@@ -88,6 +80,13 @@ export class ChatMailComponent implements AfterViewInit, OnInit {
     const length = textarea.value.length;
     textarea.setSelectionRange(length, length);
     textarea.focus();
+  }
+
+  applyPredefinedMessage(message: PredefinedMessage) {
+    const textarea = this.textarea.nativeElement;
+    textarea.focus();
+    this.setMessage(message.value);
+    this.resizeTextArea();
   }
 
   @HostBinding('class')
