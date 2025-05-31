@@ -1,7 +1,20 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
+import { LangGuard } from './guards/lang.guard';
 
 export const routes: Routes = [
-    { path: '' , redirectTo: 'home', pathMatch: 'full' }, 
-    { path: 'home', component: HomeComponent }
+  {
+    path: ':lang/home',
+    component: HomeComponent,
+    canActivate: [LangGuard]
+  },
+  {
+    path: '',
+    redirectTo: 'pt-br/home',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'pt-br/home'
+  }
 ];

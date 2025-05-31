@@ -7,6 +7,7 @@ import { createAnimation } from "../../../animations/default-transitions.animati
 import { ButtonComponent } from "../../base/button.component";
 import { DocumentListenerService } from "../../../services/document-listener.service";
 import { NgClass } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'app-navbar',
@@ -85,6 +86,7 @@ export class NavbarComponent {
     private languageService = inject(LanguageService);
     private language = inject(LANGUAGE_APPLICATION);
     private documentListener = inject(DocumentListenerService);
+    private route = inject(ActivatedRoute);
     // 
     protected nav = computed(() => this.language().navbar);
     screenWidth = computed(() => this.documentListener.screenSize$());
@@ -106,7 +108,8 @@ export class NavbarComponent {
     }
 
     changeLanguage(language: 'pt_br' | 'en_us') {
-        this.languageService.setLanguage(language);
+        const currentSegments = this.route.snapshot.url.map(seg => seg.path);
+        this.languageService.setLanguage(language, currentSegments);
     }
 
     toggleNavbar() {
