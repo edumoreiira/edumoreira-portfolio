@@ -64,9 +64,9 @@ export const language_pt_br: LanguageApllication = {
         contact: "Entrar em contato",
     },
     main: {
-        misc: "Desenvolvedor Angular",
-        title: ["Olá, me chamo", "Eduardo", "sou", "Desenvolvedor", "e", "Designer" ],
-        description: "Crio sites modernos, rápidos e com design de impacto. Transformo ideias em páginas que valorizam seu negócio e destacam sua marca na internet.",
+        misc: "Muito Prazer!",
+        title: ["Meu nome é", "Eduardo!"],
+        description: "Sou desenvolvedor e designer, crio sites modernos, rápidos e com design de impacto. Transformo ideias em páginas que valorizam seu negócio e destacam sua marca na internet.",
         button1: "Fale comigo",
         button2: "Meus trabalhos",
     },
@@ -100,7 +100,7 @@ export const language_pt_br: LanguageApllication = {
         items: [ 
             {
                 title: "Entrega rápida",
-                description: "Normalmente entrego antes do prazo final, e nunca após ele."
+                description: "As entregas dos sites são sempre realizadas dentro do prazo, muitas vezes antes."
             },
             {
                 title: "Design que vende",
@@ -140,7 +140,7 @@ export const language_pt_br: LanguageApllication = {
     },
     cta: {
         title: ["Seu site nas mãos de quem tem o" , "molho", "do design" ],
-        description: "Uni experiência em design com conhecimento em programação para criar páginas que chamam atenção, passam confiança e ajudam seu negócio a crescer. Bora dar vida ao seu site?",
+        description: "Combino experiência em design com conhecimento em programação para criar páginas que chamam atenção, passam confiança e ajudam seu negócio a crescer. Bora dar vida ao seu site?",
         button: "Vamos lá!"
     },
     footer: {
@@ -158,9 +158,9 @@ export const language_en_us: LanguageApllication = {
         contact: "Get in touch",
     },
     main: {
-        misc: "Angular Developer",
-        title: ["Hello, my name is", "Eduardo", "I'm", "Developer", "and", "Designer"],
-        description: "Creating modern, fast websites with impactful design. I turn ideas into pages that add value to your business and highlight your brand on the internet.",
+        misc: "Nice to meet you!",
+        title: ["My name is", "Eduardo!"],
+        description: "I'm a developer and designer creating modern, fast websites with impactful design. I turn ideas into pages that add value to your business and highlight your brand on the internet.",
         button1: "Get in touch",
         button2: "My works",
     },
@@ -194,7 +194,7 @@ export const language_en_us: LanguageApllication = {
         items: [
             {
                 title: "Fast delivery",
-                description: "Usually I deliver before the deadline, and never after it."
+                description: "Websites are always delivered on time, often even earlier."
             },
             {
                 title: "Design that sells",
