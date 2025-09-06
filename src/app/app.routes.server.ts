@@ -10,5 +10,13 @@ export const serverRoutes: ServerRoute[] = [
         { lang: 'en-us' }
       ];
     },
+  },
+  {
+    path: '',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: '**',
+    renderMode: RenderMode.Prerender
   }
 ];
