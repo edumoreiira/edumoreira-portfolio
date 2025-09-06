@@ -3,6 +3,7 @@ import { ButtonComponent } from '../../base/button.component';
 import { NgClass } from '@angular/common';
 import { DocumentListenerService } from '../../../services/document-listener.service';
 import { LANGUAGE_APPLICATION } from '../../../tokens/language.tokens';
+import { ViewportCheckerDirective } from '../../../directives/viewport-checker.directive';
 
 type ContactChannel = 'whatsapp' | 'email';
 export interface PredefinedMessage {
@@ -14,6 +15,7 @@ export interface PredefinedMessage {
   host: {
     class: "flex flex-col justify-between bg-neutral-900 rounded-2xl p-4 outline-1 outline-transparent focus-within:outline-1 transition-colors"
   },
+  hostDirectives: [ViewportCheckerDirective],
   imports: [ButtonComponent, NgClass],
   templateUrl: './chat-mail.component.html',
   styles: `
@@ -21,14 +23,21 @@ export interface PredefinedMessage {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatMailComponent implements AfterViewInit {
+export class ChatMailComponent implements AfterViewInit, OnInit {
   private documentListener = inject(DocumentListenerService);
+  private viewportChecker = inject(ViewportCheckerDirective);
   lg = inject(LANGUAGE_APPLICATION);
   //
-  type = signal<ContactChannel>('email');
+  type = signal<ContactChannel>('whatsapp');
   message = signal('');
   predefinedMessages = computed<PredefinedMessage[]>(() => this.lg().contact.chat.predefined_messages)
   @ViewChild('textarea') textarea!: ElementRef<HTMLTextAreaElement>;
+
+  ngOnInit(): void {
+    this.viewportChecker.viewportChange.subscribe(isVisible => {
+      if (isVisible) this.focusTextArea(true);
+    });
+  }
 
   ngAfterViewInit(): void {
     this.resizeTextArea();
@@ -79,14 +88,18 @@ export class ChatMailComponent implements AfterViewInit {
     const textarea = this.textarea.nativeElement;
     const length = textarea.value.length;
     textarea.setSelectionRange(length, length);
-    textarea.focus();
+    this.focusTextArea();
   }
 
   applyPredefinedMessage(message: PredefinedMessage) {
-    const textarea = this.textarea.nativeElement;
-    textarea.focus();
+    this.focusTextArea();
     this.setMessage(message.value);
     this.resizeTextArea();
+  }
+
+  focusTextArea(preventScroll: boolean = false) {
+    const textarea = this.textarea.nativeElement;
+    textarea.focus({ preventScroll: preventScroll });
   }
 
   @HostBinding('class')

@@ -8,11 +8,11 @@ focus-within:outline-1 focus-within:outline-neutral-600 transition-colors relati
      text-neutral-300 placeholder:text-neutral-600 transition-all">
     </textarea>
     <!-- clickable surface -->
-    <div class="flex-1 cursor-text mb-6"
+    <div class="flex-1 cursor-text mb-2"
     (mousedown)="$event.preventDefault()"
     (mouseup)="surfaceClick()"></div>
     <!-- clickable surface -->
-    <div class="flex items-center gap-2 mb-2 overflow-auto" id="predefined-messages">
+    <div class="flex items-center gap-2 mb-2 overflow-auto shrink-0" id="predefined-messages">
         @for (item of predefinedMessages(); track $index) {
             <button custom-btn variant="outline"
             class="py-1 px-3 text-xs" 
@@ -22,7 +22,7 @@ focus-within:outline-1 focus-within:outline-neutral-600 transition-colors relati
         }
     </div>
     <div class="flex gap-2 items-center justify-between">
-        <div class="flex items-center gap-2 text-sm"
+        <div class="flex flex-row-reverse items-center gap-2 text-sm"
         role="radiogroup" aria-label="Escolha o método de contato">
             <button type="button" role="radio" [attr.aria-checked]="type() === 'email'"
             class="p-3 md:p-2 rounded-full border transition-colors"
