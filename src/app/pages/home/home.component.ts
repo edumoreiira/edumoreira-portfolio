@@ -18,7 +18,7 @@ import { language_pt_br } from '../../models/language.model';
 @Component({
   selector: 'app-home',
   imports: [ButtonComponent, SitePreviewerComponent, AccordionComponent,
-    TagComponent, AllTechsComponent, FooterComponent, ChatMailComponent, IntersectionObserverDirective,
+    TagComponent, AllTechsComponent, ChatMailComponent, IntersectionObserverDirective,
     GlowingBorderDirective, GlowingBorderItemDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

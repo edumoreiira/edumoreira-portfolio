@@ -2,7 +2,7 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
   {
-    path: ':lang/home',
+    path: ':lang',
     renderMode: RenderMode.Prerender,
     async getPrerenderParams() {
       return [
