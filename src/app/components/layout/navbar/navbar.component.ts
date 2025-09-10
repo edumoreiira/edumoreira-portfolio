@@ -7,11 +7,12 @@ import { createAnimation } from "../../../animations/default-transitions.animati
 import { ButtonComponent } from "../../base/button.component";
 import { DocumentListenerService } from "../../../services/document-listener.service";
 import { NgClass } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, RouterLink, RouterLinkActive } from "@angular/router";
+
 
 @Component({
     selector: 'app-navbar',
-    imports: [DropdownSelectionComponent, ButtonComponent, NgClass],
+    imports: [DropdownSelectionComponent, ButtonComponent, NgClass, RouterLink, RouterLinkActive],
     host: {
         class: 'flex items-center justify-between py-3 px-4 sm:px-8 lg:px-12 gap-6 backdrop-blur bg-neutral-950/80 sticky top-0 w-full z-20 relative'
     },
@@ -20,21 +21,18 @@ import { ActivatedRoute } from "@angular/router";
     [ngClass]="scrollFromTop() > 100 ? 'text-2xl lg:text-xl' : 'text-[1.6rem]'">[edumoreira]</span>
     
     @if((isNavbarExpanded() === true && screenWidth() <= 640) || screenWidth() > 640) {
-        <nav #navContainer class="sm:static absolute max-w-[calc(100%-1.5rem)] right-0 top-full sm:py-0 sm:px-0 py-6 px-8 sm:bg-transparent bg-neutral-950/95 
+        <nav #navContainer class="ml-auto sm:static absolute max-w-[calc(100%-1.5rem)] right-0 top-full sm:py-0 sm:px-0 py-6 px-8 sm:bg-transparent bg-neutral-950/95 
         sm:rounded-none rounded-bl-2xl sm:border-none border-l border-b border-neutral-700/50 overflow-hidden z-10" @slideNavbar>
-            <ul class="flex sm:items-center sm:gap-8 gap-6 flex-col sm:flex-row text-neutral-200 font-semibold">
+            <ul class="flex sm:items-center sm:gap-8 gap-6 flex-col sm:flex-row text-neutral-400 font-semibold">
+                @let currentLanguage = languageService.$currentLanguageUrlKey();
 
-                <li><button [attr.aria-label]="'Go to ' + nav().menu.home" class="cursor-pointer sm:p-0 p-1 hover:text-white transition-colors" tabIndex="0"
-                (click)="scrollTo('home')"
-                (keydown)="onAnchorKeydown($event, 'home')"> {{ nav().menu.home }} </button></li>
+                <li><a [attr.aria-label]="'Go to ' + nav().menu.home" class="cursor-pointer sm:p-0 p-1 hover:text-white transition-colors" tabIndex="0"
+                [routerLink]="currentLanguage + '/home'"
+                [routerLinkActive]="['text-white']"> {{ nav().menu.home }} </a></li>
 
-                <li><button [attr.aria-label]="'Go to ' + nav().menu.works" class="cursor-pointer sm:p-0 p-1 hover:text-white transition-colors" tabIndex="0"
-                (click)="scrollTo('my-works')"
-                (keydown)="onAnchorKeydown($event, 'my-works')"> {{ nav().menu.works }} </button></li>
-
-                <li><button [attr.aria-label]="'Go to ' + nav().menu.techs" class="cursor-pointer sm:p-0 p-1 hover:text-white transition-colors" tabIndex="0"
-                (click)="scrollTo('techs')"
-                (keydown)="onAnchorKeydown($event, 'techs')"> {{ nav().menu.techs }} </button></li>
+                <li><a [attr.aria-label]="'Go to ' + nav().menu.works" class="cursor-pointer sm:p-0 p-1 hover:text-white transition-colors" tabIndex="0"
+                [routerLink]="currentLanguage + '/projects'"
+                [routerLinkActive]="['text-white']"> {{ nav().menu.works }} </a></li>
                 <li>
 
                 <button custom-btn variant="outline"
@@ -83,7 +81,7 @@ import { ActivatedRoute } from "@angular/router";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {
-    private languageService = inject(LanguageService);
+    protected languageService = inject(LanguageService);
     private language = inject(LANGUAGE_APPLICATION);
     private documentListener = inject(DocumentListenerService);
     private route = inject(ActivatedRoute);

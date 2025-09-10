@@ -1,16 +1,16 @@
-import { inject, Injectable, signal } from "@angular/core";
+import { computed, inject, Injectable, signal } from "@angular/core";
 import { language_en_us, LanguageApllication, language_pt_br } from "../models/language.model";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
 
 }) export class LanguageService {
     private router = inject(Router);
-    private route = inject(ActivatedRoute);
     // 
     private currentLanguage = signal<LanguageApllication>(language_pt_br);
     public $currentLanguage = this.currentLanguage.asReadonly();
+    public $currentLanguageUrlKey = computed(() => this.currentLanguage() === language_pt_br ? 'pt-br' : 'en-us');
 
   updateLanguageSignal(language: 'pt_br' | 'en_us') {
     this.currentLanguage.set(language === 'pt_br' ? language_pt_br : language_en_us);
