@@ -1,13 +1,26 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api"
+      "src": "dist/edumoreira-portfolio/server/server.mjs",
+      "use": "@vercel/node"
     },
     {
-      "source": "/((?!api/|assets/).*)",
-      "destination": "/index.html"
+      "src": "dist/edumoreira-portfolio/browser/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "dist/edumoreira-portfolio/server/server.mjs"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "dist/edumoreira-portfolio/browser/index.html"
     }
   ]
 }
