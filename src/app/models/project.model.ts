@@ -7,5 +7,6 @@ export interface Project {
   functionalities: string;
   good_practices: string;
   site_url: string;
-  is_highlight?: boolean;
+  repository_url: string;
+  is_highlight: boolean;
 }

@@ -5,10 +5,11 @@ import { ActivatedRoute } from "@angular/router";
 import { Project } from "../../models/project.model";
 import { map } from "rxjs";
 import { toSignal } from "@angular/core/rxjs-interop";
+import { NgClass } from "@angular/common";
 
 @Component( {
   selector: 'page-projects',
-  imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective],
+  imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective, NgClass],
   templateUrl: './projects.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -19,6 +20,6 @@ export class ProjectsComponent {
     map((data) => data['projects'] as Project[])
   ));
 
-  
+
 
 }

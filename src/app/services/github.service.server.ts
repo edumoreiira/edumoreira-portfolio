@@ -13,6 +13,7 @@ interface GithubRepoNode {
   createdAt: string;
   homepageUrl: string;
   description: string;
+  url: string;
   object: {
     text: string;
   } | null;
@@ -45,7 +46,6 @@ export async function getProjects(): Promise<Project[]> {
   const query = `
     query($username: String!) {
       user(login: $username) {
-        # Busca os repositórios fixados
         pinnedItems(first: 6, types: REPOSITORY) {
           nodes {
             ... on Repository {
@@ -53,7 +53,6 @@ export async function getProjects(): Promise<Project[]> {
             }
           }
         }
-        # Busca a lista geral de repositórios
         repositories(
           first: 20,
           orderBy: { field: CREATED_AT, direction: DESC },
@@ -66,6 +65,7 @@ export async function getProjects(): Promise<Project[]> {
             createdAt
             homepageUrl
             description
+            url
             object(expression: "HEAD:README.md") {
               ... on Blob {
                 text
@@ -123,6 +123,7 @@ export async function getProjects(): Promise<Project[]> {
       functionalities: parseReadmeSection(readme, '✨ Funcionalidades'),
       good_practices: parseReadmeSection(readme, '🤝 Boas Práticas e Convenções'),
       site_url: node.homepageUrl,
+      repository_url: node.url,
       is_highlight: pinnedRepoIds.has(node.id),
     };
   });
