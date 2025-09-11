@@ -118,6 +118,7 @@ export class GlowingBorderItemDirective implements OnInit {
   // 
   borderGlowColor = input<string | undefined>(undefined);
   borderColor = input<string | undefined>(undefined);
+  glowColor = input<string | undefined>(undefined);
   group = input.required<string>();
   constructor() {
     effect(() => {
@@ -145,6 +146,9 @@ export class GlowingBorderItemDirective implements OnInit {
     }
     if(this.borderColor()) {
       element.style.setProperty('--border-color', this.borderColor()!);
-    } 
+    }
+    if(this.glowColor()) {
+      element.style.setProperty('--glow-color', this.glowColor()!);
+    }
   }
 }
