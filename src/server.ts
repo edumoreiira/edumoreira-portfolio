@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import {
   AngularNodeAppEngine,
   createNodeRequestHandler,
@@ -8,11 +9,25 @@ import express from 'express';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { getProjects } from '../src/app/services/github.service.server';
+
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
+
+
+// Define uma rota para obter os projetos
+app.get('/api/projects', async (req, res) => {
+  try {
+    const projects = await getProjects();
+    res.json(projects);
+  } catch (error) {
+    console.error('Fala ao buscar projetos do Github:', error);
+    res.status(500).json({ error: 'Falha ao buscar projetos do GitHub.' })
+  }
+})
 
 /**
  * Example Express Rest API endpoints can be defined here.
