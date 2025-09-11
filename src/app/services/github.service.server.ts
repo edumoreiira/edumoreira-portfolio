@@ -1,6 +1,11 @@
 import { Project } from '../models/project.model';
 import { parseReadmeSection, parseMainDescription } from '../utils/readme-parser';
 
+//cache
+let cachedProjects: Project[] | null = null;
+let lastFetchTime = 0;
+const CACHE_DURATION = 60 * 1000; // 1 minuto
+
 // Interface para a resposta da API
 interface GithubRepoNode {
   id: string;
@@ -20,8 +25,16 @@ interface GithubRepoNode {
   } | null;
 }
 
+
 // A função principal que busca e processa os projetos
 export async function getProjects(): Promise<Project[]> {
+  const now = Date.now();
+  if (cachedProjects && (now - lastFetchTime) < CACHE_DURATION) {
+    console.log('Retornando projetos do cache');
+    return cachedProjects;
+  }
+
+  console.log('Buscando projetos do GitHub');
   const token = process.env['GITHUB_TOKEN'];
   if (!token) {
     throw new Error('GITHUB_TOKEN não encontrado nas variáveis de ambiente.');
@@ -99,7 +112,7 @@ export async function getProjects(): Promise<Project[]> {
   const repos = userData.repositories.nodes as GithubRepoNode[];
 
   // Mapeia os dados da API para a interface Project
-  return repos.map((node): Project => {
+  const projects = repos.map((node): Project => {
     const readme = node.object?.text ?? '';
     return {
       id: node.id,
@@ -113,4 +126,10 @@ export async function getProjects(): Promise<Project[]> {
       is_highlight: pinnedRepoIds.has(node.id),
     };
   });
+  
+  // Atualiza o cache
+  cachedProjects = projects;
+  lastFetchTime = now;
+  return projects;
+
 }

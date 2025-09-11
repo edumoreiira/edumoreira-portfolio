@@ -2,8 +2,9 @@
   <h1 class="text-3xl font-semibold">Meus Projetos</h1>
   <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 py-8"
   app-glowing-border group="projects">
-    @for (item of projects; track $index) {
-      <article app-project-card app-glowing-border-item group="projects">
+    @for (item of projects(); track $index) {
+      <article app-project-card app-glowing-border-item group="projects"
+      [project]="item">
       </article>
     }
   </div>

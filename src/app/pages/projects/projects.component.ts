@@ -1,6 +1,10 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { ProjectCardComponent } from "../../components/shared/project-card/project-card.component";
 import { GlowingBorderDirective, GlowingBorderItemDirective } from "../../directives/glowing-border.directive";
+import { ActivatedRoute } from "@angular/router";
+import { Project } from "../../models/project.model";
+import { map } from "rxjs";
+import { toSignal } from "@angular/core/rxjs-interop";
 
 @Component( {
   selector: 'page-projects',
@@ -9,7 +13,12 @@ import { GlowingBorderDirective, GlowingBorderItemDirective } from "../../direct
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectsComponent {
+  private readonly route = inject(ActivatedRoute);
+  // fetch the resolved projects data from the route
+  readonly projects = toSignal(this.route.data.pipe(
+    map((data) => data['projects'] as Project[])
+  ));
+
   
-  projects = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ];
 
 }
