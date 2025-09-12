@@ -58,7 +58,7 @@
     <!--config border on accordions  -->
     <div class="page-container grid sm:grid-cols-2 grid-cols-1 gap-4 py-20 md:py-20 grid-rows-1 lg:h-[39rem] sm:h-[41rem] h-auto"
     InterObs intersectChild="true" 
-    app-glowing-border group="myworks" borderGlowColor="var(--color-neutral-500)" glowSize="650px" borderGlowSize="500px">
+    app-glowing-border borderGlowColor="var(--color-neutral-500)" glowSize="650px" borderGlowSize="500px">
         <div class="flex flex-col gap-4 justify-between delay-2 out-of-view" >
             <div>
                 <h1 class="text-3xl font-semibold mb-2">{{ works.title }}</h1>
@@ -67,8 +67,8 @@
                 </p>
             </div>
             @for (item of websites(); track $index) {
-                <accordion class="rounded-xl" [borderless]="true" glowGroup="myworks" [title]="item.title" [isOpen]="currentSiteIndex() === $index" 
-                (clicked)="setCurrentSiteIndex($index)" app-glowing-border-item group="myworks" 
+                <accordion class="rounded-xl" [borderless]="true" [title]="item.title" [isOpen]="currentSiteIndex() === $index" 
+                (clicked)="setCurrentSiteIndex($index)" app-glowing-border-item
                 [borderColor]="currentSiteIndex() === $index ? 'var(--color-neutral-600)' : 'var(--color-neutral-800)'">
                     <div class="flex flex-col gap-4 items-start">
                         <p class="text-neutral-400">{{ item.description }}</p>
@@ -80,7 +80,7 @@
                 </accordion>
             }
         </div>
-        <div class="aspect-video sm:aspect-auto delay-4 rounded-xl out-of-view" app-glowing-border-item group="myworks">
+        <div class="aspect-video sm:aspect-auto delay-4 rounded-xl out-of-view" app-glowing-border-item>
             <app-site-previewer [borderless]="true" [websites]="websites()"/>
         </div>
     </div>
@@ -88,10 +88,10 @@
 
 @defer {
     <section id="contact">
-        <div class="page-container py-12 md:py-20" app-glowing-border group="contact"
-        glowColor="hsla(0, 0%, 18%, 0.1)" [glowDelay]="100">
+        <div class="page-container py-12 md:py-20" app-glowing-border
+        glowColor="hsla(0, 0%, 18%, 0.1)" [glowDelay]="15">
             <div class="grid sm:grid-cols-2 grid-cols-1 sm:gap-4 md:gap-12 rounded-3xl"
-            InterObs intersectChild="true" selfIntersect="true" app-glowing-border-item group="contact"
+            InterObs intersectChild="true" selfIntersect="true" app-glowing-border-item
             [borderColor]="screensize() > 768 ? 'var(--color-neutral-950)' : 'var(--color-neutral-800)'">
                 <div class="flex flex-col justify-between gap-4 p-6 sm:p-8 sm:pr-0 delay-1">
                     <div>
@@ -120,10 +120,9 @@
 
 
 <section id="techs">
-    <div class="page-container py-12 md:py-20" app-glowing-border group="techs" glowColor="hsla(0, 0%, 25%, 0.1)" 
-    borderColor="var(--color-neutral-900)" borderGlowSize="450px" glowSize="600px">
+    <div class="page-container">
         @defer (on immediate) {
-            <app-all-techs InterObs intersectChild="true" obsClass="fadeIn" group="techs" />
+            <app-all-techs />
         }
     </div>
 </section>
@@ -131,7 +130,7 @@
 
 
 <section>
-    <div class="page-container py-12 md:py-20" app-glowing-border group="advantages" glowColor="hsla(0, 0%, 25%, 0.1)"
+    <div class="page-container py-12 md:py-20" app-glowing-border glowColor="hsla(0, 0%, 25%, 0.1)"
     glowSize="600px" borderGlowSize="400px" >
         <h1 class="text-3xl sm:text-4xl font-semibold mb-6 sm:mb-8 text-center"
         InterObs>{{ advantages.title }}</h1>
@@ -139,13 +138,13 @@
         InterObs intersectChild="true">
             <div class="flex items-start justify-center gap-4 md:flex-row flex-col">
                 <app-tag class="bg-gradient-to-bl from-0% to-40% from-blue-800/5 to-transparent" [borderless]="true"
-                app-glowing-border-item group="advantages" borderGlowColor="hsla(230, 100%, 80%, 0.3)"
+                app-glowing-border-item borderGlowColor="hsla(230, 100%, 80%, 0.3)"
                     [title]="advantages.items[0].title"
                     [description]="advantages.items[0].description"
                     icon="fi-rr-time-fast" 
                 />
                 <app-tag class="bg-gradient-to-bl from-0% to-40% from-violet-800/5 to-transparent" [borderless]="true"
-                app-glowing-border-item group="advantages" borderGlowColor="hsla(270, 100%, 80%, 0.3)"
+                app-glowing-border-item borderGlowColor="hsla(270, 100%, 80%, 0.3)"
                     [title]="advantages.items[1].title"
                     [description]="advantages.items[1].description"
                     icon="fi-rr-palette" 
@@ -153,13 +152,13 @@
             </div>
             <div class="flex items-start justify-center gap-4 md:flex-row flex-col delay-2">
                 <app-tag class="bg-gradient-to-bl from-0% to-40% from-sky-800/5 to-transparent" [borderless]="true"
-                app-glowing-border-item group="advantages" borderGlowColor="hsla(190, 100%, 80%, 0.3)"
+                app-glowing-border-item borderGlowColor="hsla(190, 100%, 80%, 0.3)"
                     [title]="advantages.items[2].title"
                     [description]="advantages.items[2].description"
                     icon="fi-rr-laptop-mobile" 
                 />
                 <app-tag class="bg-gradient-to-bl from-0% to-40% from-lime-800/5 to-transparent" [borderless]="true"
-                app-glowing-border-item group="advantages" borderGlowColor="hsla(90, 100%, 80%, 0.3)"
+                app-glowing-border-item borderGlowColor="hsla(90, 100%, 80%, 0.3)"
                     [title]="advantages.items[3].title"
                     [description]="advantages.items[3].description"
                     icon="fi-rr-bubble-discussion" 
@@ -167,7 +166,7 @@
             </div>
             <div class="flex items-start justify-center gap-4 md:flex-row flex-col delay-4">
                 <app-tag class="bg-gradient-to-bl from-0% to-40% from-red-800/5 to-transparent" [borderless]="true"
-                app-glowing-border-item group="advantages" borderGlowColor="hsla(0, 100%, 80%, 0.3)"
+                app-glowing-border-item borderGlowColor="hsla(0, 100%, 80%, 0.3)"
                     [title]="advantages.items[4].title"
                     [description]="advantages.items[4].description"
                     icon="fi-rr-discover" 

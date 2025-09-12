@@ -3,6 +3,7 @@ import { TechComponent } from '../../shared/tech/tech.component';
 import { NgClass } from '@angular/common';
 import { LANGUAGE_APPLICATION } from '../../../tokens/language.tokens';
 import { GlowingBorderDirective, GlowingBorderItemDirective } from '../../../directives/glowing-border.directive';
+import { IntersectionObserverDirective } from '../../../directives/intersection-observer.directive';
 
 export interface Tech {
   class: string;
@@ -12,7 +13,7 @@ export interface Tech {
 }
 @Component({
   selector: 'app-all-techs',
-  imports: [TechComponent, NgClass, GlowingBorderItemDirective],
+  imports: [TechComponent, NgClass, GlowingBorderItemDirective, GlowingBorderDirective, IntersectionObserverDirective],
   templateUrl: './all-techs.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -116,16 +117,5 @@ export class AllTechsComponent {
 
   toggle() {
     this.opened.set(!this.opened());
-  }
-
-  @HostBinding('class')
-  get hostClasses() {
-    const conditionalClasses = this.opened() ? 'max-h-[50rem]' : 'max-h-[28rem] sm:max-h-[50rem] overflow-hidden py-px';
-    const classes = 'relative max-w-full grid sm:[grid-template-columns:repeat(auto-fit,minmax(6.82rem,1fr))] sm:[grid-auto-rows:6.82rem] [grid-auto-flow:dense] gap-3 ' + 
-    'xs:[grid-template-columns:repeat(auto-fit,minmax(5.5rem,min(1fr,100%)))] xs:[grid-auto-rows:5.5rem] ' + 
-    '[grid-template-columns:repeat(auto-fit,minmax(5rem,min(1fr,100%)))] [grid-auto-rows:5rem] ' +
-    'sm:overflow-auto transition-all duration-300 '
-
-    return conditionalClasses + ' ' + classes;
   }
 }
