@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideLanguage } from './tokens/language.tokens';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideBaseUrl } from './tokens/general.tokens';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideLanguage(),
     importProvidersFrom(BrowserAnimationsModule),
     provideHttpClient(withFetch()),
-    provideAnimations()
+    provideAnimations(),
+    provideBaseUrl()
   ]
 };

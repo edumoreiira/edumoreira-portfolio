@@ -1,11 +1,9 @@
-import { Observable, tap } from "rxjs";
+import { inject } from '@angular/core';
+import { ResolveFn } from '@angular/router';
+import { ProjectsService } from '../services/projects.service';
+import { Project } from '../models/project.model';
 
-import { Project } from "../models/project.model";
-import { ResolveFn } from "@angular/router";
-import { inject } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-
-export const projectsResolver: ResolveFn<Project[] | null> = (): Observable<Project[]> => {
-  const http = inject(HttpClient);
-  return http.get<Project[]>('http://localhost:4200/api/projects');
-}
+export const projectsResolver: ResolveFn<Project[]> = (route, state) => {
+  const projectsService = inject(ProjectsService); 
+  return projectsService.getProjects();
+};
