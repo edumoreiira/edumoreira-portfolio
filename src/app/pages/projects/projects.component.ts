@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/core";
 import { ProjectCardComponent } from "../../components/shared/project-card/project-card.component";
 import { GlowingBorderDirective, GlowingBorderItemDirective } from "../../directives/glowing-border.directive";
 import { ActivatedRoute } from "@angular/router";
@@ -19,7 +19,7 @@ export class ProjectsComponent {
   readonly projects = toSignal(this.route.data.pipe(
     map((data) => data['projects'] as Project[])
   ));
-
+  // projects = signal<Project[]>([]);
 
 
 }

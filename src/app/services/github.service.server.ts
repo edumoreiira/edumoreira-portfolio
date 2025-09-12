@@ -1,6 +1,9 @@
 import { Project } from '../models/project.model';
 import { parseReadmeSection, parseMainDescription } from '../utils/readme-parser';
 
+const API_KEY = process.env['GITHUB_TOKEN'];
+
+
 //cache
 let cachedProjects: Project[] | null = null;
 let lastFetchTime = 0;
@@ -36,8 +39,7 @@ export async function getProjects(): Promise<Project[]> {
   }
 
   console.log('Buscando projetos do GitHub');
-  const token = process.env['GITHUB_TOKEN'];
-  if (!token) {
+  if (!API_KEY) {
     throw new Error('GITHUB_TOKEN não encontrado nas variáveis de ambiente.');
   }
 
@@ -90,7 +92,7 @@ export async function getProjects(): Promise<Project[]> {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${API_KEY}`,
     },
     body: JSON.stringify({
       query,
