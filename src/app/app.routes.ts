@@ -3,10 +3,12 @@ import { HomeComponent } from './pages/home/home.component';
 import { LangGuard } from './guards/lang.guard';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { projectsResolver } from './resolvers/projects.resolver';
+import { PagesLayoutComponent } from './pages/pages-layout.component';
 
 export const routes: Routes = [
   {
     path: ':lang',
+    component: PagesLayoutComponent,
     canActivate: [LangGuard],
     children: [
       { path: 'home', component: HomeComponent },

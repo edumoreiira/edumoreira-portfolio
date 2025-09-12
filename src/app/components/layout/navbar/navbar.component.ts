@@ -24,14 +24,13 @@ import { ActivatedRoute, RouterLink, RouterLinkActive } from "@angular/router";
         <nav #navContainer class="ml-auto sm:static absolute max-w-[calc(100%-1.5rem)] right-0 top-full sm:py-0 sm:px-0 py-6 px-8 sm:bg-transparent bg-neutral-950/95 
         sm:rounded-none rounded-bl-2xl sm:border-none border-l border-b border-neutral-700/50 overflow-hidden z-10" @slideNavbar>
             <ul class="flex sm:items-center sm:gap-8 gap-6 flex-col sm:flex-row text-neutral-400 font-semibold">
-                @let currentLanguage = languageService.$currentLanguageUrlKey();
 
                 <li><a [attr.aria-label]="'Go to ' + nav().menu.home" class="cursor-pointer sm:p-0 p-1 hover:text-white transition-colors" tabIndex="0"
-                [routerLink]="currentLanguage + '/home'"
+                [routerLink]="'./home'"
                 [routerLinkActive]="['text-white']"> {{ nav().menu.home }} </a></li>
 
                 <li><a [attr.aria-label]="'Go to ' + nav().menu.works" class="cursor-pointer sm:p-0 p-1 hover:text-white transition-colors" tabIndex="0"
-                [routerLink]="currentLanguage + '/projects'"
+                [routerLink]="'./projects'"
                 [routerLinkActive]="['text-white']"> {{ nav().menu.works }} </a></li>
                 <li>
 
