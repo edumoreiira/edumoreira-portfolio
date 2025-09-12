@@ -32,17 +32,19 @@ export class GlowingBorderItemDirective implements OnInit {
   readonly elementRef = inject(ElementRef<HTMLElement>);
 
   ngOnInit(): void {
-    const el = this.elementRef.nativeElement;
-  // logic to add glow elements
-    if (!el.querySelector(':scope > .gb__bg')) {
-      const bg = document.createElement('div');
-      bg.className = 'gb__bg';
-      el.prepend(bg);
-    }
-    if (!el.querySelector(':scope > .gb__border')) {
-      const border = document.createElement('div');
-      border.className = 'gb__border';
-      el.prepend(border);
+    if(typeof window !== 'undefined') { // avoid running on server
+      const el = this.elementRef.nativeElement;
+      // logic to add glow elements
+      if (!el.querySelector(':scope > .gb__bg')) {
+        const bg = document.createElement('div');
+        bg.className = 'gb__bg';
+        el.prepend(bg);
+      }
+      if (!el.querySelector(':scope > .gb__border')) {
+        const border = document.createElement('div');
+        border.className = 'gb__border';
+        el.prepend(border);
+      }
     }
   }
 
