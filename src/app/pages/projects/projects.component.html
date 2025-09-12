@@ -1,17 +1,16 @@
 <main class="page-container py-18 md:py-24">
   <h1 class="text-3xl font-semibold">Meus Projetos</h1>
   <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 py-8"
-  app-glowing-border 
-  group="projects"
+  app-glowing-border glowColor="hsla(0, 0%, 25%, 0.1)" borderColor="var(--color-neutral-900)"
   glowSize="500px">
     @for (item of projects(); track item.id) {
       <!-- exlude README -->
       @if(item.repository_url !== 'https://github.com/edumoreiira/edumoreiira') {
         <article app-project-card app-glowing-border-item group="projects"
         [project]="item"
-        [ngClass]="{'bg-gradient-to-bl from-0% to-50% from-[hsl(48_40%_15%_/_.2)] to-transparent shadow-md shadow-yellow-600/10': item.is_highlight }"
+        [ngClass]="{'bg-gradient-to-bl from-0% to-50% from-[hsl(48_40%_15%_/_.2)] to-transparent': item.is_highlight }"
         [borderGlowColor]="item.is_highlight ? 'hsla(48, 40%, 60%, .7)' : undefined"
-        [borderColor]="item.is_highlight ? 'hsl(48, 30%, 20%)' : undefined"
+        [borderColor]="item.is_highlight ? 'hsl(48, 30%, 15%)' : undefined"
         [glowColor]="item.is_highlight ? 'hsla(48, 25%, 60%, 0.05)' : undefined"
         >
         </article>

@@ -12,6 +12,8 @@ import {
   OnInit,
   PLATFORM_ID,
   QueryList,
+  effect,
+  AfterContentInit,
 } from '@angular/core';
 
 @Directive({
@@ -19,6 +21,9 @@ import {
   standalone: true,
 })
 export class GlowingBorderItemDirective implements OnInit {
+  readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly platformId = inject(PLATFORM_ID);
+
   borderGlowColor = input<string>();
   borderColor = input<string>();
   glowColor = input<string>();
@@ -29,10 +34,22 @@ export class GlowingBorderItemDirective implements OnInit {
   public currentX = 0;
   public currentY = 0;
   
-  readonly elementRef = inject(ElementRef<HTMLElement>);
+  constructor() {
+    effect(() => {
+      // ssr safe: only manipulate styles on browser
+      if (isPlatformBrowser(this.platformId)) {
+        const el = this.elementRef.nativeElement;
+        
+        this.updateStyle(el, '--glow-color', this.glowColor());
+        this.updateStyle(el, '--border-glow-color', this.borderGlowColor());
+        this.updateStyle(el, '--border-color', this.borderColor());
+      }
+    });
+  }
 
   ngOnInit(): void {
-    if(typeof window !== 'undefined') { // avoid running on server
+    // ssr safe: only manipulate dom on browser
+    if (isPlatformBrowser(this.platformId)) {
       const el = this.elementRef.nativeElement;
       // logic to add glow elements
       if (!el.querySelector(':scope > .gb__bg')) {
@@ -48,12 +65,12 @@ export class GlowingBorderItemDirective implements OnInit {
     }
   }
 
-  // method for the "parent" to apply styles
-  public setStyles(defaults: { [key: string]: string }): void {
-    const el = this.elementRef.nativeElement as HTMLElement;
-    el.style.setProperty('--glow-color', this.glowColor() ?? defaults['--glow-color']);
-    el.style.setProperty('--border-glow-color', this.borderGlowColor() ?? defaults['--border-glow-color']);
-    el.style.setProperty('--border-color', this.borderColor() ?? defaults['--border-color']);
+  private updateStyle(element: HTMLElement, style: string, value: string | undefined): void {
+    if (value) {
+      element.style.setProperty(style, value);
+    } else {
+      element.style.removeProperty(style);
+    }
   }
 }
 
@@ -61,7 +78,7 @@ export class GlowingBorderItemDirective implements OnInit {
   selector: '[app-glowing-border]',
   standalone: true,
 })
-export class GlowingBorderDirective implements OnInit, OnDestroy {
+export class GlowingBorderDirective implements OnInit, OnDestroy, AfterContentInit {
   private readonly el = inject(ElementRef<HTMLElement>);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly zone = inject(NgZone);
@@ -86,73 +103,73 @@ export class GlowingBorderDirective implements OnInit, OnDestroy {
   @ContentChildren(GlowingBorderItemDirective, { descendants: true })
   private readonly items!: QueryList<GlowingBorderItemDirective>;
 
+  constructor() {
+    // effect to apply container styles whenever the parent's inputs change.
+    effect(() => {
+      if (isPlatformBrowser(this.platformId)) {
+        const el = this.el.nativeElement;
+        el.style.setProperty('--glow-color', this.glowColor());
+        el.style.setProperty('--border-glow-color', this.borderGlowColor());
+        el.style.setProperty('--border-color', this.borderColor());
+        el.style.setProperty('--border-width', this.borderWidth());
+        el.style.setProperty('--bg-color', this.backgroundColor());
+        el.style.setProperty('--glow-size', this.glowSize());
+        el.style.setProperty('--border-glow-size', this.borderGlowSize());
+      }
+    });
+  }
+
   ngOnInit() {
-    this.el.nativeElement.classList.add('gb-wrapper');
+    if (isPlatformBrowser(this.platformId)) {
+      this.el.nativeElement.classList.add('gb-wrapper');
+    }
     this.setupListeners();
   }
 
   ngAfterContentInit() {
-    this.applyStylesToItems();
-    this.items.changes.subscribe(() => this.applyStylesToItems());
+    this.addGbClassToItems();
+    this.items.changes.subscribe(() => this.addGbClassToItems());
   }
 
   ngOnDestroy() {
-  // removes all listeners and stops the animation
+    // removes all listeners and stops the animation
     this.listeners.forEach(remove => remove());
     if (this.animationFrameId) {
       cancelAnimationFrame(this.animationFrameId);
     }
   }
-
-  private applyStylesToItems(): void {
-    this.items.forEach((item) => {
-      const el = item.elementRef.nativeElement;
-      el.classList.add('gb');
-      
-      item.setStyles({
-        '--glow-color': this.glowColor(),
-        '--border-glow-color': this.borderGlowColor(),
-        '--border-color': this.borderColor(),
+  
+  private addGbClassToItems(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.items.forEach(item => {
+        item.elementRef.nativeElement.classList.add('gb');
       });
-      
-      el.style.setProperty('--border-width', this.borderWidth());
-      el.style.setProperty('--bg-color', this.backgroundColor());
-      el.style.setProperty('--glow-size', this.glowSize());
-      el.style.setProperty('--border-glow-size', this.borderGlowSize());
-    });
+    }
   }
   
   private setupListeners(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-
-  // runs listeners outside angular zone to avoid change detection on every mouse move
+    // runs listeners outside angular zone to avoid change detection on every mouse move
     this.zone.runOutsideAngular(() => {
       const host = this.el.nativeElement;
-      
       const onMouseMove = (event: MouseEvent) => {
-  // only updates the target coordinates
+        // only updates the target coordinates
         this.items.forEach(item => {
           const rect = item.elementRef.nativeElement.getBoundingClientRect();
           item.targetX = event.clientX - rect.left;
           item.targetY = event.clientY - rect.top;
         });
       };
-      
-      const onMouseEnter = () => {
-  // starts the animation loop when the mouse enters the area
-        this.startAnimationLoop();
-      };
-      
-      const onMouseLeave = () => {
-  // stops the animation loop when the mouse leaves
-        this.stopAnimationLoop();
-      };
+      // starts the animation loop when the mouse enters the area
+      const onMouseEnter = () => { this.startAnimationLoop(); };
+      // stops the animation loop when the mouse leaves
+      const onMouseLeave = () => { this.stopAnimationLoop(); };
 
       host.addEventListener('mousemove', onMouseMove);
       host.addEventListener('mouseenter', onMouseEnter);
       host.addEventListener('mouseleave', onMouseLeave);
 
-  // stores the functions to be able to remove them later
+      // stores the functions to be able to remove them later
       this.listeners.push(
         () => host.removeEventListener('mousemove', onMouseMove),
         () => host.removeEventListener('mouseenter', onMouseEnter),
@@ -162,28 +179,24 @@ export class GlowingBorderDirective implements OnInit, OnDestroy {
   }
 
   private startAnimationLoop(): void {
-  if (this.animationFrameId) return; // já está rodando
-    
+    if (this.animationFrameId) return; // already running
     const animate = () => {
-  // calculates the smoothing factor. the value 0.1 is a good starting point.
+      // calculates the smoothing factor. a smaller value makes the trail longer.
       const easingFactor = 1 / (this.glowDelay() || 1);
-
       this.items.forEach(item => {
-  // moves the current position a bit towards the target
+        // moves the current position a bit towards the target
         item.currentX += (item.targetX - item.currentX) * easingFactor;
         item.currentY += (item.targetY - item.currentY) * easingFactor;
         
-  // updates the css variables with the current (interpolated) position
+        // updates the css variables with the current (interpolated) position
         const el = item.elementRef.nativeElement;
         el.style.setProperty('--mouse-x', `${item.currentX}px`);
         el.style.setProperty('--mouse-y', `${item.currentY}px`);
       });
-
-  // continues the loop on the next frame
+      // continues the loop on the next frame
       this.animationFrameId = requestAnimationFrame(animate);
     };
-
-  // starts the loop
+    // starts the loop
     this.animationFrameId = requestAnimationFrame(animate);
   }
 

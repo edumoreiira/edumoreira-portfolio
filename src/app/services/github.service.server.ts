@@ -34,11 +34,11 @@ interface GithubRepoNode {
 export async function getProjects(): Promise<Project[]> {
   const now = Date.now();
   if (cachedProjects && (now - lastFetchTime) < CACHE_DURATION) {
-    console.log('Retornando projetos do cache');
+    // console.log('Retornando projetos do cache');
     return cachedProjects;
   }
 
-  console.log('Buscando projetos do GitHub');
+  // console.log('Buscando projetos do GitHub');
   if (!API_KEY) {
     throw new Error('GITHUB_TOKEN não encontrado nas variáveis de ambiente.');
   }

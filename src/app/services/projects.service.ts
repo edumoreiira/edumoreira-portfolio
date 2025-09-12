@@ -9,12 +9,10 @@ import { BASE_URL } from '../tokens/general.tokens';
 })
 export class ProjectsService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = inject(BASE_URL); // injeta a url base (http://localhost:4200 no server, '' no client)
+  private readonly baseUrl = inject(BASE_URL);
 
   getProjects(): Observable<Project[]> {
-    // this url will be resolved correctly on both platforms
     const url = `${this.baseUrl}/api/projects`;
-    console.log(`Requesting projects from: ${url}`);
     return this.http.get<Project[]>(url);
   }
 }

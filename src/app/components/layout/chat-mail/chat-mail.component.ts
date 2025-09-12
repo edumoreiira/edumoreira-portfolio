@@ -66,7 +66,6 @@ export class ChatMailComponent implements AfterViewInit, OnInit {
     } else {
       window.open(`mailto:edumoreira.dev@gmail.com?subject=${ emailSubject }&body=${ encodedMessage }`);
     }
-    console.log(encodeURIComponent(this.message()));
   }
 
   onInput(event: Event){
