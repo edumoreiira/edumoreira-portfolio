@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "public": true,
+  "name": "em-portfolio",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api" }
+  ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "dist/em-portfolio/**"
+    }
+  }
+}
