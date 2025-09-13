@@ -6,10 +6,12 @@ import { Project } from "../../models/project.model";
 import { map } from "rxjs";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { NgClass } from "@angular/common";
+import { EmButtonToggleGroupComponent } from "../../components/shared/button-toggle/em-button-toggle-group.component";
+import { EmButtonToggleDirective } from "../../components/shared/button-toggle/em-button-toggle.directive";
 
 @Component( {
   selector: 'page-projects',
-  imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective, NgClass],
+  imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective, NgClass, EmButtonToggleGroupComponent, EmButtonToggleDirective],
   templateUrl: './projects.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
