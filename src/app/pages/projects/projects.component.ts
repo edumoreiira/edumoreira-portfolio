@@ -8,10 +8,11 @@ import { toSignal } from "@angular/core/rxjs-interop";
 import { NgClass } from "@angular/common";
 import { EmButtonToggleGroupComponent } from "../../components/shared/button-toggle/em-button-toggle-group.component";
 import { EmButtonToggleDirective } from "../../components/shared/button-toggle/em-button-toggle.directive";
+import { FormsModule } from "@angular/forms";
 
 @Component( {
   selector: 'page-projects',
-  imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective, NgClass, EmButtonToggleGroupComponent, EmButtonToggleDirective],
+  imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective, NgClass, EmButtonToggleGroupComponent, EmButtonToggleDirective, FormsModule],
   templateUrl: './projects.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -23,5 +24,6 @@ export class ProjectsComponent {
   ));
   // projects = signal<Project[]>([]);
 
+  data = signal('');
 
 }

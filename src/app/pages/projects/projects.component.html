@@ -1,11 +1,14 @@
 <main class="page-container py-18 md:py-24">
   <div class="flex items-center gap-4 justify-between">
     <h1 class="text-3xl font-semibold">Meus Projetos</h1>
-    <em-button-toggle-group name="project-filters" aria-label="Filtros de projetos">
-      <button em-button-toggle>Lançamento</button>
-      <button em-button-toggle>Commit</button>
-      <button em-button-toggle>Highlight</button>
+
+    <em-button-toggle-group [(ngModel)]="data"
+    name="project-filters" aria-label="Filtros de projetos">
+      <button em-button-toggle value="lancamento" [disabled]="true">Lançamento</button>
+      <button em-button-toggle value="commit">Commit</button>
+      <button em-button-toggle value="highlight">Highlight</button>
     </em-button-toggle-group>
+    <button >data: {{data()}}</button>
   </div>
 
   <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 py-8"

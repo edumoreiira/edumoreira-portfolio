@@ -32,7 +32,7 @@ body {
 }
 
 button {
-    &:hover {
+    &:hover:not(:disabled) {
         cursor: pointer;
     }
 }
