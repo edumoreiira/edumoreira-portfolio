@@ -6,19 +6,17 @@ import { DropdownListOptions, DropdownSelectionComponent } from "../../shared/dr
 import { createAnimation } from "../../../animations/default-transitions.animations";
 import { ButtonComponent } from "../../base/button.component";
 import { DocumentListenerService } from "../../../services/document-listener.service";
-import { NgClass } from "@angular/common";
 import { ActivatedRoute, RouterLink, RouterLinkActive } from "@angular/router";
 
 
 @Component({
     selector: 'app-navbar',
-    imports: [DropdownSelectionComponent, ButtonComponent, NgClass, RouterLink, RouterLinkActive],
+    imports: [DropdownSelectionComponent, ButtonComponent, RouterLink, RouterLinkActive],
     host: {
         class: 'flex items-center justify-between py-3 px-4 sm:px-8 lg:px-12 gap-6 backdrop-blur bg-neutral-950/80 sticky top-0 w-full z-20 relative'
     },
     template: `
-    <span class="font-medium font-[Kanit] cursor-default transition-all"
-    [ngClass]="scrollFromTop() > 100 ? 'text-2xl lg:text-xl' : 'text-[1.6rem]'">[edumoreira]</span>
+    <span class="font-medium font-[Kanit] cursor-default text-2xl">[edumoreira]</span>
     
     @if((isNavbarExpanded() === true && screenWidth() <= 640) || screenWidth() > 640) {
         <nav #navContainer class="ml-auto sm:static absolute max-w-[calc(100%-1.5rem)] right-0 top-full sm:py-0 sm:px-0 py-6 px-8 sm:bg-transparent bg-neutral-950/95 
