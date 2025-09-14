@@ -1,4 +1,4 @@
-import { AfterContentInit, computed, Directive, ElementRef, inject, PLATFORM_ID } from "@angular/core";
+import { AfterContentInit, AfterViewInit, computed, Directive, effect, ElementRef, inject, PLATFORM_ID } from "@angular/core";
 import { EmButtonToggleGroupComponent } from "./em-button-toggle-group.component";
 import { isPlatformBrowser } from "@angular/common";
 
@@ -17,24 +17,26 @@ interface ButtonState {
     '(window:resize)': 'updateButtonBackgroundPosition()'
   }
 })
-export class EmButtonToggleAnimationDirective implements AfterContentInit {
+export class EmButtonToggleAnimationDirective {
   private readonly group = inject(EmButtonToggleGroupComponent);
   private readonly el = inject(ElementRef);
   private readonly platformId = inject(PLATFORM_ID);
   activeButtonIndex = computed(() => {
+    console.log(this.group.buttons());
     return this.group.buttons().findIndex(b => b.checked());
   })
 
   state: ButtonState[] = [];
 
-
-  ngAfterContentInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.updateState();
-      this.group.change.subscribe(() => {
-        this.updateButtonBackgroundPosition();
-      });
-    }
+  constructor() {
+    effect(() => {
+      const activeIndex = this.activeButtonIndex();
+      // if there is no active button, or we are not in the browser (ssr), do nothing
+      if (activeIndex === -1 || !isPlatformBrowser(this.platformId)) {
+        return;
+      }
+      this.updateButtonBackgroundPosition();
+    });
   }
 
 
