@@ -14,6 +14,7 @@ interface ButtonState {
   selector: 'em-button-toggle-group[em-button-toggle-animation]',
   host: {
     class: 'em-button-toggle-group-animation',
+    '(window:resize)': 'updateButtonBackgroundPosition()'
   }
 })
 export class EmButtonToggleAnimationDirective implements AfterContentInit {
@@ -31,10 +32,7 @@ export class EmButtonToggleAnimationDirective implements AfterContentInit {
     if (isPlatformBrowser(this.platformId)) {
       this.updateState();
       this.group.change.subscribe(() => {
-        setTimeout(() => { // prevent layout shift issues
-          this.updateState();
-          this.setClassVariables();
-        });
+        this.updateButtonBackgroundPosition();
       });
     }
   }
@@ -60,5 +58,10 @@ export class EmButtonToggleAnimationDirective implements AfterContentInit {
     this.el.nativeElement.style.setProperty('--top', `${activeState.offsetY}px`);
     this.el.nativeElement.style.setProperty('--width', `${activeState.width}px`);
     this.el.nativeElement.style.setProperty('--height', `${activeState.height}px`);
+  }
+
+  private updateButtonBackgroundPosition() {
+    this.updateState();
+    this.setClassVariables();
   }
 }
