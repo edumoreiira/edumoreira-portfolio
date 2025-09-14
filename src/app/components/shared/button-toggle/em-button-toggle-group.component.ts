@@ -8,8 +8,8 @@ import {
   model,
   contentChildren,
   ChangeDetectionStrategy,
+  output,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   EmButtonToggleChange,
@@ -20,13 +20,15 @@ import {
   selector: 'em-button-toggle-group',
   standalone: true,
   host: {
-    class: 'p-1 border border-neutral-800 rounded-xl inline-flex',
+    class: 'p-1 border border-neutral-900 rounded-xl inline-flex relative overflow-hidden',
     role: 'radiogroup',
     '[attr.name]': 'name()',
     '[attr.aria-disabled]': 'disabled()',
   },
+  styleUrl: './em-button-toggle-group.component.scss',
   imports: [],
   template: `<ng-content></ng-content>`,
+
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -44,35 +46,22 @@ export class EmButtonToggleGroupComponent
 
   // internal disabled state, controlled by forms api or input
   readonly disabled = model(false);
-  private readonly buttons = contentChildren(EmButtonToggleDirective);
+  readonly buttons = contentChildren(EmButtonToggleDirective);
 
   // internal value signal
   private value = signal<any | any[] | null>(null);
+  public readonly $value = this.value.asReadonly();
+  public readonly change = output<any | any[] | null>();
+
 
   // cva functions
   onChange: (value: any) => void = () => {};
   onTouched: () => void = () => {};
 
   constructor() {
-    // this effect ensures that whenever the group's value changes, the checked status of all child buttons is updated accordingly
+    // whenever the name of the group changes, propagate those changes to all child buttons
     effect(() => {
-      const currentValue = this.value();
-      this.buttons().forEach((button) => {
-        // determine if the button should be checked
-        const isChecked = this.multiple()
-          ? Array.isArray(currentValue) && currentValue.includes(button.value())
-          : currentValue === button.value();
-        button.checked.set(isChecked);
-      });
-    });
-
-    // whenever the name or disabled state of the group changes, propagate those changes to all child buttons
-    effect(() => {
-      const groupName = this.name();
-      this.buttons().forEach((button) => {
-        // propagate the name state reactively
-        button.name.set(groupName);
-      });
+      this.syncButtonNames();
     });
   }
 
@@ -122,9 +111,10 @@ export class EmButtonToggleGroupComponent
 
   private subscribeToButtonChanges(): void {
     this.buttons().forEach((button) => {
-      button.selectionChange.subscribe((change: EmButtonToggleChange) =>
-        this.onButtonSelectionChange(change)
-      );
+      button.selectionChange.subscribe((change: EmButtonToggleChange) => {
+        this.onButtonSelectionChange(change);
+        this.change.emit(this.value());
+      });
     });
   }
 
@@ -150,5 +140,13 @@ export class EmButtonToggleGroupComponent
     }
     this.value.set(newValue);
     this.onChange(newValue);
+  }
+
+  private syncButtonNames() {
+    const groupName = this.name();
+    this.buttons().forEach((button) => {
+      // propagate the name state reactively
+      button.name.set(groupName);
+    });
   }
 }

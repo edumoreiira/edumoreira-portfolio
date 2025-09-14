@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, computed, Directive, inject, input, model, output, signal } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, computed, Directive, ElementRef, inject, input, model, output, signal } from "@angular/core";
 import { EmButtonToggleGroupComponent } from "./em-button-toggle-group.component";
 
 export interface EmButtonToggleChange {
@@ -24,13 +24,16 @@ export interface EmButtonToggleChange {
   }
 })
 export class EmButtonToggleDirective {
-  group = inject(EmButtonToggleGroupComponent, { optional: true, host: true });
+  public readonly el = inject(ElementRef);
+  private readonly group = inject(EmButtonToggleGroupComponent, { optional: true, host: true });
 
-  readonly checked = model(false);
   readonly name = signal<string | null>(null);
   readonly value = input.required<any>();
   readonly selectionChange = output<EmButtonToggleChange>();
   readonly individualDisabled = input(false, { alias: 'disabled' });
+  readonly checked = computed(() => {
+    return this.getCheckedState();
+  })
 
   readonly finalDisabled = computed(() => {
     return this.group?.disabled() || this.individualDisabled();
@@ -42,11 +45,28 @@ export class EmButtonToggleDirective {
     }
     this.selectionChange.emit({ source: this, value: this.value() });
   }
+  
+  private getCheckedState() {
+    // If there is no group, this button is not checked
+    if (!this.group) {
+      return false;
+    }
+    const groupValue = this.group.$value();
+    const buttonValue = this.value();
+    // If group allows multiple selection, check if buttonValue is in groupValue array
+    if (this.group.multiple()) {
+      // Ensure groupValue is an array and includes buttonValue
+      return Array.isArray(groupValue) && groupValue.includes(buttonValue);
+    } else {
+      // Single selection: check if groupValue equals buttonValue
+      return groupValue === buttonValue;
+    }
+  }
 
   readonly  class = computed(() => {
-    const base = 'px-4 py-2 rounded-lg transition-colors';
-    const checked = this.checked() ? 'bg-neutral-800 font-semibold' : '';
-    const disabled = this.finalDisabled() ? 'opacity-50 cursor-not-allowed' : '';
+    const base = 'px-4 py-2 rounded-lg transition-all';
+    const checked = this.checked() ? 'text-white' : 'text-neutral-300';
+    const disabled = this.finalDisabled() ? 'opacity-30 cursor-not-allowed' : '';
     return `${base} ${checked} ${disabled}`;
   });
 }

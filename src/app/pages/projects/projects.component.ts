@@ -9,10 +9,12 @@ import { NgClass } from "@angular/common";
 import { EmButtonToggleGroupComponent } from "../../components/shared/button-toggle/em-button-toggle-group.component";
 import { EmButtonToggleDirective } from "../../components/shared/button-toggle/em-button-toggle.directive";
 import { FormsModule } from "@angular/forms";
+import { EmButtonToggleAnimationDirective } from "../../components/shared/button-toggle/em-button-toggle-animation.directive";
 
 @Component( {
   selector: 'page-projects',
-  imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective, NgClass, EmButtonToggleGroupComponent, EmButtonToggleDirective, FormsModule],
+  imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective, NgClass,
+    EmButtonToggleGroupComponent, EmButtonToggleDirective, EmButtonToggleAnimationDirective ,FormsModule],
   templateUrl: './projects.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
