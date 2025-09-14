@@ -20,7 +20,7 @@ import {
   selector: 'em-button-toggle-group',
   standalone: true,
   host: {
-    class: 'p-1 border border-neutral-800 rounded-xl inline-flex relative overflow-hidden',
+    class: 'p-1 border border-neutral-800 rounded-xl inline-flex relative overflow-auto max-w-full',
     role: 'radiogroup',
     '[attr.name]': 'name()',
     '[attr.aria-disabled]': 'disabled()',
