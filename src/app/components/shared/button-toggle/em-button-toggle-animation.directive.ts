@@ -1,9 +1,8 @@
-import { AfterContentInit, AfterViewInit, computed, Directive, effect, ElementRef, inject, PLATFORM_ID } from "@angular/core";
+import { AfterContentInit, AfterViewInit, computed, Directive, effect, ElementRef, inject, NgZone, OnDestroy, OnInit, PLATFORM_ID } from "@angular/core";
 import { EmButtonToggleGroupComponent } from "./em-button-toggle-group.component";
 import { isPlatformBrowser } from "@angular/common";
 
 interface ButtonState {
-  index: number;
   height: number;
   width: number;
   offsetX: number;
@@ -14,24 +13,25 @@ interface ButtonState {
   selector: 'em-button-toggle-group[em-button-toggle-animation]',
   host: {
     class: 'em-button-toggle-group-animation',
-    '(window:resize)': 'updateButtonBackgroundPosition()'
+    '(window:resize)': 'updateButtonBackgroundPosition()',
   }
 })
-export class EmButtonToggleAnimationDirective {
+export class EmButtonToggleAnimationDirective implements OnInit, OnDestroy {
   private readonly group = inject(EmButtonToggleGroupComponent);
-  private readonly el = inject(ElementRef);
+  private readonly el = inject(ElementRef<HTMLElement>);
   private readonly platformId = inject(PLATFORM_ID);
-  activeButtonIndex = computed(() => {
-    console.log(this.group.buttons());
-    return this.group.buttons().findIndex(b => b.checked());
-  })
 
-  state: ButtonState[] = [];
+  private resizeObserver?: ResizeObserver;
+  private state: ButtonState[] = [];
+
+  private readonly activeButtonIndex = computed(() => {
+    return this.group.buttons().findIndex((b) => b.checked());
+  });
 
   constructor() {
     effect(() => {
       const activeIndex = this.activeButtonIndex();
-      // if there is no active button, or we are not in the browser (ssr), do nothing
+      // only run if activeIndex is set and on browser
       if (activeIndex === -1 || !isPlatformBrowser(this.platformId)) {
         return;
       }
@@ -39,30 +39,44 @@ export class EmButtonToggleAnimationDirective {
     });
   }
 
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.resizeObserver = new ResizeObserver(() => {
+        this.updateButtonBackgroundPosition();
+      });
+      this.resizeObserver.observe(this.el.nativeElement);
+    }
+  }
 
-  private updateState() {
+  ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
+  }
+
+  private updateState(): void {
     this.state = this.group.buttons().map((button, index) => {
-      const rect = button.el.nativeElement.getBoundingClientRect();
-      const parentRect = this.el.nativeElement.getBoundingClientRect();
+      const buttonElement = button.el.nativeElement;
       return {
         index,
-        height: rect.height,
-        width: rect.width,
-        offsetX: rect.left - parentRect.left,
-        offsetY: rect.top - parentRect.top
+        height: buttonElement.offsetHeight,
+        width: buttonElement.offsetWidth,
+        offsetX: buttonElement.offsetLeft,
+        offsetY: buttonElement.offsetTop,
       };
     });
   }
 
-  private setClassVariables() {
-    const activeState = this.state[this.activeButtonIndex()];
+  private setClassVariables(): void {
+    const activeIndex = this.activeButtonIndex();
+    if (activeIndex < 0 || !this.state[activeIndex]) return;
+
+    const activeState = this.state[activeIndex];
     this.el.nativeElement.style.setProperty('--left', `${activeState.offsetX}px`);
     this.el.nativeElement.style.setProperty('--top', `${activeState.offsetY}px`);
     this.el.nativeElement.style.setProperty('--width', `${activeState.width}px`);
     this.el.nativeElement.style.setProperty('--height', `${activeState.height}px`);
   }
 
-  private updateButtonBackgroundPosition() {
+  private updateButtonBackgroundPosition(): void {
     this.updateState();
     this.setClassVariables();
   }
