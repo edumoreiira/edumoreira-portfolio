@@ -14,7 +14,7 @@ import { EmButtonToggleAnimationDirective } from "../../components/shared/button
 @Component( {
   selector: 'page-projects',
   imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective, NgClass,
-    EmButtonToggleGroupComponent, EmButtonToggleDirective, EmButtonToggleAnimationDirective ,FormsModule],
+    EmButtonToggleGroupComponent, EmButtonToggleDirective, EmButtonToggleAnimationDirective, FormsModule],
   templateUrl: './projects.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
