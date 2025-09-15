@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ButtonComponent } from '../../base/button.component';
 import { Project } from '../../../models/project.model';
 import { DatePipe, NgClass } from '@angular/common';
@@ -14,5 +14,6 @@ import { DatePipe, NgClass } from '@angular/common';
 })
 export class ProjectCardComponent {
   readonly project = input.required<Project>();
-
+  previewClick = output();
+  detailsClick = output();
 }

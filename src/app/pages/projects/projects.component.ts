@@ -10,6 +10,7 @@ import { EmButtonToggleGroupComponent } from "../../components/shared/button-tog
 import { EmButtonToggleDirective } from "../../components/shared/button-toggle/em-button-toggle.directive";
 import { FormsModule } from "@angular/forms";
 import { EmButtonToggleAnimationDirective } from "../../components/shared/button-toggle/em-button-toggle-animation.directive";
+import { ProjectOverlayService } from "../../services/project-overlay.service";
 
 @Component( {
   selector: 'page-projects',
@@ -20,6 +21,7 @@ import { EmButtonToggleAnimationDirective } from "../../components/shared/button
 })
 export class ProjectsComponent {
   private readonly route = inject(ActivatedRoute);
+  private projectOverlay = inject(ProjectOverlayService);
   readonly projects = toSignal(this.route.data.pipe(
     map((data) => (data['projects'] as Project[]) || [])
   ));
@@ -57,5 +59,9 @@ export class ProjectsComponent {
     document.startViewTransition(() => {
       this.projectFilter.set(newFilter);
     });
+  }
+
+  openOverlay(project: Project) {
+    this.projectOverlay.openOverlay(project)
   }
 }
