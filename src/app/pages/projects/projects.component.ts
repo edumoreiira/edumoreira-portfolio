@@ -24,7 +24,7 @@ export class ProjectsComponent {
     map((data) => (data['projects'] as Project[]) || [])
   ));
 
-  projectFilter = signal<'pinned' | 'lancamento' | 'commit'>('lancamento');
+  projectFilter = signal<'pinned' | 'criacao' | 'commit'>('criacao');
 
   readonly filteredProjects = computed<Project[]>(() => {
     const projects = this.projects();
@@ -42,14 +42,14 @@ export class ProjectsComponent {
         });
       case 'commit':
         return sortedProjects.sort((a, b) => b.commit_count - a.commit_count);
-      case 'lancamento':
+      case 'criacao':
       default:
         return sortedProjects.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
     }
   });
 
   // dont use two-way-binding to allow view-transition preventing race conditions
-  onFilterChange(newFilter: 'pinned' | 'lancamento' | 'commit'): void {
+  onFilterChange(newFilter: 'pinned' | 'criacao' | 'commit'): void {
     if (!document.startViewTransition) {
       this.projectFilter.set(newFilter);
       return;

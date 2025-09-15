@@ -1,8 +1,9 @@
 import { Overlay, OverlayRef } from "@angular/cdk/overlay";
-import { TemplatePortal } from "@angular/cdk/portal";
-import { inject, Injectable, signal, TemplateRef, ViewContainerRef } from "@angular/core";
-import { Observable } from "rxjs";
+import { ComponentPortal } from "@angular/cdk/portal";
+import { ComponentRef, inject, Injectable, signal } from "@angular/core";
 import { DocumentListenerService } from "./document-listener.service";
+import { OverlayContentComponent } from "../components/shared/site-previewer/overlay-content/overlay-content.component";
+// import the new component
 
 @Injectable({
     providedIn: 'root'
@@ -10,11 +11,11 @@ import { DocumentListenerService } from "./document-listener.service";
 export class SitePreviewerService {
     private overlay = inject(Overlay);
     private dls = inject(DocumentListenerService);
-    // 
+    //
     private overlayRef: OverlayRef | null = null;
     private isOverlayOpen = signal(false);
     private currentIndex = signal(0);
-    // 
+    //
     public isOverlayOpen$ = this.isOverlayOpen.asReadonly();
     public currentIndex$ = this.currentIndex.asReadonly();
     
@@ -22,7 +23,8 @@ export class SitePreviewerService {
         this.currentIndex.set(index);
     }
     
-    openOverlay(template: TemplateRef<any>, viewContainerRef: ViewContainerRef): OverlayRef | void {
+    // update the return type
+    openOverlay(): { overlayRef: OverlayRef, componentRef: ComponentRef<OverlayContentComponent> } | void {
         if (this.overlayRef) {
             return;
         }
@@ -37,8 +39,12 @@ export class SitePreviewerService {
                 .bottom('0')
         });
         this.isOverlayOpen.set(true);
-        this.overlayRef.attach(new TemplatePortal(template, viewContainerRef));
-        return this.overlayRef
+
+        // create a componentportal for the new overlaycontentcomponent
+        const portal = new ComponentPortal(OverlayContentComponent);
+        const componentRef = this.overlayRef.attach(portal);
+
+        return { overlayRef: this.overlayRef, componentRef };
     }
 
     closeOverlay() {

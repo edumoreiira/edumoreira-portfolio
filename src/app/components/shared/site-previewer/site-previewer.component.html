@@ -43,7 +43,7 @@
             transition-all duration-150 ease-out
             group-hover:bg-neutral-950/10 group-hover:opacity-0 group-hover:scale-150 pointer-events-none"
             aria-label="Open website preview">
-                <img class="w-6 h-6 object-fit object-center" 
+                <img class="w-6 h-6 object-fit object-center animate-pulse" 
                 src="./icons/cursor-finger-click.png" alt="Click here button">
             </span>
             @defer() {
@@ -58,50 +58,3 @@
         </div>
     </div>
 }
-
-<ng-template #overlayTemplate>
-    <div class="border border-neutral-800 rounded-t-xl overflow-hidden bg-neutral-950 flex flex-col h-full w-full" style="view-transition-name: site-preview">
-        <div class="flex justify-between border-b border-neutral-800 rounded-t-xl p-2 sm:p-4" style="view-transition-name: technologies;">
-            <span></span>
-            <div class="flex flex-col sm:flex-row items-center gap-2">
-                <span class="font-semibold sm:text-lg text-sm" style="view-transition-name: technologies-title;">{{ lg().works.previewer.techsHeader }}</span>
-                <div class="flex items-center divide-x-1 divide-neutral-800 sm:text-base text-xs">
-                    @if(websites()[currentIndex()].technologies.includes('angular')) {
-                        <span class="px-2 text-red-100" [ngStyle]="{'view-transition-name': 'angular'}" @slide>Angular</span>
-                    }
-                    @if(websites()[currentIndex()].technologies.includes('tailwind')) {
-                        <span class="px-2 text-cyan-100" [ngStyle]="{'view-transition-name': 'tailwind'}" @slide>Tailwind</span>
-                    }
-                    @if(websites()[currentIndex()].technologies.includes('html')) {
-                        <span class="px-2 text-neutral-400" [ngStyle]="{'view-transition-name': 'html'}" @slide>HTML</span>
-                    }
-                    @if(websites()[currentIndex()].technologies.includes('css')) {
-                        <span class="px-2 text-neutral-400" [ngStyle]="{'view-transition-name': 'css'}" @slide>CSS</span>
-                    }
-                    @if(websites()[currentIndex()].technologies.includes('js')) {
-                        <span class="px-2 text-neutral-400" [ngStyle]="{'view-transition-name': 'js'}" @slide>JavaScript</span>
-                    }
-                </div>
-            </div>
-            <button class="p-2 text-xl hover:opacity-50 transition-all" aria-label="Close preview" (click)="close()">
-                <i class="fi fi-rr-cross-small flex"></i>
-            </button>
-        </div>
-        <div style="view-transition-name: img-preview" class="relative group h-full overflow-hidden transition-all duration-300">
-            @if(!iframe().loaded) {
-                <img class="w-full h-full object-cover object-top absolute top-0 left-0 z-10 brightness-80"
-                [src]="websites()[currentIndex()].imgUrl" alt="" style="view-transition-name: img" @fade>
-                <div class="absolute z-10 top-1/2 left-1/2 -translate-1/2 min-w-[16px] flex flex-col items-center gap-3 px-6 py-4 bg-neutral-900/60 backdrop-blur rounded-xl" @fade>
-                    <h2 class="text-2xl leading-none whitespace-nowrap">{{ lg().works.previewer.loading }}</h2>
-                    <div class="custom-loader"></div>
-                </div>
-            }
-            @if(iframe().startLoading) {
-                <iframe class="w-full h-full absolute top-0 left-0" #iframeRef
-                [src]="sanitizedUrl()" style="view-transition-name: img"
-                (load)="setIframeLoaded(true)">
-                </iframe>
-            }
-        </div>
-    </div>
-</ng-template>
