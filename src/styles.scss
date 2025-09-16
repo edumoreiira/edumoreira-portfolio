@@ -2,6 +2,9 @@
 @use "./app/styles/_themes.scss";
 @use "./app/styles/_animations.scss";
 @use "./app/styles/_glow-cards.scss";
+@use 'prismjs/themes/prism-okaidia.css';
+@use 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+@use 'prismjs/plugins/line-highlight/prism-line-highlight.css';
 
 @theme {
   --default-transition-timing-function: ease-in-out;
@@ -41,4 +44,22 @@ button {
   width: min(1200px, 100% - 3rem);
   margin: 0 auto;
 }
+
+.cdk-overlay-blurred-backdrop {
+  backdrop-filter: blur(4px);
+}
+
+.markdown-styles {
+  ul {
+    @apply list-disc list-inside my-4 marker:text-yellow-500/90;
+  }
+  li {
+  }
+  a {
+    @apply text-yellow-500/90 underline decoration-yellow-400/30 hover:decoration-yellow-500/70 transition;
+  }
+  
+}
+
+
 

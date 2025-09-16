@@ -6,6 +6,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { provideLanguage } from './tokens/language.tokens';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideBaseUrl } from './tokens/general.tokens';
+import { provideMarkdown } from 'ngx-markdown';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(BrowserAnimationsModule),
     provideHttpClient(withFetch()),
     provideAnimations(),
-    provideBaseUrl()
+    provideBaseUrl(),
+    provideMarkdown()
   ]
 };
