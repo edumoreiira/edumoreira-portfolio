@@ -49,6 +49,13 @@ button {
   backdrop-filter: blur(4px);
 }
 
+.project-overlay-pane {
+  transition: width 0.4s ease-in-out, 
+              height 0.4s ease-in-out, 
+              max-width 0.4s ease-in-out, 
+              max-height 0.4s ease-in-out;
+}
+
 .markdown-styles {
   ul {
     @apply list-disc list-inside my-1 marker:text-yellow-500/90;

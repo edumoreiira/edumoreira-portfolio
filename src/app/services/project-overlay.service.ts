@@ -1,45 +1,62 @@
 import { inject, Injectable } from "@angular/core";
 import { Project } from "../models/project.model";
-import { Overlay, OverlayConfig } from "@angular/cdk/overlay";
+import { Overlay, OverlayConfig, OverlayRef } from "@angular/cdk/overlay";
 import { ComponentPortal } from "@angular/cdk/portal";
 import { ProjectOverlayComponent } from "../components/shared/project-overlay/project-overlay.component";
+
+const OVERLAY_DETAILS = {
+  width: '90%',
+  maxWidth: '900px',
+  maxHeight: '90dvh',
+}
+const OVERLAY_PREVIEW = {
+  width: 'calc(100% - 8dvw)',
+  maxWidth: '100%',
+  maxHeight: '90dvh',
+}
 
 @Injectable({
   providedIn: "root"
 })
 export class ProjectOverlayService {
   private readonly overlay = inject(Overlay);
+  private overlayRef?: OverlayRef;
 
-  openOverlay(project: Project) {
+  openOverlay(project: Project, initialView: 'details' | 'preview' = 'details') {
     const positionStrategy = this.overlay
     .position()
     .global()
     .centerHorizontally()
     .centerVertically();
 
+    const size = initialView === 'details' ? OVERLAY_DETAILS : OVERLAY_PREVIEW;
+
+
     const overlayConfig = new OverlayConfig({
+      ...size,
       hasBackdrop: true,
-      width: '90%',
       scrollStrategy: this.overlay.scrollStrategies.block(),
-      maxWidth: '900px',
-      maxHeight: '90dvh',
       backdropClass: 'cdk-overlay-blurred-backdrop',
       positionStrategy,
+      panelClass: 'project-overlay-pane'
     });
 
-    const overlayRef = this.overlay.create(overlayConfig);
+    this.overlayRef = this.overlay.create(overlayConfig);
     const componentPortal = new ComponentPortal(ProjectOverlayComponent);
-    const componentRef = overlayRef.attach(componentPortal);
+    const componentRef = this.overlayRef.attach(componentPortal);
 
     componentRef.setInput('project', project);
+    componentRef.setInput('selectedView', initialView);
 
-    overlayRef.backdropClick().subscribe(() => {
-      overlayRef.dispose();
+    this.overlayRef.backdropClick().subscribe(() => {
+      this.overlayRef?.dispose();
+      this.overlayRef = undefined;
     });
+  }
 
-
-
-
-
+  setOverlaySize(position: 'details' | 'preview') {
+    if (!this.overlayRef) return;
+    const newSize = position === 'details' ? OVERLAY_DETAILS : OVERLAY_PREVIEW;
+    this.overlayRef.updateSize(newSize);
   }
 }

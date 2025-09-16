@@ -1,6 +1,7 @@
 @let item = project();
-<div class="po-container overflow-auto p-6 pt-0 flex flex-col max-h-full gap-6">
-  <div class="flex flex-col gap-4 sticky top-0 bg-neutral-950 pt-6 pb-4 mb-2 -mx-6 px-6 z-10">
+<div class="po-container overflow-auto p-6 pt-0 flex flex-col max-h-full grow-1">
+  <div class="flex flex-col gap-4 sticky top-0 bg-neutral-950 pt-6 pb-4 mb-2 z-10
+  shadow-[0_8px_12px_var(--color-neutral-950)]">
     <!-- menu -->
      <div class="mx-auto">
       <em-button-toggle-group name="project-overlay-options" [(ngModel)]="selectedView"
@@ -17,8 +18,7 @@
       </em-button-toggle-group>
      </div>
     <!-- menu -->
-    <div class="flex items-start gap-4 justify-between
-    shadow-[0_8px_12px_var(--color-neutral-950)]">
+    <div class="flex items-start gap-4 justify-between">
       <div class="flex items-start gap-5">
         <img class="invert size-14"
         src="/icons/github.png" alt="Github Icon">
@@ -44,39 +44,63 @@
     </div>
   </div>
 
-  @if(item.description){
-    <div class="border border-neutral-800 rounded-xl ">
-      <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
-        <i class="text-lg fi fi-sr-info flex text-neutral-700"></i>
-        <h2 class="text-xl font-semibold">Sobre</h2>
-      </div>
-      <div class="p-4">
-        <markdown class="markdown-styles text-neutral-400 text-sm" [data]="item.description"></markdown>
-      </div>
-    </div>
+
+  @if(selectedView() === 'details'){
+    <ng-container *ngTemplateOutlet="details"></ng-container>
+  } @else if (selectedView() === 'preview'){
+    <ng-container *ngTemplateOutlet="preview"></ng-container>
   }
 
-  @if(item.functionalities){
-    <div class="border border-neutral-800 rounded-xl ">
-      <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
-        <i class="text-lg fi fi-sr-settings flex text-neutral-700"></i>
-        <h2 class="text-xl font-semibold">Funcionalidades</h2>
-      </div>
-      <div class="p-4">
-        <markdown class="markdown-styles text-neutral-400 text-sm" [data]="item.functionalities"></markdown>
-      </div>
+
+
+
+  
+  <ng-template #preview>
+    <div class="grow-1 bg-yellow-500" @fadeIn>
+      asd
     </div>
-  }
-  @if(item.good_practices){
-    <div class="border border-neutral-800 rounded-xl ">
-      <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
-        <i class="text-lg fi fi-sr-rocket-lunch flex text-neutral-700"></i>
-        <h2 class="text-xl font-semibold">Boas Práticas</h2>
-      </div>
-      <div class="p-4">
-        <markdown class="markdown-styles text-neutral-400 text-sm" [data]="item.good_practices"></markdown>
-      </div>
+    <!-- <app-iframe-loader url="{{ item.site_url }}"></app-iframe-loader> -->
+  </ng-template>
+  
+
+  <ng-template #details>
+    <div class="flex flex-col mt-6 h-full grow-1" @fadeIn>
+      @if(item.description){
+        <div class="border border-neutral-800 rounded-xl">
+          <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
+            <i class="text-lg fi fi-sr-info flex text-neutral-700"></i>
+            <h2 class="text-xl font-semibold">Sobre</h2>
+          </div>
+          <div class="p-4">
+            <markdown class="markdown-styles text-neutral-400 text-sm" [data]="item.description"></markdown>
+          </div>
+        </div>
+      }
+    
+      @if(item.functionalities){
+        <div class="border border-neutral-800 rounded-xl">
+          <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
+            <i class="text-lg fi fi-sr-settings flex text-neutral-700"></i>
+            <h2 class="text-xl font-semibold">Funcionalidades</h2>
+          </div>
+          <div class="p-4">
+            <markdown class="markdown-styles text-neutral-400 text-sm" [data]="item.functionalities"></markdown>
+          </div>
+        </div>
+      }
+      @if(item.good_practices){
+        <div class="border border-neutral-800 rounded-xl">
+          <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
+            <i class="text-lg fi fi-sr-rocket-lunch flex text-neutral-700"></i>
+            <h2 class="text-xl font-semibold">Boas Práticas</h2>
+          </div>
+          <div class="p-4">
+            <markdown class="markdown-styles text-neutral-400 text-sm" [data]="item.good_practices"></markdown>
+          </div>
+        </div>
+      }
     </div>
-  }
+  </ng-template>
+  
 
 </div>
