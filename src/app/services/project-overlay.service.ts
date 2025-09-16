@@ -19,7 +19,10 @@ export class ProjectOverlayService {
 
     const overlayConfig = new OverlayConfig({
       hasBackdrop: true,
-      backdropClass: 'cdk-overlay-dark-backdrop',
+      width: '90%',
+      maxWidth: '900px',
+      maxHeight: '90dvh',
+      backdropClass: 'cdk-overlay-blurred-backdrop',
       positionStrategy,
     });
 

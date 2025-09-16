@@ -1,23 +1,64 @@
 @let item = project();
-<div class="flex flex-col bg-neutral-950 border border-neutral-800 rounded-xl p-6">
-  <div class="flex items-start gap-3">
-    <img class="invert size-9"
-    src="/icons/github.png" alt="Github Icon">
-    <div class="flex flex-col gap-1">
-      <div class="flex items-center gap-2">
-        <h1 class="font-semibold line-clamp-1">{{ item.title }}</h1>
-        <a class="text-neutral-500 hover:text-neutral-300 transition-colors"
-        href="{{ item.repository_url }}" target="_blank" rel="noopener noreferrer">
-          <i class="fi fi-rr-link flex text-xs"></i>
-        </a>
-      </div>
-      <div [ngClass]="item.commit_count >= 15 ? 'text-[hsl(48,15%,56%)]' : 'text-neutral-500'"
-      class="flex items-center gap-1 text-xs">
-        <i class="fi fi-rr-code-compare flex"></i>
-        <span>{{ item.commit_count }}</span>
+<div class="container overflow-auto p-6 pt-0 flex flex-col max-h-full gap-6">
+  <div class="flex items-start gap-4 justify-between sticky top-0 bg-neutral-950 pt-6 pb-4 mb-2 -mx-6 px-6 z-10
+  shadow-[0_8px_12px_var(--color-neutral-950)]">
+    <div class="flex items-start gap-5">
+      <img class="invert size-14"
+      src="/icons/github.png" alt="Github Icon">
+      <div class="flex flex-col gap-1">
+        <div class="flex items-center gap-3">
+          <h1 class="font-semibold text-xl line-clamp-1">{{ item.title }}</h1>
+          <a class="text-neutral-500 textl-xl hover:text-neutral-300 transition-colors"
+          href="{{ item.repository_url }}" target="_blank" rel="noopener noreferrer">
+            <i class="fi fi-rr-link flex text-xs"></i>
+          </a>
+        </div>
+        <div [ngClass]="item.commit_count >= 15 ? 'text-[hsl(48,15%,56%)]' : 'text-neutral-500'"
+        class="flex items-center gap-2">
+          <i class="fi fi-rr-code-compare flex"></i>
+          <span>{{ item.commit_count }}</span>
+        </div>
       </div>
     </div>
+    <span class=" shrink-0"
+    [ngClass]="item.is_highlight ? 'text-[hsl(48,10%,50%)]' : 'text-neutral-500'">
+      {{ item.created_at | date: 'dd MMM. yyyy' }}
+    </span>
   </div>
 
-  <p class="text-sm text-neutral-400 mt-4">{{ item.description }}</p>
+  @if(item.description){
+    <div class="border border-neutral-800 rounded-xl ">
+      <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
+        <i class="text-lg fi fi-sr-info flex text-neutral-700"></i>
+        <h2 class="text-xl font-semibold">Sobre</h2>
+      </div>
+      <div class="p-4">
+        <markdown class="markdown-styles text-neutral-400 text-sm" [data]="item.description"></markdown>
+      </div>
+    </div>
+  }
+
+  @if(item.functionalities){
+    <div class="border border-neutral-800 rounded-xl ">
+      <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
+        <i class="text-lg fi fi-sr-settings flex text-neutral-700"></i>
+        <h2 class="text-xl font-semibold">Funcionalidades</h2>
+      </div>
+      <div class="p-4">
+        <markdown class="markdown-styles text-neutral-400 text-sm" [data]="item.functionalities"></markdown>
+      </div>
+    </div>
+  }
+  @if(item.good_practices){
+    <div class="border border-neutral-800 rounded-xl ">
+      <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
+        <i class="text-lg fi fi-sr-rocket-lunch flex text-neutral-700"></i>
+        <h2 class="text-xl font-semibold">Boas Práticas</h2>
+      </div>
+      <div class="p-4">
+        <markdown class="markdown-styles text-neutral-400 text-sm" [data]="item.good_practices"></markdown>
+      </div>
+    </div>
+  }
+
 </div>
