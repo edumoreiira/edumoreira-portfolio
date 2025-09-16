@@ -1,10 +1,10 @@
-import { AfterViewInit, ApplicationRef, ChangeDetectionStrategy, Component, computed, inject, signal } from "@angular/core";
+import { ApplicationRef, ChangeDetectionStrategy, Component, computed, inject, OnInit, Renderer2, signal } from "@angular/core";
 import { ProjectCardComponent } from "../../components/shared/project-card/project-card.component";
 import { GlowingBorderDirective, GlowingBorderItemDirective } from "../../directives/glowing-border.directive";
 import { ActivatedRoute } from "@angular/router";
 import { Project } from "../../models/project.model";
 import { map } from "rxjs";
-import { toSignal } from "@angular/core/rxjs-interop";
+import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
 import { NgClass } from "@angular/common";
 import { EmButtonToggleGroupComponent } from "../../components/shared/button-toggle/em-button-toggle-group.component";
 import { EmButtonToggleDirective } from "../../components/shared/button-toggle/em-button-toggle.directive";
@@ -19,15 +19,17 @@ import { ProjectOverlayService } from "../../services/project-overlay.service";
   templateUrl: './projects.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectsComponent {
+export class ProjectsComponent{
   private readonly route = inject(ActivatedRoute);
+  readonly appRef = inject(ApplicationRef);
   private projectOverlay = inject(ProjectOverlayService);
+  private renderer = inject(Renderer2);
+  // 
   readonly projects = toSignal(this.route.data.pipe(
     map((data) => (data['projects'] as Project[]) || [])
   ));
-
-  projectFilter = signal<'pinned' | 'criacao' | 'commit'>('criacao');
-
+  readonly openedProjectId = signal<string | null>(null);
+  readonly projectFilter = signal<'pinned' | 'criacao' | 'commit'>('criacao');
   readonly filteredProjects = computed<Project[]>(() => {
     const projects = this.projects();
     const filter = this.projectFilter();
@@ -50,6 +52,12 @@ export class ProjectsComponent {
     }
   });
 
+  constructor() {
+    this.projectOverlay.closed
+    .pipe(takeUntilDestroyed())
+    .subscribe(() => this.closeOverlay());
+  }
+
   // dont use two-way-binding to allow view-transition preventing race conditions
   onFilterChange(newFilter: 'pinned' | 'criacao' | 'commit'): void {
     if (!document.startViewTransition) {
@@ -61,7 +69,31 @@ export class ProjectsComponent {
     });
   }
 
-  openOverlay(project: Project) {
-    this.projectOverlay.openOverlay(project)
+  openOverlay(project: Project, initialView: 'details' | 'preview' = 'details', projectCard: ProjectCardComponent): void {
+    const element = projectCard.el.nativeElement;
+    this.renderer.setStyle(element, 'z-index', '9999'); // to ensure the element is above others during the transition
+    // no need to reset z-index, as the openedProjectId signal change will trigger a re-render of the project card component
+
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        this.openedProjectId.set(project.id);
+        this.projectOverlay.openOverlay(project, initialView);
+        this.appRef.tick();
+      })
+    } else {
+      this.projectOverlay.openOverlay(project, initialView);
+    }
+  }
+
+  private closeOverlay() {
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        this.openedProjectId.set(null);
+        this.projectOverlay.disposeOverlay();
+        this.appRef.tick();
+      });
+    }else {
+      this.openedProjectId.set(null);
+    }
   }
 }

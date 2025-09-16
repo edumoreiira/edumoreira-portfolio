@@ -1,6 +1,12 @@
 @if(!iframe().loaded) {
-    <img class="w-full h-full object-cover object-top absolute top-0 left-0 z-10 brightness-80"
-    [src]="imageUrl()" alt="" style="view-transition-name: img" @fade>
+    @if(imageUrl()) {
+        <img class="w-full h-full object-cover object-top absolute top-0 left-0 z-10 brightness-80"
+        [src]="imageUrl()" alt="" style="view-transition-name: img" @fade>
+    } @else {
+        <div class="w-full h-full bg-neutral-800 absolute top-0 left-0 z-10 animate-pulse" @fade></div>
+    }
+
+    
     <div class="absolute z-10 top-1/2 left-1/2 -translate-1/2 min-w-[16px] flex flex-col items-center gap-3 px-6 py-4 bg-neutral-900/60 backdrop-blur rounded-xl" @fade>
         <h2 class="text-2xl leading-none whitespace-nowrap">{{ lg().works.previewer.loading }}</h2>
         <div class="custom-loader"></div>

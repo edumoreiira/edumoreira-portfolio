@@ -13,7 +13,8 @@ import { createAnimation } from '../../../animations/default-transitions.animati
 @Component({
   selector: 'app-project-overlay',
   host: {
-    class:'flex w-full bg-neutral-950 border border-neutral-800 rounded-2xl overflow-hidden relative'
+    class:'flex w-full bg-neutral-950 border border-neutral-800 rounded-2xl overflow-hidden relative',
+    '[style]': '"view-transition-name: project-card-" + (project().id)'
   },
   imports: [NgClass, DatePipe, MarkdownComponent, EmButtonToggleGroupComponent, EmButtonToggleDirective,
     EmButtonToggleAnimationDirective, FormsModule, IframeLoaderComponent, NgTemplateOutlet

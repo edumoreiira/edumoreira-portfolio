@@ -1,8 +1,9 @@
-import { inject, Injectable } from "@angular/core";
+import { inject, Injectable, output } from "@angular/core";
 import { Project } from "../models/project.model";
 import { Overlay, OverlayConfig, OverlayRef } from "@angular/cdk/overlay";
 import { ComponentPortal } from "@angular/cdk/portal";
 import { ProjectOverlayComponent } from "../components/shared/project-overlay/project-overlay.component";
+import { Subject } from "rxjs";
 
 const OVERLAY_DETAILS = {
   width: '90%',
@@ -21,6 +22,7 @@ const OVERLAY_PREVIEW = {
 export class ProjectOverlayService {
   private readonly overlay = inject(Overlay);
   private overlayRef?: OverlayRef;
+  closed = new Subject<void>();
 
   openOverlay(project: Project, initialView: 'details' | 'preview' = 'details') {
     const positionStrategy = this.overlay
@@ -35,7 +37,7 @@ export class ProjectOverlayService {
     const overlayConfig = new OverlayConfig({
       ...size,
       hasBackdrop: true,
-      scrollStrategy: this.overlay.scrollStrategies.block(),
+      scrollStrategy: this.overlay.scrollStrategies.noop(),
       backdropClass: 'cdk-overlay-blurred-backdrop',
       positionStrategy,
       panelClass: 'project-overlay-pane'
@@ -49,9 +51,16 @@ export class ProjectOverlayService {
     componentRef.setInput('selectedView', initialView);
 
     this.overlayRef.backdropClick().subscribe(() => {
-      this.overlayRef?.dispose();
-      this.overlayRef = undefined;
+      this.closed.next();
     });
+  }
+
+  // This method should be called to close the overlay from outside on closed subscription
+  disposeOverlay() {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+      this.overlayRef = undefined;
+    }
   }
 
   setOverlaySize(position: 'details' | 'preview') {

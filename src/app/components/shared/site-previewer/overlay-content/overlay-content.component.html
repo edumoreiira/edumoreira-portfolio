@@ -27,6 +27,7 @@
     </div>
     <div style="view-transition-name: img-preview" class="relative group h-full overflow-hidden transition-all duration-300">
         <app-iframe-loader 
+        [manualLoad]="true"
         class="w-full h-full"
         [url]="website().websiteUrl"
         [imageUrl]="website().imgUrl"

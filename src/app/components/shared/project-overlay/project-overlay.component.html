@@ -1,30 +1,35 @@
 @let item = project();
-<div class="po-container overflow-auto p-6 pt-0 flex flex-col max-h-full grow-1">
+<div class="po-container overflow-auto gap-6 p-6 pt-0 flex flex-col max-h-full grow-1">
   <div class="flex flex-col gap-4 sticky top-0 bg-neutral-950 pt-6 pb-4 mb-2 z-10
   shadow-[0_8px_12px_var(--color-neutral-950)]">
     <!-- menu -->
-     <div class="mx-auto">
-      <em-button-toggle-group name="project-overlay-options" [(ngModel)]="selectedView"
-      em-button-toggle-animation variant="contained" class="text-sm">
-        <button em-button-toggle value="details" active="text-neutral-950"
-        class="px-3">
-          Detalhes técnicos
-        </button>
-        <button em-button-toggle value="preview" active="text-neutral-950"
-        class="flex items-center gap-2 px-3 font-semibold">
-          <i class="fi fi-br-expand flex"></i>
-          <span>Preview</span>
-        </button>
-      </em-button-toggle-group>
-     </div>
+     @if(item.site_url){
+       <div class="mx-auto">
+        <em-button-toggle-group name="project-overlay-options" [(ngModel)]="selectedView"
+        em-button-toggle-animation variant="contained" class="text-sm">
+          <button [style.view-transition-name]="'pc-details-' + item.id"
+          em-button-toggle value="details" active="text-neutral-950"
+          class="px-3">
+            Detalhes técnicos
+          </button>
+          <button [style.view-transition-name]="'pc-preview-' + item.id"
+          em-button-toggle value="preview" active="text-neutral-950"
+          class="flex items-center gap-2 px-3 font-semibold">
+            <i class="fi fi-br-expand flex"></i>
+            <span>Preview</span>
+          </button>
+        </em-button-toggle-group>
+       </div>
+     }
     <!-- menu -->
     <div class="flex items-start gap-4 justify-between">
       <div class="flex items-start gap-5">
-        <img class="invert size-14"
+        <img class="invert size-14" [style.view-transition-name]="'pc-icon-' + item.id"
         src="/icons/github.png" alt="Github Icon">
         <div class="flex flex-col gap-1">
           <div class="flex items-center gap-3">
-            <h1 class="font-semibold text-xl line-clamp-1">{{ item.title }}</h1>
+            <h1 class="font-semibold text-xl line-clamp-1"
+            [style.view-transition-name]="'pc-title-' + item.id">{{ item.title }}</h1>
             <a class="text-neutral-500 textl-xl hover:text-neutral-300 transition-colors"
             href="{{ item.repository_url }}" target="_blank" rel="noopener noreferrer">
               <i class="fi fi-rr-link flex text-xs"></i>
@@ -37,7 +42,7 @@
           </div>
         </div>
       </div>
-      <span class=" shrink-0"
+      <span class=" shrink-0" [style.view-transition-name]="'pc-date-' + item.id"
       [ngClass]="item.is_highlight ? 'text-[hsl(48,10%,50%)]' : 'text-neutral-500'">
         {{ item.created_at | date: 'dd MMM. yyyy' }}
       </span>
@@ -56,15 +61,13 @@
 
   
   <ng-template #preview>
-    <div class="grow-1 bg-yellow-500" @fadeIn>
-      asd
+    <div class="flex h-screen max-h-full mt-2 relative rounded-xl overflow-hidden">
+      <app-iframe-loader #ifr url="{{ item.site_url }}"></app-iframe-loader>
     </div>
-    <!-- <app-iframe-loader url="{{ item.site_url }}"></app-iframe-loader> -->
   </ng-template>
   
 
   <ng-template #details>
-    <div class="flex flex-col mt-6 h-full grow-1" @fadeIn>
       @if(item.description){
         <div class="border border-neutral-800 rounded-xl">
           <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
@@ -72,7 +75,8 @@
             <h2 class="text-xl font-semibold">Sobre</h2>
           </div>
           <div class="p-4">
-            <markdown class="markdown-styles text-neutral-400 text-sm" [data]="item.description"></markdown>
+            <markdown [style.view-transition-name]="'pc-description-' + item.id"
+            class="markdown-styles text-neutral-400 text-sm" [data]="item.description"></markdown>
           </div>
         </div>
       }
@@ -99,7 +103,6 @@
           </div>
         </div>
       }
-    </div>
   </ng-template>
   
 

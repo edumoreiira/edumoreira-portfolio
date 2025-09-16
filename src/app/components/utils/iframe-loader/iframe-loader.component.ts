@@ -1,15 +1,15 @@
-import { ChangeDetectorRef, Component, ElementRef, inject, input, OnInit, signal, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, inject, input, OnInit, signal, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { createAnimation } from '../../../animations/default-transitions.animations';
 import { LANGUAGE_APPLICATION } from '../../../tokens/language.tokens';
-
+import { take, timer } from 'rxjs';
 @Component({
   selector: 'app-iframe-loader',
   imports: [],
   animations: [createAnimation('fade', { opacity: '0', duration: '500ms'}),],
   templateUrl: './iframe-loader.component.html',
 })
-export class IframeLoaderComponent implements OnInit {
+export class IframeLoaderComponent implements OnInit, AfterContentInit {
   private cdr = inject(ChangeDetectorRef)
   private sanitizer = inject(DomSanitizer);
   protected lg = inject(LANGUAGE_APPLICATION);
@@ -21,11 +21,18 @@ export class IframeLoaderComponent implements OnInit {
   url = input.required<string>();
   imageUrl = input<string>();
   sanitizedUrl = signal<SafeResourceUrl>('');
+  manualLoad = input<boolean>(false);
 
   @ViewChild('iframeRef') iframeRef: ElementRef<HTMLIFrameElement> | undefined;
 
   ngOnInit() {
     this.sanitizeUrl();
+  }
+  ngAfterContentInit() {
+    if(!this.manualLoad()) {
+      timer(1000).pipe(take(1))
+      .subscribe(() => this.startIframeLoading());
+    }
   }
 
   setIframeLoaded(loaded: boolean) {

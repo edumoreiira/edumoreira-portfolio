@@ -18,21 +18,27 @@
   <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 py-8"
   app-glowing-border glowColor="hsla(0, 0%, 25%, 0.1)" borderColor="var(--color-neutral-900)"
   glowSize="500px">
-    @for (item of filteredProjects(); track item.id) {
-      <!-- exlude README -->
-      @if(item.repository_url !== 'https://github.com/edumoreiira/edumoreiira') {
-        <div [style.view-transition-name]="'project-' + item.id">
-          <article app-project-card app-glowing-border-item
-          class="h-full"
-          [project]="item"
-          [ngClass]="{'bg-gradient-to-bl from-0% to-50% from-[hsl(48_40%_15%_/_.25)] to-transparent': item.is_highlight }"
-          [borderGlowColor]="item.is_highlight ? 'hsla(48, 40%, 60%, .7)' : undefined"
-          [borderColor]="item.is_highlight ? 'hsl(48, 30%, 15%)' : undefined"
-          [glowColor]="item.is_highlight ? 'hsla(48, 25%, 60%, 0.05)' : undefined"
-          (detailsClick)="openOverlay(item)"
-          >
-          </article>
-        </div>
+  @for (item of filteredProjects(); track item.id) {
+    <!-- exlude README -->
+    @let readmeRepository = item.repository_url !== 'https://github.com/edumoreiira/edumoreiira';
+      @if(readmeRepository) {
+        @if(openedProjectId() !== item.id) {
+          <div>
+            <article app-project-card app-glowing-border-item #projectCard
+            class="h-full"
+            [project]="item"
+            [ngClass]="{'bg-gradient-to-bl from-0% to-50% from-[hsl(48_40%_15%_/_.25)] to-transparent': item.is_highlight }"
+            [borderGlowColor]="item.is_highlight ? 'hsla(48, 40%, 60%, .7)' : undefined"
+            [borderColor]="item.is_highlight ? 'hsl(48, 30%, 15%)' : undefined"
+            [glowColor]="item.is_highlight ? 'hsla(48, 25%, 60%, 0.05)' : undefined"
+            (detailsClick)="openOverlay(item, 'details', projectCard)"
+            (previewClick)="openOverlay(item, 'preview', projectCard)"
+            >
+            </article>
+          </div>
+        } @else {
+          <div></div>
+        }
       }
     }
   </div>
