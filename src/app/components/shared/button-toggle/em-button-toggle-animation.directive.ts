@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, computed, Directive, effect, ElementRef, inject, NgZone, OnDestroy, OnInit, PLATFORM_ID } from "@angular/core";
+import { AfterContentInit, AfterViewInit, computed, Directive, effect, ElementRef, inject, input, NgZone, OnDestroy, OnInit, PLATFORM_ID } from "@angular/core";
 import { EmButtonToggleGroupComponent } from "./em-button-toggle-group.component";
 import { isPlatformBrowser } from "@angular/common";
 
@@ -12,7 +12,7 @@ interface ButtonState {
 @Directive({
   selector: 'em-button-toggle-group[em-button-toggle-animation]',
   host: {
-    class: 'em-button-toggle-group-animation',
+    '[class]': 'buttonClass()',
     '(window:resize)': 'updateButtonBackgroundPosition()',
   }
 })
@@ -27,6 +27,8 @@ export class EmButtonToggleAnimationDirective implements OnInit, OnDestroy {
   private readonly activeButtonIndex = computed(() => {
     return this.group.buttons().findIndex((b) => b.checked());
   });
+
+  variant = input<'contained' | 'outlined'>('outlined');
 
   constructor() {
     effect(() => {
@@ -46,6 +48,7 @@ export class EmButtonToggleAnimationDirective implements OnInit, OnDestroy {
       });
       this.resizeObserver.observe(this.el.nativeElement);
     }
+
   }
 
   ngOnDestroy(): void {
@@ -80,4 +83,10 @@ export class EmButtonToggleAnimationDirective implements OnInit, OnDestroy {
     this.updateState();
     this.setClassVariables();
   }
+
+  buttonClass() {
+    const base = 'em-button-toggle-group-animation';
+    return `${base} btn-${this.variant()}`;
+  }
+  
 }

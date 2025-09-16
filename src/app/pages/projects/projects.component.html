@@ -1,16 +1,17 @@
 <main class="page-container py-18 md:py-24 min-h-screen">
   <div class="flex sm:flex-row flex-col items-center gap-4 justify-between">
     <h1 class="text-3xl font-semibold">Meus Projetos</h1>
-    <em-button-toggle-group em-button-toggle-animation 
+    <em-button-toggle-group em-button-toggle-animation [style.view-transition-name]="'project-filters'"
+    class="text-neutral-300"
     [ngModel]="projectFilter()"
     (ngModelChange)="onFilterChange($event)"
     name="project-filters" aria-label="Filtros de projetos">
       <div class="inline-flex items-center justify-center px-3 border-r border-neutral-800 mr-2">
         <i class="fi fi-sr-filter flex text-neutral-700"></i>
       </div>
-      <button em-button-toggle value="criacao">Criação</button>
-      <button em-button-toggle value="pinned">Destaques</button>
-      <button em-button-toggle value="commit">Commit</button>
+      <button em-button-toggle value="criacao" active="text-white">Criação</button>
+      <button em-button-toggle value="pinned" active="text-white">Destaques</button>
+      <button em-button-toggle value="commit" active="text-white">Commit</button>
     </em-button-toggle-group>
   </div>
 

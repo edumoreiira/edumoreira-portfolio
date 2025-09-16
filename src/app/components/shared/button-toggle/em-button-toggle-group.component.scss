@@ -1,18 +1,25 @@
+@use 'tailwindcss';
 :host.em-button-toggle-group-animation {
-  --width: 0px;
-  --left: 0;
+  --top: -200%;
+  // --left: -100%;
   &::before {
     content: '';
     z-index: -9;
     position: absolute;
-    // top: var(--top);
+    top: var(--top);
     left: var(--left);
     height: var(--height);
     width: var(--width);
     border-radius: .5rem;
     pointer-events: none;
     opacity: 1;
+    transition: all 0.3s ease-out;
+  }
+  
+  &.btn-outlined::before {
     border: 1px solid var(--color-neutral-600);
-    transition: all 0.4s ease-out;
+  }
+  &.btn-contained::before {
+    @apply bg-neutral-50 text-neutral-950 shadow-[0_0_25px_2px] shadow-white/20;
   }
 }

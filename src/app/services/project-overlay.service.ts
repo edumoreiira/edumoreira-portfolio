@@ -20,6 +20,7 @@ export class ProjectOverlayService {
     const overlayConfig = new OverlayConfig({
       hasBackdrop: true,
       width: '90%',
+      scrollStrategy: this.overlay.scrollStrategies.block(),
       maxWidth: '900px',
       maxHeight: '90dvh',
       backdropClass: 'cdk-overlay-blurred-backdrop',

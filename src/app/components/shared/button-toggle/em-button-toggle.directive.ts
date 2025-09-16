@@ -31,6 +31,7 @@ export class EmButtonToggleDirective {
   readonly value = input.required<any>();
   readonly selectionChange = output<EmButtonToggleChange>();
   readonly individualDisabled = input(false, { alias: 'disabled' });
+  readonly activeStyles = input<string>('', { alias: 'active' });
   readonly checked = computed(() => {
     return this.getCheckedState();
   })
@@ -65,7 +66,7 @@ export class EmButtonToggleDirective {
 
   readonly  class = computed(() => {
     const base = 'px-4 py-2 rounded-lg transition-all';
-    const checked = this.checked() ? 'text-white' : 'text-neutral-300';
+    const checked = this.checked() ? this.activeStyles() : ''; // if checked is true, apply active styles
     const disabled = this.finalDisabled() ? 'opacity-30 cursor-not-allowed' : '';
     return `${base} ${checked} ${disabled}`;
   });
