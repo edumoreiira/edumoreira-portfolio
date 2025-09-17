@@ -67,6 +67,12 @@ button {
   a {
     @apply text-yellow-500/90 underline decoration-yellow-400/30 hover:decoration-yellow-500/70 transition;
   }
+  h3 {
+    @apply text-lg font-semibold mt-4 mb-2;
+  }
+  code {
+    @apply bg-neutral-800/70 rounded px-1 py-0.5 font-mono text-sm;
+  }
 }
 
 // ::view-transition-image-pair(project-card-*) {

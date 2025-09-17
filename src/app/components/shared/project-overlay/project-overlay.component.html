@@ -1,10 +1,20 @@
 @let item = project();
-<div class="po-container overflow-auto gap-6 p-6 pt-0 flex flex-col max-h-full grow-1">
-  <div class="flex flex-col gap-4 sticky top-0 bg-neutral-950 pt-6 pb-4 mb-2 z-10
-  shadow-[0_8px_12px_var(--color-neutral-950)]">
+@let previewMode = selectedView() === 'preview';
+@let detailsMode = selectedView() === 'details';
+<div [class.gap-6]="detailsMode"
+class="po-container overflow-auto p-1  sm:pt-0 pt-0 flex flex-col max-h-full grow-1 transition-all"
+[class.p-4]="detailsMode"
+[class.sm:p-6]="detailsMode">
+  
+  <div class="flex flex-col w-full top-0 z-10 transition-all"
+  [ngClass]="{
+    'sticky bg-neutral-950 pb-4 pt-4 mb-2 shadow-[0_8px_12px_var(--color-neutral-950)]': detailsMode,
+    'pt-2 bg-neutral-950/20': previewMode
+  }">
     <!-- menu -->
      @if(item.site_url){
-       <div class="mx-auto">
+       <div class="mx-auto"
+       [class.mb-2]="detailsMode">
         <em-button-toggle-group name="project-overlay-options" [(ngModel)]="selectedView"
         em-button-toggle-animation variant="contained" class="text-sm">
           <button [style.view-transition-name]="'pc-details-' + item.id"
@@ -22,32 +32,34 @@
        </div>
      }
     <!-- menu -->
-    <div class="flex items-start gap-4 justify-between">
-      <div class="flex items-start gap-5">
-        <img class="invert size-14" [style.view-transition-name]="'pc-icon-' + item.id"
-        src="/icons/github.png" alt="Github Icon">
-        <div class="flex flex-col gap-1">
-          <div class="flex items-center gap-3">
-            <h1 class="font-semibold text-xl line-clamp-1"
-            [style.view-transition-name]="'pc-title-' + item.id">{{ item.title }}</h1>
-            <a class="text-neutral-500 textl-xl hover:text-neutral-300 transition-colors"
-            href="{{ item.repository_url }}" target="_blank" rel="noopener noreferrer">
-              <i class="fi fi-rr-link flex text-xs"></i>
-            </a>
-          </div>
-          <div [ngClass]="item.commit_count >= 15 ? 'text-[hsl(48,15%,56%)]' : 'text-neutral-500'"
-          class="flex items-center gap-2">
-            <i class="fi fi-rr-code-compare flex"></i>
-            <span>{{ item.commit_count }}</span>
-          </div>
-        </div>
+       @if(detailsMode) {
+         <div class="flex items-start gap-4 mt-2 justify-between">
+           <div class="flex items-start gap-5">
+             <img class="invert size-14" [style.view-transition-name]="'pc-icon-' + item.id"
+             src="/icons/github.png" alt="Github Icon">
+             <div class="flex flex-col gap-1">
+               <div class="flex items-center gap-3">
+                 <h1 class="font-semibold text-xl line-clamp-1"
+                 [style.view-transition-name]="'pc-title-' + item.id">{{ item.title }}</h1>
+                 <a class="text-neutral-500 textl-xl hover:text-neutral-300 transition-colors"
+                 href="{{ item.repository_url }}" target="_blank" rel="noopener noreferrer">
+                   <i class="fi fi-rr-link flex text-xs"></i>
+                 </a>
+               </div>
+               <div [ngClass]="item.commit_count >= 15 ? 'text-[hsl(48,15%,56%)]' : 'text-neutral-500'"
+               class="flex items-center gap-2">
+                 <i class="fi fi-rr-code-compare flex"></i>
+                 <span>{{ item.commit_count }}</span>
+               </div>
+             </div>
+           </div>
+           <span class=" shrink-0" [style.view-transition-name]="'pc-date-' + item.id"
+           [ngClass]="item.is_highlight ? 'text-[hsl(48,10%,50%)]' : 'text-neutral-500'">
+             {{ item.created_at | date: 'dd MMM. yyyy' }}
+           </span>
+         </div>
+        }
       </div>
-      <span class=" shrink-0" [style.view-transition-name]="'pc-date-' + item.id"
-      [ngClass]="item.is_highlight ? 'text-[hsl(48,10%,50%)]' : 'text-neutral-500'">
-        {{ item.created_at | date: 'dd MMM. yyyy' }}
-      </span>
-    </div>
-  </div>
 
   @if(item.is_highlight) {
     <span class="absolute inset-0 pointer-events-none z-15
