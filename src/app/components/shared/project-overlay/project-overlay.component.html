@@ -49,6 +49,12 @@
     </div>
   </div>
 
+  @if(item.is_highlight) {
+    <span class="absolute inset-0 pointer-events-none z-15
+    bg-gradient-to-bl from-0% to-50% from-[hsl(48_40%_15%_/_.25)] to-transparent">
+    </span>
+  }
+
 
   @if(selectedView() === 'details'){
     <ng-container *ngTemplateOutlet="details"></ng-container>
@@ -68,40 +74,22 @@
   
 
   <ng-template #details>
-      @if(item.description){
-        <div class="border border-neutral-800 rounded-xl">
-          <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
-            <i class="text-lg fi fi-sr-info flex text-neutral-700"></i>
-            <h2 class="text-xl font-semibold">Sobre</h2>
+      @for(section of sections(); track $index){
+        @if(section.content){
+          <div class="border rounded-xl"
+          [ngClass]="item.is_highlight ? highlightBorder : 'border-neutral-800'">
+            <div class="flex items-center gap-2 py-3 px-4 border-b"
+            [ngClass]="item.is_highlight ? 'border-[hsl(48_30%_15%)]' : 'border-neutral-800'">
+              <i class="text-lg fi {{ section.icon }} flex"
+              [ngClass]="item.is_highlight ? 'text-[hsl(48,15%,28%)]' : 'text-neutral-700'"></i>
+              <h2 class="text-xl font-semibold">{{ section.title }}</h2>
+            </div>
+            <div class="p-4">
+              <markdown [style.view-transition-name]="section.key === 'description' ? 'pc-description-' + item.id : null"
+              class="markdown-styles text-neutral-400 text-sm" [data]="section.content"></markdown>
+            </div>
           </div>
-          <div class="p-4">
-            <markdown [style.view-transition-name]="'pc-description-' + item.id"
-            class="markdown-styles text-neutral-400 text-sm" [data]="item.description"></markdown>
-          </div>
-        </div>
-      }
-    
-      @if(item.functionalities){
-        <div class="border border-neutral-800 rounded-xl">
-          <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
-            <i class="text-lg fi fi-sr-settings flex text-neutral-700"></i>
-            <h2 class="text-xl font-semibold">Funcionalidades</h2>
-          </div>
-          <div class="p-4">
-            <markdown class="markdown-styles text-neutral-400 text-sm" [data]="item.functionalities"></markdown>
-          </div>
-        </div>
-      }
-      @if(item.good_practices){
-        <div class="border border-neutral-800 rounded-xl">
-          <div class="flex items-center gap-2 py-3 px-4 border-b border-neutral-800">
-            <i class="text-lg fi fi-sr-rocket-lunch flex text-neutral-700"></i>
-            <h2 class="text-xl font-semibold">Boas Práticas</h2>
-          </div>
-          <div class="p-4">
-            <markdown class="markdown-styles text-neutral-400 text-sm" [data]="item.good_practices"></markdown>
-          </div>
-        </div>
+        }
       }
   </ng-template>
   

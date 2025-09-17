@@ -2,13 +2,14 @@ import { Component, ElementRef, inject, input, output, signal } from '@angular/c
 import { ButtonComponent } from '../../base/button.component';
 import { Project } from '../../../models/project.model';
 import { DatePipe, NgClass } from '@angular/common';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'article[app-project-card]',
   host: { 
     class: 'flex flex-col gap-3 p-5 rounded-xl relative overflow-hidden',
   },
-  imports: [ButtonComponent, DatePipe, NgClass],
+  imports: [ButtonComponent, DatePipe, NgClass, MarkdownComponent],
   templateUrl: './project-card.component.html',
 })
 export class ProjectCardComponent {

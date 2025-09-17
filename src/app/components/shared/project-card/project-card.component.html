@@ -25,8 +25,14 @@
   </span>
 </div>
 
-<p [style.view-transition-name]="readyToOpen() ? 'pc-description-' + item.id : null"
-class="text-sm text-neutral-400 line-clamp-3">{{ item.description }}</p>
+<!-- <p [style.view-transition-name]="readyToOpen() ? 'pc-description-' + item.id : null"
+class="text-sm text-neutral-400 line-clamp-3">{{ item.description }}</p> -->
+<markdown class="markdown-styles text-sm text-neutral-400 line-clamp-3"
+[style.view-transition-name]="readyToOpen() ? 'pc-description-' + item.id : null"
+[data]="item.description || ''">
+
+</markdown>
+
 
 <div class="flex justify-between gap-2 mt-auto text-sm">
   <button [style.view-transition-name]="readyToOpen() ? 'pc-details-' + item.id : null"

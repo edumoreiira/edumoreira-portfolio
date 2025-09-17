@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, model, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, model, signal } from '@angular/core';
 import { Project } from '../../../models/project.model';
 import { DatePipe, NgClass, NgTemplateOutlet } from '@angular/common';
 import { MarkdownComponent } from 'ngx-markdown';
@@ -10,10 +10,17 @@ import { IframeLoaderComponent } from '../../utils/iframe-loader/iframe-loader.c
 import { ProjectOverlayService } from '../../../services/project-overlay.service';
 import { createAnimation } from '../../../animations/default-transitions.animations';
 
+interface MarkdownSection {
+  title: string;
+  icon: string;
+  content: string | undefined;
+  key: string;
+}
+
 @Component({
   selector: 'app-project-overlay',
   host: {
-    class:'flex w-full bg-neutral-950 border border-neutral-800 rounded-2xl overflow-hidden relative',
+    '[class]': 'class()',
     '[style]': '"view-transition-name: project-card-" + (project().id)'
   },
   imports: [NgClass, DatePipe, MarkdownComponent, EmButtonToggleGroupComponent, EmButtonToggleDirective,
@@ -29,6 +36,14 @@ export class ProjectOverlayComponent {
   private readonly projectOverlayService = inject(ProjectOverlayService);
   project = input.required<Project>();
   selectedView = model<'details' | 'preview'>('details');
+  readonly highlightBorder = 'border-[hsl(48_30%_15%)]'
+  readonly sections = computed<MarkdownSection[]>(() => {
+    return [
+      { key: 'description', title: 'Sobre', icon: 'fi fi-sr-info', content: this.project().description },
+      { key: 'functionalities', title: 'Funcionalidades', icon: 'fi fi-sr-settings', content: this.project().functionalities },
+      { key: 'best-practices', title: 'Boas Práticas', icon: 'fi fi-sr-rocket-lunch', content: this.project().good_practices }
+    ]
+  })
 
   constructor() {
     effect(() => {
@@ -38,5 +53,10 @@ export class ProjectOverlayComponent {
     })
   }
 
+  class = computed(() => {
+    const base = 'flex w-full bg-neutral-950 border rounded-2xl overflow-hidden relative'
+    const border = this.project().is_highlight ? this.highlightBorder : 'border-neutral-800';
+    return `${base} ${border}`;
+  })
 
 }
