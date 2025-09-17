@@ -15,7 +15,7 @@
     &__bg { // border
         inset: var(--border-width);
         z-index: -9;
-        background-color: var(--bg-color);
+        background: var(--bg-color);
     }
     &__border {
         inset: 0;

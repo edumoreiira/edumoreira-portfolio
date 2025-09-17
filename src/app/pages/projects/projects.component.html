@@ -1,7 +1,7 @@
 <main class="page-container py-18 md:py-24 min-h-screen">
   <div class="flex sm:flex-row flex-col items-center gap-4 justify-between">
     <h1 class="text-3xl font-semibold">Meus Projetos</h1>
-    <em-button-toggle-group em-button-toggle-animation [style.view-transition-name]="'project-filters'"
+    <em-button-toggle-group em-button-toggle-animation
     class="text-neutral-300"
     [ngModel]="projectFilter()"
     (ngModelChange)="onFilterChange($event)"
@@ -23,19 +23,17 @@
     @let readmeRepository = item.repository_url !== 'https://github.com/edumoreiira/edumoreiira';
       @if(readmeRepository) {
         @if(openedProjectId() !== item.id) {
-          <div>
-            <article app-project-card app-glowing-border-item #projectCard
-            class="h-full"
-            [project]="item"
-            [ngClass]="{'bg-gradient-to-bl from-0% to-50% from-[hsl(48_40%_15%_/_.25)] to-transparent': item.is_highlight }"
-            [borderGlowColor]="item.is_highlight ? 'hsla(48, 40%, 60%, .7)' : undefined"
-            [borderColor]="item.is_highlight ? 'hsl(48, 30%, 15%)' : undefined"
-            [glowColor]="item.is_highlight ? 'hsla(48, 25%, 60%, 0.05)' : undefined"
-            (detailsClick)="openOverlay(item, 'details', projectCard)"
-            (previewClick)="openOverlay(item, 'preview', projectCard)"
-            >
-            </article>
-          </div>
+          <article app-project-card app-glowing-border-item #projectCard
+          [style.view-transition-name]="'project-card-' + item.id"
+          class="h-full"
+          [project]="item"
+          [borderGlowColor]="item.is_highlight ? 'hsla(48, 40%, 60%, .7)' : undefined"
+          [borderColor]="item.is_highlight ? 'hsl(48, 30%, 15%)' : undefined"
+          [glowColor]="item.is_highlight ? 'hsla(48, 25%, 60%, 0.05)' : undefined"
+          (detailsClick)="openOverlay(item, 'details', projectCard)"
+          (previewClick)="openOverlay(item, 'preview', projectCard)"
+          >
+          </article>
         } @else {
           <div></div>
         }

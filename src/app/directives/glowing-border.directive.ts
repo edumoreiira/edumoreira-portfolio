@@ -27,6 +27,7 @@ export class GlowingBorderItemDirective implements OnInit {
   borderGlowColor = input<string>();
   borderColor = input<string>();
   glowColor = input<string>();
+  backgroundColor = input<string>();
   
   // public properties for the "parent" directive to control the animation
   public targetX = 0;
@@ -43,6 +44,7 @@ export class GlowingBorderItemDirective implements OnInit {
         this.updateStyle(el, '--glow-color', this.glowColor());
         this.updateStyle(el, '--border-glow-color', this.borderGlowColor());
         this.updateStyle(el, '--border-color', this.borderColor());
+        this.updateStyle(el, '--bg-color', this.backgroundColor());
       }
     });
   }

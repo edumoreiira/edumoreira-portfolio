@@ -1,11 +1,10 @@
-import { ApplicationRef, ChangeDetectionStrategy, Component, computed, inject, OnInit, Renderer2, signal } from "@angular/core";
+import { ApplicationRef, ChangeDetectionStrategy, Component, computed, inject, Renderer2, signal } from "@angular/core";
 import { ProjectCardComponent } from "../../components/shared/project-card/project-card.component";
 import { GlowingBorderDirective, GlowingBorderItemDirective } from "../../directives/glowing-border.directive";
 import { ActivatedRoute } from "@angular/router";
 import { Project } from "../../models/project.model";
 import { map } from "rxjs";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
-import { NgClass } from "@angular/common";
 import { EmButtonToggleGroupComponent } from "../../components/shared/button-toggle/em-button-toggle-group.component";
 import { EmButtonToggleDirective } from "../../components/shared/button-toggle/em-button-toggle.directive";
 import { FormsModule } from "@angular/forms";
@@ -14,7 +13,7 @@ import { ProjectOverlayService } from "../../services/project-overlay.service";
 
 @Component( {
   selector: 'page-projects',
-  imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective, NgClass,
+  imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective,
     EmButtonToggleGroupComponent, EmButtonToggleDirective, EmButtonToggleAnimationDirective, FormsModule],
   templateUrl: './projects.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -71,9 +70,10 @@ export class ProjectsComponent{
 
   openOverlay(project: Project, initialView: 'details' | 'preview' = 'details', projectCard: ProjectCardComponent): void {
     const element = projectCard.el.nativeElement;
+    projectCard.readyToOpen.set(true);
     this.renderer.setStyle(element, 'z-index', '9999'); // to ensure the element is above others during the transition
     // no need to reset z-index, as the openedProjectId signal change will trigger a re-render of the project card component
-
+    
     if (document.startViewTransition) {
       document.startViewTransition(() => {
         this.openedProjectId.set(project.id);

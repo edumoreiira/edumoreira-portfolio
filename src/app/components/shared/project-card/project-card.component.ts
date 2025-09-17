@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, output } from '@angular/core';
+import { Component, ElementRef, inject, input, output, signal } from '@angular/core';
 import { ButtonComponent } from '../../base/button.component';
 import { Project } from '../../../models/project.model';
 import { DatePipe, NgClass } from '@angular/common';
@@ -6,8 +6,7 @@ import { DatePipe, NgClass } from '@angular/common';
 @Component({
   selector: 'article[app-project-card]',
   host: { 
-    class: 'flex flex-col gap-3 p-5 rounded-xl',
-    '[style]': '"view-transition-name: project-card-" + (project().id)'
+    class: 'flex flex-col gap-3 p-5 rounded-xl relative overflow-hidden',
   },
   imports: [ButtonComponent, DatePipe, NgClass],
   templateUrl: './project-card.component.html',
@@ -15,7 +14,7 @@ import { DatePipe, NgClass } from '@angular/common';
 export class ProjectCardComponent {
   readonly project = input.required<Project>();
   readonly el = inject(ElementRef);
-  readyToOpen = input(false);
+  readyToOpen = signal(false); // this should be changed by parent when view-transition is ready, to avoid multiple elements with view-transitions
 
   previewClick = output();
   detailsClick = output();

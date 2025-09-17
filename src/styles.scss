@@ -46,7 +46,9 @@ button {
 }
 
 .cdk-overlay-blurred-backdrop {
+  background-color: hsla(0, 0%, 20%, 0.1);
   backdrop-filter: blur(4px);
+  transition: all 400ms 150ms ease-in-out;
 }
 
 .project-overlay-pane {
@@ -70,3 +72,17 @@ button {
 // ::view-transition-image-pair(project-card-*) {
 //   z-index: 9999;
 // }
+
+@keyframes backdrop-fade-in {
+  from { opacity: 0; }
+}
+
+// Customiza a animação de entrada para o backdrop
+::view-transition-new(overlay-backdrop) {
+  animation: backdrop-fade-in 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Customiza a animação de saída para o backdrop
+::view-transition-old(overlay-backdrop) {
+  animation: none; /* Por padrão, já há um fade-out */
+}
