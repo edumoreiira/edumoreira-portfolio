@@ -101,7 +101,7 @@ class="po-container overflow-auto p-1  sm:pt-0 pt-0 flex flex-col max-h-full gro
 
   
   <ng-template #preview>
-    <div class="flex h-screen max-h-full mt-2 relative rounded-xl overflow-hidden">
+    <div class="flex h-screen max-h-full mt-2 relative z-20 rounded-xl overflow-hidden">
       <app-iframe-loader #ifr url="{{ item.site_url }}"></app-iframe-loader>
     </div>
   </ng-template>
