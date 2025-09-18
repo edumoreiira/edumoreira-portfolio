@@ -52,6 +52,22 @@ export interface LanguageApllication {
     footer: {
         copyright: string;
     }
+
+    projects: {
+        title: string;
+        filters: [string, string, string];
+        tooltips: {
+            link: string;
+            commit: { plural: string; singular: string };
+        }
+        card: {
+            titles: [string, string, string];
+            buttons: {
+                details: string;
+                preview: string;
+            }
+        }
+    }
 }
 
 export const language_pt_br: LanguageApllication = {
@@ -145,6 +161,22 @@ export const language_pt_br: LanguageApllication = {
     },
     footer: {
         copyright: "Desenvolvido com carinho e café por mim © 2025"
+    },
+
+    projects: {
+        title: "Meus Projetos",
+        filters: ["Criação", "Destaques", "Commits"],
+        tooltips: {
+            link: "Ir para repositório",
+            commit: { plural: "commits", singular: "commit" }
+        },
+        card: {
+            titles: ["Sobre", "Funcionalidades", "Boas Práticas"],
+            buttons: {
+                details: "Detalhes técnicos",
+                preview: "Preview"
+            }
+        }
     }
 }
 
@@ -239,7 +271,21 @@ export const language_en_us: LanguageApllication = {
     },
     footer: {
         copyright: "Developed with love and coffee by me © 2025"
+    },
+    projects: {
+        title: "My Projects",
+        filters: ["Creation", "Highlights", "Commits"],
+        tooltips: { 
+            link: "Go to repository",
+            commit: { plural: "commits", singular: "commit" }
+        },
+        card: {
+            titles: ["About", "Features", "Best Practices"],
+            buttons: {
+                details: "Technical details",
+                preview: "Preview"
+            }
+        }
     }
-    
 
 }

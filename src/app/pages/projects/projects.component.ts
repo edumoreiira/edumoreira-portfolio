@@ -11,6 +11,7 @@ import { ProjectOverlayService } from "../../services/project-overlay.service";
 import { ProjectsService } from "../../services/projects.service";
 import { IntersectionObserverDirective } from "../../directives/intersection-observer.directive";
 import { ProjectCardSkeletonComponent } from "../../components/shared/project-card/project-card-skeleton.component";
+import { LANGUAGE_APPLICATION } from "../../tokens/language.tokens";
 
 @Component( {
   selector: 'page-projects',
@@ -21,6 +22,7 @@ import { ProjectCardSkeletonComponent } from "../../components/shared/project-ca
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectsComponent{
+  readonly lg = inject(LANGUAGE_APPLICATION);
   private readonly projectService = inject(ProjectsService);
   readonly appRef = inject(ApplicationRef);
   private projectOverlay = inject(ProjectOverlayService);

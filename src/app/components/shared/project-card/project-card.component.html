@@ -1,4 +1,5 @@
 @let item = project();
+@let projectLanguage = lg().projects;
 <div class="flex items-start gap-4 justify-between">
   <div class="flex items-start gap-3">
     <img class="invert size-9" [style.view-transition-name]="readyToOpen() ? 'pc-icon-' + item.id : null"
@@ -10,14 +11,15 @@
         [matTooltip]="item.repo_title" matTooltipPosition="above" 
         >{{ item.repo_title }}</h1>
         <a class="text-neutral-500 hover:text-neutral-300 transition-colors"
-        [matTooltip]="'Ir para repositório ' + item.title" matTooltipPosition="above"
+        [matTooltip]="projectLanguage.tooltips.link + ' ' +  item.title" matTooltipPosition="above"
         href="{{ item.repository_url }}" target="_blank" rel="noopener noreferrer">
           <i class="fi fi-rr-link flex text-xs"></i>
         </a>
       </div>
       <div [ngClass]="item.commit_count >= 15 ? 'text-[hsl(48,15%,56%)]' : 'text-neutral-500'"
       class="flex items-center gap-1 text-xs cursor-default"
-      [matTooltip]="item.commit_count + (item.commit_count === 1 ? ' commit' : ' commits')" matTooltipPosition="above">
+      [matTooltip]="item.commit_count + ' ' + (item.commit_count === 1 ? projectLanguage.tooltips.commit.singular : projectLanguage.tooltips.commit.plural)"
+      matTooltipPosition="above">
         <i class="fi fi-rr-code-compare flex"></i>
         <span>{{ item.commit_count }}</span>
       </div>
@@ -41,13 +43,13 @@ class="text-sm text-neutral-400 line-clamp-3">{{ item.description }}</p> -->
 <div class="flex justify-between gap-2 mt-auto text-sm">
   <button [style.view-transition-name]="readyToOpen() ? 'pc-details-' + item.id : null"
   class="px-3 py-1 !rounded-lg" custom-btn variant="outline"
-  (click)="detailsClick.emit()">Detalhes técnicos</button>
+  (click)="detailsClick.emit()">{{ projectLanguage.card.buttons.details }}</button>
   @if(item.site_url) {
     <button [style.view-transition-name]="readyToOpen() ? 'pc-preview-' + item.id : null"
     class="gap-2 px-3 py-1 !rounded-lg flex items-center !shadow-white/15" custom-btn variant="contained"
     (click)="previewClick.emit()">
       <i class="fi fi-br-expand flex"></i>
-      <span>Preview</span>
+      <span>{{ projectLanguage.card.buttons.preview }}</span>
     </button>
   }
 </div>

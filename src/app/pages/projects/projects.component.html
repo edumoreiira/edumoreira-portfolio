@@ -1,6 +1,7 @@
+@let project = lg().projects;
 <main class="page-container py-18 md:py-24 min-h-screen">
   <div class="flex sm:flex-row flex-col items-center gap-4 justify-between out-of-view" InterObs intersectChild="true">
-    <h1 class="text-3xl font-semibold out-of-view">Meus Projetos</h1>
+    <h1 class="text-3xl font-semibold out-of-view">{{ project.title }}</h1>
     <em-button-toggle-group em-button-toggle-animation
     class="text-neutral-300 delay-3 out-of-view"
     [ngModel]="projectFilter()"
@@ -10,9 +11,9 @@
       <div class="inline-flex items-center justify-center px-3 border-r border-neutral-800 mr-2">
         <i class="fi fi-sr-filter flex text-neutral-700"></i>
       </div>
-      <button em-button-toggle value="criacao" active="text-white">Criação</button>
-      <button em-button-toggle value="pinned" active="text-white">Destaques</button>
-      <button em-button-toggle value="commit" active="text-white">Commit</button>
+      <button em-button-toggle value="criacao" active="text-white">{{ project.filters[0] }}</button>
+      <button em-button-toggle value="pinned" active="text-white">{{ project.filters[1] }}</button>
+      <button em-button-toggle value="commit" active="text-white">{{ project.filters[2] }}</button>
     </em-button-toggle-group>
   </div>
 

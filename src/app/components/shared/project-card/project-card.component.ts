@@ -4,6 +4,7 @@ import { Project } from '../../../models/project.model';
 import { DatePipe, NgClass } from '@angular/common';
 import { MarkdownComponent } from 'ngx-markdown';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { LANGUAGE_APPLICATION } from '../../../tokens/language.tokens';
 
 @Component({
   selector: 'article[app-project-card]',
@@ -14,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './project-card.component.html',
 })
 export class ProjectCardComponent {
+  readonly lg = inject(LANGUAGE_APPLICATION);
   readonly project = input.required<Project>();
   readonly el = inject(ElementRef);
   readyToOpen = signal(false); // this should be changed by parent when view-transition is ready, to avoid multiple elements with view-transitions

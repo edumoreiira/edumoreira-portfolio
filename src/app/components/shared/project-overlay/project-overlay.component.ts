@@ -10,6 +10,7 @@ import { IframeLoaderComponent } from '../../utils/iframe-loader/iframe-loader.c
 import { ProjectOverlayService } from '../../../services/project-overlay.service';
 import { createAnimation } from '../../../animations/default-transitions.animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { LANGUAGE_APPLICATION } from '../../../tokens/language.tokens';
 
 interface MarkdownSection {
   title: string;
@@ -35,15 +36,16 @@ interface MarkdownSection {
 })
 export class ProjectOverlayComponent {
   private readonly projectOverlayService = inject(ProjectOverlayService);
+  readonly lg = inject(LANGUAGE_APPLICATION);
   project = input.required<Project>();
   selectedView = model<'details' | 'preview'>('details');
   closeButton = output<void>();
   readonly highlightBorder = 'border-[hsl(48_30%_15%)]'
   readonly sections = computed<MarkdownSection[]>(() => {
     return [
-      { key: 'description', title: 'Sobre', icon: 'fi fi-sr-info', content: this.project().description },
-      { key: 'functionalities', title: 'Funcionalidades', icon: 'fi fi-sr-settings', content: this.project().functionalities },
-      { key: 'best-practices', title: 'Boas Práticas', icon: 'fi fi-sr-rocket-lunch', content: this.project().good_practices }
+      { key: 'description', title: this.lg().projects.card.titles[0], icon: 'fi fi-sr-info', content: this.project().description },
+      { key: 'functionalities', title: this.lg().projects.card.titles[1], icon: 'fi fi-sr-settings', content: this.project().functionalities },
+      { key: 'best-practices', title: this.lg().projects.card.titles[2], icon: 'fi fi-sr-rocket-lunch', content: this.project().good_practices }
     ]
   })
 

@@ -1,4 +1,5 @@
 @let item = project();
+@let projectLanguage = lg().projects;
 @let previewMode = selectedView() === 'preview';
 @let detailsMode = selectedView() === 'details';
 @let hasPreview = !!item.site_url;
@@ -34,13 +35,13 @@ class="po-container overflow-auto p-1  sm:pt-0 pt-0 flex flex-col max-h-full gro
           <button [style.view-transition-name]="'pc-details-' + item.id"
           em-button-toggle value="details" active="text-neutral-950"
           class="px-3">
-            Detalhes técnicos
+            {{ projectLanguage.card.buttons.details }}
           </button>
           <button [style.view-transition-name]="'pc-preview-' + item.id"
           em-button-toggle value="preview" active="text-neutral-950"
           class="flex items-center gap-2 px-3 font-semibold">
             <i class="fi fi-br-expand flex"></i>
-            <span>Preview</span>
+            <span>{{ projectLanguage.card.buttons.preview }}</span>
           </button>
         </em-button-toggle-group>
 
@@ -61,13 +62,13 @@ class="po-container overflow-auto p-1  sm:pt-0 pt-0 flex flex-col max-h-full gro
                  <h1 class="font-semibold text-xl line-clamp-1"
                  [style.view-transition-name]="'pc-title-' + item.id"
                  [matTooltip]="item.repo_title" matTooltipPosition="above">{{ item.repo_title }}</h1>
-                 <a [matTooltip]="'Ir para repositório ' + item.title" matTooltipPosition="above"
+                 <a [matTooltip]="projectLanguage.tooltips.link + ' ' + item.title" matTooltipPosition="above"
                  class="text-neutral-500 textl-xl hover:text-neutral-300 transition-colors"
                  href="{{ item.repository_url }}" target="_blank" rel="noopener noreferrer">
                    <i class="fi fi-rr-link flex text-xs"></i>
                  </a>
                </div>
-               <div [matTooltip]="item.commit_count + (item.commit_count === 1 ? ' commit' : ' commits')"
+               <div [matTooltip]="item.commit_count + ' ' + (item.commit_count === 1 ? projectLanguage.tooltips.commit.singular : projectLanguage.tooltips.commit.plural)"
               [ngClass]="item.commit_count >= 15 ? 'text-[hsl(48,15%,56%)]' : 'text-neutral-500'"
                class="flex items-center gap-2">
                  <i class="fi fi-rr-code-compare flex"></i>
