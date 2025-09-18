@@ -74,7 +74,6 @@ export class ProjectsComponent{
     projectCard.readyToOpen.set(true);
     this.renderer.setStyle(element, 'z-index', '9999'); // to ensure the element is above others during the transition
     // no need to reset z-index, as the openedProjectId signal change will trigger a re-render of the project card component
-    
     if (document.startViewTransition) {
       document.startViewTransition(() => {
         this.openedProjectId.set(project.id);
@@ -82,6 +81,7 @@ export class ProjectsComponent{
         this.appRef.tick();
       })
     } else {
+      this.openedProjectId.set(project.id);
       this.projectOverlay.openOverlay(project, initialView);
     }
   }
@@ -95,6 +95,7 @@ export class ProjectsComponent{
       });
     }else {
       this.openedProjectId.set(null);
+      this.projectOverlay.disposeOverlay();
     }
   }
 }
