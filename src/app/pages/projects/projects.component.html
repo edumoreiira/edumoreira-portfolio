@@ -1,10 +1,11 @@
 <main class="page-container py-18 md:py-24 min-h-screen">
-  <div class="flex sm:flex-row flex-col items-center gap-4 justify-between">
-    <h1 class="text-3xl font-semibold">Meus Projetos</h1>
+  <div class="flex sm:flex-row flex-col items-center gap-4 justify-between out-of-view" InterObs intersectChild="true">
+    <h1 class="text-3xl font-semibold out-of-view">Meus Projetos</h1>
     <em-button-toggle-group em-button-toggle-animation
-    class="text-neutral-300"
+    class="text-neutral-300 delay-3 out-of-view"
     [ngModel]="projectFilter()"
     (ngModelChange)="onFilterChange($event)"
+    [disabled]="isLoading()"
     name="project-filters" aria-label="Filtros de projetos">
       <div class="inline-flex items-center justify-center px-3 border-r border-neutral-800 mr-2">
         <i class="fi fi-sr-filter flex text-neutral-700"></i>
@@ -15,29 +16,36 @@
     </em-button-toggle-group>
   </div>
 
-  <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 py-8"
+  <div class="grid auto-rows-[12.375rem] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 py-8 out-of-view" InterObs intersectChild="true"
   app-glowing-border glowColor="hsla(0, 0%, 25%, 0.1)" borderColor="var(--color-neutral-900)"
   glowSize="500px">
-  @for (item of filteredProjects(); track item.id) {
-    <!-- exlude README -->
-    @let readmeRepository = item.repository_url !== 'https://github.com/edumoreiira/edumoreiira';
-      @if(readmeRepository) {
-        @if(openedProjectId() !== item.id) {
-          <article app-project-card app-glowing-border-item #projectCard
-          [style.view-transition-name]="'project-card-' + item.id"
-          class="h-full"
-          [project]="item"
-          [borderGlowColor]="item.is_highlight ? 'hsla(48, 40%, 60%, .7)' : undefined"
-          [borderColor]="item.is_highlight ? 'hsl(48, 30%, 15%)' : undefined"
-          [glowColor]="item.is_highlight ? 'hsla(48, 25%, 60%, 0.05)' : undefined"
-          (detailsClick)="openOverlay(item, 'details', projectCard)"
-          (previewClick)="openOverlay(item, 'preview', projectCard)"
-          >
-          </article>
-        } @else {
-          <div></div>
+
+  @defer(when isLoading() === false) {
+    @for (item of filteredProjects(); track item.id) {
+      <!-- exlude README -->
+      @let readmeRepository = item.repository_url !== 'https://github.com/edumoreiira/edumoreiira';
+        @if(readmeRepository) {
+          @if(openedProjectId() !== item.id) {
+            <article app-project-card app-glowing-border-item #projectCard
+            [style.view-transition-name]="'project-card-' + item.id"
+            class="h-full delay-{{3 + $index}}"
+            [project]="item"
+            [borderGlowColor]="item.is_highlight ? 'hsla(48, 40%, 60%, .7)' : undefined"
+            [borderColor]="item.is_highlight ? 'hsl(48, 30%, 15%)' : undefined"
+            [glowColor]="item.is_highlight ? 'hsla(48, 25%, 60%, 0.05)' : undefined"
+            (detailsClick)="openOverlay(item, 'details', projectCard)"
+            (previewClick)="openOverlay(item, 'preview', projectCard)"
+            >
+            </article>
+          } @else {
+            <div></div>
+          }
         }
       }
+  } @placeholder(minimum 1700ms) {
+    @for (item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]; track $index) {
+      <app-project-card-skeleton class="h-full delay-{{3 + $index}} out-of-view" />
     }
+  }
   </div>
 </main>

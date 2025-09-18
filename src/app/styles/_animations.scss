@@ -37,7 +37,7 @@
     opacity: 0;
     animation: fadeUp 500ms ease-out forwards;
 
-    @for $i from 1 through 12 {
+    @for $i from 1 through 30 {
         &.delay-#{$i} {
             animation-delay: $i * 100ms;
         }

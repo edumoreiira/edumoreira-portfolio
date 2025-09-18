@@ -1,34 +1,35 @@
 import { ApplicationRef, ChangeDetectionStrategy, Component, computed, inject, Renderer2, signal } from "@angular/core";
 import { ProjectCardComponent } from "../../components/shared/project-card/project-card.component";
 import { GlowingBorderDirective, GlowingBorderItemDirective } from "../../directives/glowing-border.directive";
-import { ActivatedRoute } from "@angular/router";
 import { Project } from "../../models/project.model";
-import { map } from "rxjs";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
 import { EmButtonToggleGroupComponent } from "../../components/shared/button-toggle/em-button-toggle-group.component";
 import { EmButtonToggleDirective } from "../../components/shared/button-toggle/em-button-toggle.directive";
 import { FormsModule } from "@angular/forms";
 import { EmButtonToggleAnimationDirective } from "../../components/shared/button-toggle/em-button-toggle-animation.directive";
 import { ProjectOverlayService } from "../../services/project-overlay.service";
+import { ProjectsService } from "../../services/projects.service";
+import { IntersectionObserverDirective } from "../../directives/intersection-observer.directive";
+import { ProjectCardSkeletonComponent } from "../../components/shared/project-card/project-card-skeleton.component";
 
 @Component( {
   selector: 'page-projects',
   imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective,
-    EmButtonToggleGroupComponent, EmButtonToggleDirective, EmButtonToggleAnimationDirective, FormsModule],
+    EmButtonToggleGroupComponent, EmButtonToggleDirective, EmButtonToggleAnimationDirective, FormsModule,
+    IntersectionObserverDirective, ProjectCardSkeletonComponent],
   templateUrl: './projects.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectsComponent{
-  private readonly route = inject(ActivatedRoute);
+  private readonly projectService = inject(ProjectsService);
   readonly appRef = inject(ApplicationRef);
   private projectOverlay = inject(ProjectOverlayService);
   private renderer = inject(Renderer2);
   // 
-  readonly projects = toSignal(this.route.data.pipe(
-    map((data) => (data['projects'] as Project[]) || [])
-  ));
+  readonly projects = toSignal(this.projectService.getProjects());
   readonly openedProjectId = signal<string | null>(null);
   readonly projectFilter = signal<'pinned' | 'criacao' | 'commit'>('criacao');
+  readonly isLoading = computed(() => this.projects() === undefined);
   readonly filteredProjects = computed<Project[]>(() => {
     const projects = this.projects();
     const filter = this.projectFilter();
