@@ -22,7 +22,8 @@ const OVERLAY_PREVIEW = {
 export class ProjectOverlayService {
   private readonly overlay = inject(Overlay);
   private overlayRef?: OverlayRef;
-  closed = new Subject<void>();
+  private closed = new Subject<void>();
+  closed$ = this.closed.asObservable();
 
   openOverlay(project: Project, initialView: 'details' | 'preview' = 'details') {
     const positionStrategy = this.overlay
@@ -51,6 +52,9 @@ export class ProjectOverlayService {
     componentRef.setInput('selectedView', initialView);
 
     this.overlayRef.backdropClick().subscribe(() => {
+      this.closed.next();
+    });
+    componentRef.instance.closeButton.subscribe(() => {
       this.closed.next();
     });
   }

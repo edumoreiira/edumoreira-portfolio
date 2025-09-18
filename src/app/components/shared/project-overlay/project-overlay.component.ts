@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, model, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, model, output, signal } from '@angular/core';
 import { Project } from '../../../models/project.model';
 import { DatePipe, NgClass, NgTemplateOutlet } from '@angular/common';
 import { MarkdownComponent } from 'ngx-markdown';
@@ -9,6 +9,7 @@ import { EmButtonToggleDirective } from '../button-toggle/em-button-toggle.direc
 import { IframeLoaderComponent } from '../../utils/iframe-loader/iframe-loader.component';
 import { ProjectOverlayService } from '../../../services/project-overlay.service';
 import { createAnimation } from '../../../animations/default-transitions.animations';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 interface MarkdownSection {
   title: string;
@@ -24,7 +25,7 @@ interface MarkdownSection {
     '[style]': '"view-transition-name: project-card-" + (project().id)'
   },
   imports: [NgClass, DatePipe, MarkdownComponent, EmButtonToggleGroupComponent, EmButtonToggleDirective,
-    EmButtonToggleAnimationDirective, FormsModule, IframeLoaderComponent, NgTemplateOutlet
+    EmButtonToggleAnimationDirective, FormsModule, IframeLoaderComponent, NgTemplateOutlet, MatTooltipModule
   ],
   templateUrl: './project-overlay.component.html',
   styleUrl: './project-overlay.component.scss',
@@ -36,6 +37,7 @@ export class ProjectOverlayComponent {
   private readonly projectOverlayService = inject(ProjectOverlayService);
   project = input.required<Project>();
   selectedView = model<'details' | 'preview'>('details');
+  closeButton = output<void>();
   readonly highlightBorder = 'border-[hsl(48_30%_15%)]'
   readonly sections = computed<MarkdownSection[]>(() => {
     return [
@@ -58,5 +60,6 @@ export class ProjectOverlayComponent {
     const border = this.project().is_highlight ? this.highlightBorder : 'border-neutral-800';
     return `${base} ${border}`;
   })
+  
 
 }

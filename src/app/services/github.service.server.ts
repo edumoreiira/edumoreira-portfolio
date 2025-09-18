@@ -1,5 +1,5 @@
 import { Project } from '../models/project.model';
-import { parseReadmeSection, parseMainDescription } from '../utils/readme-parser';
+import { parseReadmeSection, parseMainDescription, parseRepoTitle } from '../utils/readme-parser';
 
 const API_KEY = process.env['GITHUB_TOKEN'];
 
@@ -119,6 +119,7 @@ export async function getProjects(): Promise<Project[]> {
     return {
       id: node.id,
       title: node.name,
+      repo_title: parseRepoTitle(readme) || node.name,
       created_at: new Date(node.createdAt),
       commit_count: node.defaultBranchRef?.target.history.totalCount ?? 0,
       description: parseMainDescription(readme) || node.description,

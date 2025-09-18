@@ -52,7 +52,7 @@ export class ProjectsComponent{
   });
 
   constructor() {
-    this.projectOverlay.closed
+    this.projectOverlay.closed$
     .pipe(takeUntilDestroyed())
     .subscribe(() => this.closeOverlay());
   }

@@ -22,4 +22,17 @@ function parseMainDescription(readmeContent: string): string {
   return match ? match[1].trim() : '';
 }
 
-export { parseReadmeSection, parseMainDescription };
+/**
+ * Extrai o título principal do repositório (o texto da primeira linha que começa com #).
+ * @param readmeContent O conteúdo completo do arquivo README.
+ * @returns O título do repositório.
+ */
+function parseRepoTitle(readmeContent: string): string {
+  // a new comment explaining the regex
+  // regex to find the text of the first line starting with #
+  const match = readmeContent.match(/^# (.*)/);
+  return match ? match[1].trim() : '';
+}
+
+
+export { parseReadmeSection, parseMainDescription, parseRepoTitle };

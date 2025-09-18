@@ -1,6 +1,7 @@
 @let item = project();
 @let previewMode = selectedView() === 'preview';
 @let detailsMode = selectedView() === 'details';
+@let hasPreview = !!item.site_url;
 <div [class.gap-6]="detailsMode"
 class="po-container overflow-auto p-1  sm:pt-0 pt-0 flex flex-col max-h-full grow-1 transition-all"
 [class.p-4]="detailsMode"
@@ -11,12 +12,25 @@ class="po-container overflow-auto p-1  sm:pt-0 pt-0 flex flex-col max-h-full gro
     'sticky bg-neutral-950 pb-4 pt-4 mb-2 shadow-[0_8px_12px_var(--color-neutral-950)]': detailsMode,
     'pt-2 bg-neutral-950/20': previewMode
   }">
+    @if(!hasPreview) {
+      <div class="flex justify-end mb-2">
+        <button
+        (click)="closeButton.emit()">
+          <i class="fi flex fi-br-cross-small text-2xl text-neutral-400 hover:text-neutral-300 transition-colors"></i>
+        </button>
+      </div>
+    }
+
     <!-- menu -->
-     @if(item.site_url){
-       <div class="mx-auto"
-       [class.mb-2]="detailsMode">
+     @if(hasPreview){
+      <div class="flex justify-between"
+      [ngClass]="{
+        'items-start mb-2': detailsMode,
+        'items-center mx-4': previewMode
+      }"
+      >
         <em-button-toggle-group name="project-overlay-options" [(ngModel)]="selectedView"
-        em-button-toggle-animation variant="contained" class="text-sm">
+        em-button-toggle-animation variant="contained" class="text-sm mx-auto">
           <button [style.view-transition-name]="'pc-details-' + item.id"
           em-button-toggle value="details" active="text-neutral-950"
           class="px-3">
@@ -29,7 +43,12 @@ class="po-container overflow-auto p-1  sm:pt-0 pt-0 flex flex-col max-h-full gro
             <span>Preview</span>
           </button>
         </em-button-toggle-group>
-       </div>
+
+        <button
+        (click)="closeButton.emit()">
+          <i class="fi flex fi-br-cross-small text-2xl text-neutral-400 hover:text-neutral-300 transition-colors"></i>
+        </button>
+      </div>
      }
     <!-- menu -->
        @if(detailsMode) {
@@ -37,23 +56,26 @@ class="po-container overflow-auto p-1  sm:pt-0 pt-0 flex flex-col max-h-full gro
            <div class="flex items-start gap-5">
              <img class="invert size-14" [style.view-transition-name]="'pc-icon-' + item.id"
              src="/icons/github.png" alt="Github Icon">
-             <div class="flex flex-col gap-1">
+             <div class="flex flex-col gap-1 items-start">
                <div class="flex items-center gap-3">
                  <h1 class="font-semibold text-xl line-clamp-1"
-                 [style.view-transition-name]="'pc-title-' + item.id">{{ item.title }}</h1>
-                 <a class="text-neutral-500 textl-xl hover:text-neutral-300 transition-colors"
+                 [style.view-transition-name]="'pc-title-' + item.id"
+                 [matTooltip]="item.repo_title" matTooltipPosition="above">{{ item.repo_title }}</h1>
+                 <a [matTooltip]="'Ir para repositório ' + item.title" matTooltipPosition="above"
+                 class="text-neutral-500 textl-xl hover:text-neutral-300 transition-colors"
                  href="{{ item.repository_url }}" target="_blank" rel="noopener noreferrer">
                    <i class="fi fi-rr-link flex text-xs"></i>
                  </a>
                </div>
-               <div [ngClass]="item.commit_count >= 15 ? 'text-[hsl(48,15%,56%)]' : 'text-neutral-500'"
+               <div [matTooltip]="item.commit_count + (item.commit_count === 1 ? ' commit' : ' commits')"
+              [ngClass]="item.commit_count >= 15 ? 'text-[hsl(48,15%,56%)]' : 'text-neutral-500'"
                class="flex items-center gap-2">
                  <i class="fi fi-rr-code-compare flex"></i>
                  <span>{{ item.commit_count }}</span>
                </div>
              </div>
            </div>
-           <span class=" shrink-0" [style.view-transition-name]="'pc-date-' + item.id"
+           <span class="min-w-contain" [style.view-transition-name]="'pc-date-' + item.id"
            [ngClass]="item.is_highlight ? 'text-[hsl(48,10%,50%)]' : 'text-neutral-500'">
              {{ item.created_at | date: 'dd MMM. yyyy' }}
            </span>
