@@ -1,5 +1,6 @@
 @let item = project();
 @let projectLanguage = lg().projects;
+@let tooltipDelay = 250;
 <div class="flex items-start gap-4 justify-between">
   <div class="flex items-start gap-3">
     <img class="invert size-9" [style.view-transition-name]="readyToOpen() ? 'pc-icon-' + item.id : null"
@@ -8,10 +9,10 @@
       <div class="flex items-center gap-2">
         <h1 class="font-semibold line-clamp-1 cursor-default" 
         [style.view-transition-name]="readyToOpen() ? 'pc-title-' + item.id : null"
-        [matTooltip]="item.repo_title" matTooltipPosition="above" 
+        [matTooltip]="item.repo_title" matTooltipPosition="above" [matTooltipShowDelay]="tooltipDelay"
         >{{ item.repo_title }}</h1>
         <a class="text-neutral-500 hover:text-neutral-300 transition-colors"
-        [matTooltip]="projectLanguage.tooltips.link + ' ' +  item.title" matTooltipPosition="above"
+        [matTooltip]="projectLanguage.tooltips.link + ' ' +  item.title" matTooltipPosition="above" [matTooltipShowDelay]="tooltipDelay"
         href="{{ item.repository_url }}" target="_blank" rel="noopener noreferrer">
           <i class="fi fi-rr-link flex text-xs"></i>
         </a>
@@ -19,7 +20,7 @@
       <div [ngClass]="item.commit_count >= 15 ? 'text-[hsl(48,15%,56%)]' : 'text-neutral-500'"
       class="flex items-center gap-1 text-xs cursor-default"
       [matTooltip]="item.commit_count + ' ' + (item.commit_count === 1 ? projectLanguage.tooltips.commit.singular : projectLanguage.tooltips.commit.plural)"
-      matTooltipPosition="above">
+      matTooltipPosition="above" [matTooltipShowDelay]="tooltipDelay">
         <i class="fi fi-rr-code-compare flex"></i>
         <span>{{ item.commit_count }}</span>
       </div>

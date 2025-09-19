@@ -1,4 +1,4 @@
-import { ApplicationRef, ChangeDetectionStrategy, Component, computed, inject, Renderer2, signal } from "@angular/core";
+import { AnimationCallbackEvent, ApplicationRef, ChangeDetectionStrategy, Component, computed, inject, Renderer2, signal } from "@angular/core";
 import { ProjectCardComponent } from "../../components/shared/project-card/project-card.component";
 import { GlowingBorderDirective, GlowingBorderItemDirective } from "../../directives/glowing-border.directive";
 import { Project } from "../../models/project.model";
@@ -19,6 +19,7 @@ import { LANGUAGE_APPLICATION } from "../../tokens/language.tokens";
     EmButtonToggleGroupComponent, EmButtonToggleDirective, EmButtonToggleAnimationDirective, FormsModule,
     IntersectionObserverDirective, ProjectCardSkeletonComponent],
   templateUrl: './projects.component.html',
+  styleUrl: './projects.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectsComponent{
@@ -32,6 +33,7 @@ export class ProjectsComponent{
   readonly openedProjectId = signal<string | null>(null);
   readonly projectFilter = signal<'pinned' | 'criacao' | 'commit'>('criacao');
   readonly isLoading = computed(() => this.projects() === undefined);
+  readonly isEntryAnimated = signal(false);
   readonly filteredProjects = computed<Project[]>(() => {
     const projects = this.projects();
     const filter = this.projectFilter();
@@ -99,5 +101,14 @@ export class ProjectsComponent{
       this.openedProjectId.set(null);
       this.projectOverlay.disposeOverlay();
     }
+  }
+
+  onEntryAnimation(event: AnimationCallbackEvent) {
+    if (this.isEntryAnimated()) return;
+    event.target.classList.add('project-fade-in');
+    event.target.addEventListener('animationend', () => {
+      this.isEntryAnimated.set(true);
+      event.animationComplete();
+    }, { once: true });
   }
 }
