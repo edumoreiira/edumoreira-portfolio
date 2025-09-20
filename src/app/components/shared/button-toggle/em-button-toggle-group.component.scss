@@ -3,7 +3,7 @@
   // --left: -100%;
   &::before {
     content: '';
-    z-index: -9;
+    z-index: 1;
     position: absolute;
     top: var(--top);
     left: var(--left);

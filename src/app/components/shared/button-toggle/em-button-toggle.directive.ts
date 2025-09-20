@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, computed, Directive, ElementRef, inject, input, model, output, signal } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, computed, Directive, ElementRef, inject, input, model, output, Renderer2, signal } from "@angular/core";
 import { EmButtonToggleGroupComponent } from "./em-button-toggle-group.component";
 
 export interface EmButtonToggleChange {
@@ -14,24 +14,28 @@ export interface EmButtonToggleChange {
     '[class]': 'class()',
     'role': 'radio',
     'tabindex': '0',
-    '(click)': 'handleClick()',
     '[attr.name]': 'name()',
     // now we just read the model signal directly
     '[attr.aria-checked]': 'checked() ? "true" : "false"',
     '[class.selected]': 'checked()',
     '[disabled]': 'finalDisabled()',
     '[attr.aria-disabled]': 'finalDisabled()',
+    '(click)': 'handleClick()',
+    '(pointerenter)': 'onPointerEnter()',
+    '(pointerleave)': 'onPointerLeave()'
   }
 })
 export class EmButtonToggleDirective {
   public readonly el = inject(ElementRef);
   private readonly group = inject(EmButtonToggleGroupComponent, { optional: true, host: true });
+  private readonly renderer = inject(Renderer2);
 
   readonly name = signal<string | null>(null);
   readonly value = input.required<any>();
   readonly selectionChange = output<EmButtonToggleChange>();
   readonly individualDisabled = input(false, { alias: 'disabled' });
   readonly activeStyles = input<string>('', { alias: 'active' });
+  readonly hoveredStyles = input<string>('', { alias: 'hover' });
   readonly checked = computed(() => {
     return this.getCheckedState();
   })
@@ -54,18 +58,42 @@ export class EmButtonToggleDirective {
     }
     const groupValue = this.group.$value();
     const buttonValue = this.value();
+    let isChecked: boolean;
     // If group allows multiple selection, check if buttonValue is in groupValue array
     if (this.group.multiple()) {
       // Ensure groupValue is an array and includes buttonValue
-      return Array.isArray(groupValue) && groupValue.includes(buttonValue);
+      isChecked = Array.isArray(groupValue) && groupValue.includes(buttonValue);
     } else {
       // Single selection: check if groupValue equals buttonValue
-      return groupValue === buttonValue;
+      isChecked = groupValue === buttonValue;
     }
+
+    // removes hovered class before change state;
+    if(isChecked) {
+      this.removeHoveredClasses();
+    }
+
+    return isChecked;
+  }
+
+  protected onPointerEnter() {
+    if (this.finalDisabled() || this.checked()) return;
+    const element = this.el.nativeElement;
+    this.renderer.addClass(element, this.hoveredStyles());
+  }
+
+  protected onPointerLeave() {
+    if (this.finalDisabled() || this.checked()) return;
+    this.removeHoveredClasses();
+  }
+
+  private removeHoveredClasses() {
+    const element = this.el.nativeElement;
+    this.renderer.removeClass(element, this.hoveredStyles());
   }
 
   readonly  class = computed(() => {
-    const base = 'px-4 py-2 rounded-lg transition-all';
+    const base = 'px-4 py-2 rounded-lg transition-all z-5';
     const checked = this.checked() ? this.activeStyles() : ''; // if checked is true, apply active styles
     const disabled = this.finalDisabled() ? 'opacity-30 cursor-not-allowed' : '';
     return `${base} ${checked} ${disabled}`;
