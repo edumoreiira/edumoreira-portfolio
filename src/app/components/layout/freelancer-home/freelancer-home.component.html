@@ -1,0 +1,156 @@
+@let works = lg().works;
+@let advantages = lg().advantages;
+@let cta = lg().cta;
+@let contact = lg().contact;
+
+@for (item of websites(); track $index) {
+    @defer {
+        <img style="display: none;" alt="" [src]="item.imgUrl" aria-hidden="true">
+    }
+}
+
+<section #myworks id="my-works">
+    <!--config border on accordions  -->
+    <div class="page-container grid sm:grid-cols-2 grid-cols-1 gap-4 py-20 md:py-20 grid-rows-1 lg:h-[39rem] sm:h-[41rem] h-auto"
+    InterObs intersectChild="true" 
+    app-glowing-border borderGlowColor="var(--color-neutral-500)" glowSize="650px" borderGlowSize="500px">
+        <div class="flex flex-col gap-4 justify-between delay-2 out-of-view" >
+            <div>
+                <h1 class="text-3xl font-semibold mb-2">{{ works.title }}</h1>
+                <p class="text-neutral-400 text-lg">
+                    {{ works.description }}
+                </p>
+            </div>
+            @for (item of websites(); track $index) {
+                <accordion class="rounded-xl" [borderless]="true" [title]="item.title" [isOpen]="currentSiteIndex() === $index" 
+                (clicked)="setCurrentSiteIndex($index)" app-glowing-border-item
+                [borderColor]="currentSiteIndex() === $index ? 'var(--color-neutral-600)' : 'var(--color-neutral-800)'">
+                    <div class="flex flex-col gap-4 items-start">
+                        <p class="text-neutral-400">{{ item.description }}</p>
+                        <a [href]="item.websiteUrl" target="_blank" rel="noopener"
+                        class="text-white italic text-shadow-[0_2px_16px] text-shadow-white/25 
+                        hover:text-neutral-400 transition-colors sm:text-sm self-end"
+                        > {{ item.button }} </a>
+                    </div>
+                </accordion>
+            }
+        </div>
+        <div class="aspect-video sm:aspect-auto delay-4 rounded-xl out-of-view" app-glowing-border-item>
+            <app-site-previewer [borderless]="true" [websites]="websites()"/>
+        </div>
+    </div>
+</section>
+
+@defer {
+    <section id="contact">
+        <div class="page-container py-12 md:py-20" app-glowing-border
+        glowColor="hsla(0, 0%, 18%, 0.1)" [glowDelay]="15">
+            <div class="grid sm:grid-cols-2 grid-cols-1 sm:gap-4 md:gap-12 rounded-3xl"
+            InterObs intersectChild="true" selfIntersect="true" app-glowing-border-item
+            [borderColor]="screensize() > 768 ? 'var(--color-neutral-950)' : 'var(--color-neutral-800)'">
+                <div class="flex flex-col justify-between gap-4 p-6 sm:p-8 sm:pr-0 delay-1">
+                    <div>
+                        <h1 class="text-3xl sm:text-[1.8rem] font-semibold mb-4">{{ contact.title }}</h1>
+                        <p class="text-lg text-neutral-300">{{ contact.description }}</p>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-2 md:gap-4">
+                        <div class="flex items-center gap-2">
+                            <i class="fi fi-rr-at flex"></i>
+                            <p class="text-neutral-400 text-sm lg:text-base">edumoreira.dev&#64;gmail.com</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fi fi-brands-whatsapp flex"></i>
+                            <p class="text-neutral-400 text-sm lg:text-base">{{isPtBr() ? "(61) 99611-1423" : "+55 (61) 99611-1423"}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 delay-2">
+                    <app-chat-mail 
+                    class="h-full lg:h-[13rem] max-h-[14rem] sm:max-h-[19rem] lg:max-h-full"/>
+                </div>
+            </div>
+        </div>
+    </section>
+} @placeholder { <section id="contact" class="py-12 md:py-20"></section> }
+
+
+<section id="techs">
+    <div class="page-container">
+        @defer (on immediate) {
+            <app-all-techs />
+        }
+    </div>
+</section>
+
+
+
+<section>
+    <div class="page-container py-12 md:py-20" app-glowing-border glowColor="hsla(0, 0%, 25%, 0.1)"
+    glowSize="600px" borderGlowSize="400px" >
+        <h1 class="text-3xl sm:text-4xl font-semibold mb-6 sm:mb-8 text-center"
+        InterObs>{{ advantages.title }}</h1>
+        <div class="flex flex-col gap-4"
+        InterObs intersectChild="true">
+            <div class="flex items-start justify-center gap-4 md:flex-row flex-col">
+                <app-tag class="bg-gradient-to-bl from-0% to-40% from-blue-800/5 to-transparent" [borderless]="true"
+                app-glowing-border-item borderGlowColor="hsla(230, 100%, 80%, 0.3)"
+                    [title]="advantages.items[0].title"
+                    [description]="advantages.items[0].description"
+                    icon="fi-rr-time-fast" 
+                />
+                <app-tag class="bg-gradient-to-bl from-0% to-40% from-violet-800/5 to-transparent" [borderless]="true"
+                app-glowing-border-item borderGlowColor="hsla(270, 100%, 80%, 0.3)"
+                    [title]="advantages.items[1].title"
+                    [description]="advantages.items[1].description"
+                    icon="fi-rr-palette" 
+                />
+            </div>
+            <div class="flex items-start justify-center gap-4 md:flex-row flex-col delay-2">
+                <app-tag class="bg-gradient-to-bl from-0% to-40% from-sky-800/5 to-transparent" [borderless]="true"
+                app-glowing-border-item borderGlowColor="hsla(190, 100%, 80%, 0.3)"
+                    [title]="advantages.items[2].title"
+                    [description]="advantages.items[2].description"
+                    icon="fi-rr-laptop-mobile" 
+                />
+                <app-tag class="bg-gradient-to-bl from-0% to-40% from-lime-800/5 to-transparent" [borderless]="true"
+                app-glowing-border-item borderGlowColor="hsla(90, 100%, 80%, 0.3)"
+                    [title]="advantages.items[3].title"
+                    [description]="advantages.items[3].description"
+                    icon="fi-rr-bubble-discussion" 
+                />
+            </div>
+            <div class="flex items-start justify-center gap-4 md:flex-row flex-col delay-4">
+                <app-tag class="bg-gradient-to-bl from-0% to-40% from-red-800/5 to-transparent" [borderless]="true"
+                app-glowing-border-item borderGlowColor="hsla(0, 100%, 80%, 0.3)"
+                    [title]="advantages.items[4].title"
+                    [description]="advantages.items[4].description"
+                    icon="fi-rr-discover" 
+                />
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="page-container pt-12 md:pt-20 pb-24 md:pb-40">
+        <div class="glow-fx flex w-full items-center gap-4 relative">
+            <span class="h-[1px] flex-grow bg-gradient-to-r from-transparent via-neutral-100 to-neutral-100 opacity-5"></span>
+            
+            <i class="fi fi-tr-pen-swirl flex text-yellow-500 text-3xl text-primary p-4 rounded-full" InterObs obsClass="fadeIn"></i>
+            
+            <span class="h-[1px] flex-grow bg-gradient-to-l from-transparent via-neutral-100 to-neutral-100 opacity-5"></span>
+        </div>
+        <div class="text-center flex flex-col items-center gap-4"
+        InterObs intersectChild="true">
+            <h1 class="sm:text-4xl text-3xl font-semibold text-center fadeUp">{{ cta.title[0] }} <i class="text-yellow-500 font-normal">{{ cta.title[1] }}</i> {{ cta.title[2] }}</h1>
+            <p class="text-lg text-neutral-400 w-[min(38rem,90%)] delay-3">
+                {{ cta.description }}
+            </p>
+            <button custom-btn class="text-lg px-6 py-2 min-w-[8rem] flex items-center gap-2 delay-5"
+            (click)="scrollTo('contact')">
+                <i class="fi-sr-hand-horns flex"></i>
+                {{ cta.button }}
+            </button>
+        </div>
+    </div>
