@@ -9,7 +9,7 @@ import { IntersectionObserverDirective } from "../directives/intersection-observ
   template: `
   <app-navbar/>
   <router-outlet></router-outlet>
-  <footer app-footer InterObs intersectChild="true"></footer>
+  <footer class="mt-auto" app-footer InterObs intersectChild="true"></footer>
   `,
   imports: [RouterOutlet, NavbarComponent, FooterComponent, IntersectionObserverDirective]
 })
