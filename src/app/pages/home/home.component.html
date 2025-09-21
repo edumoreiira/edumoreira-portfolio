@@ -21,8 +21,8 @@
                     {{ main.description }}
                 </p>
             </div>
-
-            <div class="flex items-center sm:gap-8 gap-6 delay-4 out-of-view">
+            
+            <!-- <div class="flex items-center sm:gap-8 gap-6 delay-4 out-of-view">
                 <button custom-btn variant="contained"
                 class="text-lg min-w-[11rem] py-2 px-4 rounded-xl font-semibold flex items-center justify-center gap-2"
                 (click)="scrollTo('contact')">
@@ -32,13 +32,59 @@
                 <button custom-btn variant="outline"
                 class="text-lg min-w-[11rem] py-2 px-4 rounded-xl hidden sm:block"
                 (click)="scrollTo('my-works')">
-                    {{ main.button2 }}
+                {{ main.button2 }}
+            </button>
+        </div> -->
+        <div class="flex flex-col delay-4 out-of-view max-w-[25.8rem]">
+            <em-button-toggle-group name="home-page-selector" #toggleElement
+                em-button-toggle-animation
+                [(ngModel)]="homePageSelector"
+                variant="contained"
+                class="font-semibold !p-1.5 text-neutral-500 bg-neutral-950 border-b-transparent rounded-b-none
+                sm:text-base text-sm">
+                    <button em-button-toggle value="freelancer"
+                    class="flex items-center gap-2"
+                    hover="text-neutral-300"
+                    active="text-neutral-950">
+                    <i class="fi fi-sr-browser flex"></i>
+                        Quero um website
+                    </button>
+                    <button em-button-toggle value="developer"
+                    class="flex items-center gap-2"
+                    hover="text-neutral-300"
+                    active="text-neutral-950">
+                    <i class="fi fi-sr-employee-man flex"></i>
+                    Sou um recrutador
                 </button>
+            </em-button-toggle-group>
+            <div class="py-3 px-2 border border-neutral-800 rounded-xl rounded-t-none relative overflow-hidden">
+                @if(homePageSelector() === 'freelancer') {
+                    <p class="text-center text-neutral-400 text-sm"
+                    @textAnimate
+                    >
+                        Caso você seja um recrutador e está buscando um desenvolvedor, alterne para o 
+                        <strong class="font-semibold text-neutral-200">"Sou um recrutador"</strong>.
+                    </p>
+                }@else if(homePageSelector() === 'developer') {
+                    <p class="text-center text-neutral-400 text-sm"
+                    @textAnimate
+                    >
+                        Caso você queira contratar meus serviços como freelancer, alterne para o 
+                        <strong class="font-semibold text-neutral-200">"Quero um website"</strong>.
+                    </p>
+                }@else {
+                    <p class="text-center text-neutral-400 text-sm"
+                    @textAnimate
+                    >
+                        Selecione <strong class="font-semibold text-neutral-200">"Quero um website"</strong> caso você queira contratar meus serviços como freelancer, ou <strong class="font-semibold text-neutral-200">"Sou um recrutador"</strong> caso você tenha interesse em me contratar como um desenvolvedor.
+                    </p>
+                }
             </div>
-
+        </div>
+            
 
         </div>
     </section>
-</main>
+    </main>
 
 <router-outlet></router-outlet>

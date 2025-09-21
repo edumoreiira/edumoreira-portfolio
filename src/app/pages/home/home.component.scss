@@ -28,3 +28,36 @@
         z-index: -1;
     }
 }
+
+// @keyframes textEnter {
+//   from {
+//     opacity: 0;
+//     transform: translateY(20px);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }
+
+// @keyframes textLeave {
+//   from {
+//     opacity: 1;
+//   }
+//   to {
+//     opacity: 0;
+//   }
+// }
+
+// .text-enter {
+//   opacity: 0;
+//   animation: textEnter 0.5s 0.3s ease-out forwards;
+// }
+
+// .text-leave {
+//   position: absolute;
+//   top: 0.75rem;
+//   animation: textLeave 0.3s ease-out;
+// }
+
+
