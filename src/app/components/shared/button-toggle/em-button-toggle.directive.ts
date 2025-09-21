@@ -78,8 +78,7 @@ export class EmButtonToggleDirective {
 
   protected onPointerEnter() {
     if (this.finalDisabled() || this.checked()) return;
-    const element = this.el.nativeElement;
-    this.renderer.addClass(element, this.hoveredStyles());
+    this.addHoveredClasses();
   }
 
   protected onPointerLeave() {
@@ -88,8 +87,15 @@ export class EmButtonToggleDirective {
   }
 
   private removeHoveredClasses() {
+    if(!this.hoveredStyles()) return;
     const element = this.el.nativeElement;
     this.renderer.removeClass(element, this.hoveredStyles());
+  }
+
+  private addHoveredClasses() {
+    if(!this.hoveredStyles()) return;
+    const element = this.el.nativeElement;
+    this.renderer.addClass(element, this.hoveredStyles());
   }
 
   readonly  class = computed(() => {
