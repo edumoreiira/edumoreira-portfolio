@@ -1,0 +1,12 @@
+.glow-fx {
+    ::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        box-shadow: 0 0 100px 30px hsla(60, 100%, 20%, 0.5);
+        z-index: -1;
+    }
+}

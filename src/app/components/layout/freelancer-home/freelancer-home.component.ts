@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { language_pt_br } from '../../../models/language.model';
 import { DocumentListenerService } from '../../../services/document-listener.service';
 import { LanguageService } from '../../../services/language.service';
@@ -18,6 +18,8 @@ import { ButtonComponent } from '../../base/button.component';
   imports: [GlowingBorderDirective, GlowingBorderItemDirective, AccordionComponent, SitePreviewerComponent,
     ChatMailComponent, TagComponent, AllTechsComponent, IntersectionObserverDirective, ButtonComponent],
   templateUrl: './freelancer-home.component.html',
+  styleUrl: './freelancer-home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FreelancerHomeComponent {
   protected lg = inject(LANGUAGE_APPLICATION);
