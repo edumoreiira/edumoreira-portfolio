@@ -1,0 +1,76 @@
+@let margin_b = 'mb-10';
+
+<app-timeline [lineGradient]="{ type: 'custom-middle', middleColors: ['transparent', 'hsl(60, 40%, 60%)', 'transparent'] }"
+size="1rem" margin="1rem 0 0 0" iconClass="opacity-30" glowColor="transparent"
+iconUrl="https://i.pinimgproxy.com/?url=aHR0cHM6Ly9jZG4taWNvbnMtcG5nLmZsYXRpY29uLmNvbS8yNTYvODA4LzgwODU2OS5wbmc=&ts=1758559902&sig=fc816e7001a76953fc6869786ef755f4a67faebac8cacb69934fde45c548e8b7"
+/>
+<div>
+  <h1 class="text-4xl font-semibold mb-4">Informações principais</h1>
+  <div class="space-y-1.5 {{margin_b}}">
+    <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Nome:</span> Eduardo Moreira</p>
+    <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Idade:</span> 24 anos</p>
+    <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Localização:</span> Brasília-DF, Brasil</p>
+    <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Profissão:</span> Desenvolvedor Full Stack</p>
+    <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Principais Tecnologias:</span> Angular, Java Spring Boot, PostgresSQL </p>
+  </div>
+</div>
+
+<!--  -->
+
+<app-timeline [lineGradient]="{ type: 'custom-middle', middleColors: ['transparent', 'hsl(60, 40%, 60%)', 'hsl(15 100% 60%)'] }"
+size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(60, 40%, 60%)" glowBlur="1.9rem" glowSize="1.5rem" 
+iconUrl="https://i.pinimgproxy.com/?url=aHR0cHM6Ly9jZG4taWNvbnMtcG5nLmZsYXRpY29uLmNvbS8yNTYvMzUwMy8zNTAzNzg2LnBuZw==&ts=1758561302&sig=9f74691938e8c4857124d0eb83b5f8910daae2962d81613fdfe34c9de97529d3"
+/>
+<div>
+  <h1 class="text-2xl font-semibold mb-4">Minha história e experiências</h1>
+  <div [class]="margin_b">
+    <p class="text-neutral-400 text-lg mb-2">
+      Tentarei deixar o mais breve possível, uma timeline de como iniciei na programação e como foi minha trajetória até aqui.
+    </p>
+    
+    <div class="inline-flex border border-orange-200/20 rounded-xl overflow-hidden">
+      <div class="flex items-center justify-center border-r border-r-orange-200/10 bg-orange-200/5 px-2">
+        <i class="fi fi-rr-comment-info text-orange-200 flex"></i>
+      </div>
+      <p class="py-1.5 px-2">Caso não queira ver a timeline completa, você pode
+        <a custom-btn class="inline-flex items-start py-1 px-2 !rounded-lg text-xl cursor-pointer text-xs"
+        variant="outline">
+          <span>Pular para a próxima seção!</span>
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!--  -->
+
+<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(15 100% 60%)', to: 'hsl(240, 40%, 60%)' }"
+iconUrl="https://img.icons8.com/?size=512&id=41078&format=png"
+size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(15 100% 60%)" glowBlur="1.9rem" glowSize="1.5rem"
+/>
+<div [class]="margin_b">
+  <div class="flex items-center gap-2 mb-4">
+    <h1 class="text-2xl">Segurança da informação</h1>
+    <div class="h-px w-5 bg-neutral-400"></div>
+    <span class="text-neutral-400">2019</span>
+  </div>
+  <ul class="space-y-1">
+    <li>
+      <p class="text-lg text-neutral-300 leading-relaxed">Minha porta de entrada foi através da segurança da informação.</p>
+    </li>
+    <li>
+      <p class="text-lg text-neutral-400 leading-relaxed">Em 2019, Descobri a <a class="text-orange-400 hover:text-orange-300 transition-colors"
+        href="https://portswigger.net/web-security" target="_blank" rel="noopener noreferrer">PortSwigger Academy</a> e fiz os cursos gratuitos da plataforma.</p>
+    </li>
+    <li>
+      <p class="text-lg text-neutral-400 leading-relaxed">Aprendi a usar o Burp Suite para explorar falhas como <strong class="font-semibold">SQL Injection, XSS, CSRF</strong> e outras vulnerabilidades.</p>
+    </li>
+    <li>
+      <p class="text-lg text-neutral-400 leading-relaxed">Conforme fui avançando, a lógica de programação era cada vez mais essencial para entender essas falhas.</p>
+    </li>
+    <li>
+      <p class="text-lg text-neutral-400 leading-relaxed">Sem base em código, não consegui me aprofundar e acabei pausando o curso.</p>
+    </li>
+  </ul>
+</div>
+

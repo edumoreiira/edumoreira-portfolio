@@ -26,7 +26,8 @@ export type LineGradient =
         alt=""
         [style.width]="size()"
         [style.height]="size()"
-        class="icon brightness-0 invert">
+        class="brightness-0 invert"
+        [class]="iconClass()">
     </div>
 
     <div
@@ -40,6 +41,8 @@ export class TimelineComponent {
   // general inputs
   readonly iconUrl = input<string>('/icons/techs/angular.webp');
   readonly size = input('2.5rem');
+  readonly margin = input('0');
+  readonly iconClass = input<string>('');
 
   // glow effect inputs
   readonly glowColor = input<string>('#7c72ff');
@@ -49,9 +52,6 @@ export class TimelineComponent {
   // line gradient input
   readonly lineGradient = input<LineGradient>({ type: 'linear', from: 'rgb(55 65 81)', to: 'rgb(55 65 81)' });
 
-  // new input to control the animation
-  readonly useObserverAnimation = input(false);
-
   // internal signal to control visibility class
   readonly isVisible = input(true);
 
@@ -60,6 +60,7 @@ export class TimelineComponent {
     '--glow-color': this.glowColor(),
     '--glow-size': this.glowSize(),
     '--glow-blur': this.glowBlur(),
+    'margin': this.margin()
   }));
 
   // computed signal to generate the line gradient style
