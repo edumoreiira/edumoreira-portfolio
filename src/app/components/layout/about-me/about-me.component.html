@@ -1,73 +1,86 @@
 @let margin_b = 'mb-16 sm:mb-10';
 @let space_y = 'space-y-2';
 
-<app-timeline [lineGradient]="{ type: 'custom-middle', middleColors: ['transparent', 'hsl(60, 40%, 60%)', 'transparent'] }"
-size="1.2rem" margin="1rem 0 0 0" iconClass="opacity-30" glowColor="transparent"
-iconUrl="/icons/others/circle.webp"
+<app-timeline
+  [isVisible]="block1Visible()"
+  [lineGradient]="{ type: 'custom-middle', middleColors: ['transparent', 'hsl(60, 40%, 60%)', 'transparent'] }"
+  size="1.2rem" margin="1rem 0 0 0" iconClass="opacity-30" glowColor="transparent"
+  iconUrl="/icons/others/circle.webp"
 />
-<div>
+<div [class]="margin_b" data-first-item [class.is-visible]="block1Visible()">
   <h1 class="text-4xl font-semibold mb-4">Informações principais</h1>
-  <div class="space-y-1.5 {{margin_b}}">
-    <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Nome:</span> Eduardo Moreira</p>
-    <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Idade:</span> 24 anos</p>
-    <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Localização:</span> Brasília-DF, Brasil</p>
-    <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Profissão:</span> Desenvolvedor Full Stack</p>
-    <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Principais Tecnologias:</span> Angular, Java Spring Boot, PostgresSQL </p>
-    <div class="flex items-center gap-6 mt-6 flex-wrap">
-      <button custom-btn class="flex items-center gap-2 px-3 py-1 !rounded-lg" >
-        <i class="fi fi-sr-resume flex"></i>
-        Baixar Currículo
-      </button>
-      <div class="inline-flex xs:text-xl divide-x divide-neutral-600 items-center flex-wrap">
-        <app-social-icon class="xs:pr-4 pr-3 flex" variant="none" icon="fi fi-sr-envelope-plus flex" url="mailto:edumoreira.dev@gmail.com" description="Email" />
-        <app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi fi-brands-github flex" url="https://github.com/edumoreiira" description="GitHub" />
-        <app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi fi-brands-linkedin flex" url="https://www.linkedin.com/in/eduardo-moreira-475b76368/" description="LinkedIn" />
-        <app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi fi-brands-twitter-alt flex"  url="https://twitter.com/edumoreira_dev" description="Twitter" />
-        <app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="flex fi fi-brands-behance" url="https://www.behance.net/eduumoreira" description="Behance" />
-        <app-social-icon class="xs:pl-4 pl-3 flex" variant="none" icon="ri-instagram-fill text-lg xs:text-2xl" url="https://www.instagram.com/edumoreira.dev/" description="Instagram" />
-      </div>
-    </div>
+  <ul class="{{space_y}} sm:text-lg">
+    <li>
+      <p class="text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Nome:</span> Eduardo Moreira</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Idade:</span> 24 anos</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Localização:</span> Brasília-DF, Brasil</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Profissão:</span> Desenvolvedor Full Stack</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Principais Tecnologias:</span> Angular, Java Spring Boot, PostgresSQL </p>
+    </li>
+  </ul>
+  <div class="flex items-center gap-6 mt-6 flex-wrap">
+    <button custom-btn class="flex items-center gap-2 px-3 py-1 !rounded-lg" >
+      <i class="fi fi-sr-resume flex"></i>
+      Baixar Currículo
+    </button>
+    <ul class="inline-flex xs:text-xl divide-x divide-neutral-600 items-center flex-wrap">
+      <li><app-social-icon class="xs:pr-4 pr-3 flex" variant="none" icon="fi fi-sr-envelope-plus flex" url="mailto:edumoreira.dev@gmail.com" description="Email" /></li>
+      <li><app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi fi-brands-github flex" url="https://github.com/edumoreiira" description="GitHub" /></li>
+      <li><app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi ri-linkedin-fill flex text-lg xs:text-2xl" url="https://www.linkedin.com/in/eduardo-moreira-475b76368/" description="LinkedIn" /></li>
+      <li><app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi fi-brands-twitter-alt flex"  url="https://twitter.com/edumoreira_dev" description="Twitter" /></li>
+      <li><app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="flex fi fi-brands-behance" url="https://www.behance.net/eduumoreira" description="Behance" /></li>
+      <li><app-social-icon class="xs:pl-4 pl-3 flex" variant="none" icon="ri-instagram-fill text-lg xs:text-2xl" url="https://www.instagram.com/edumoreira.dev/" description="Instagram" /></li>
+    </ul>
   </div>
 </div>
 
-<!--  -->
-
-<app-timeline [lineGradient]="{ type: 'custom-middle', middleColors: ['transparent', 'hsl(60, 40%, 60%)', 'hsl(15 100% 60%)'] }"
-size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(60, 40%, 60%)" glowBlur="1.9rem" glowSize="1.5rem" 
-iconUrl="/icons/others/history.webp"
+<app-timeline 
+  [isVisible]="block2Visible()"
+  [lineGradient]="{ type: 'custom-middle', middleColors: ['transparent', 'hsl(60, 40%, 60%)', 'hsl(15 100% 60%)'] }"
+  size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(60, 40%, 60%)" glowBlur="1.9rem" glowSize="1.5rem" 
+  iconUrl="/icons/others/history.webp"
 />
-<div>
+<div [class]="margin_b" blockIntersection (visible)="block2Visible.set(true)">
   <h1 class="text-2xl font-semibold mb-4">Minha história e experiências</h1>
-  <div [class]="margin_b">
-    <p class="text-neutral-400 text-lg mb-2">
-      Tentarei deixar o mais breve possível, uma timeline de como iniciei na programação e como foi minha trajetória até aqui.
-    </p>
-    
-    <div class="inline-flex border border-orange-200/20 rounded-xl overflow-hidden">
-      <div class="flex items-center justify-center border-r border-r-orange-200/10 bg-orange-200/5 px-2">
-        <i class="fi fi-rr-comment-info text-orange-200 flex"></i>
+  <ul class="{{space_y}} sm:text-lg">
+    <li>
+      <p class="text-neutral-400 text-xl">Tentarei deixar o mais breve possível, uma timeline de como iniciei na programação e como foi minha trajetória até aqui.</p>
+    </li>
+    <li>
+      <div class="inline-flex border border-orange-200/20 rounded-xl overflow-hidden">
+        <div class="flex items-center justify-center border-r border-r-orange-200/10 bg-orange-200/5 px-2">
+          <i class="fi fi-rr-comment-info text-orange-200 flex"></i>
+        </div>
+        <p class="py-1.5 px-2">Caso não queira ver a timeline completa, você pode
+          <a custom-btn class="inline-flex items-start py-1 px-2 !rounded-lg text-xl cursor-pointer text-xs"
+          variant="outline">
+            <span>Pular para a próxima seção!</span>
+          </a>
+        </p>
       </div>
-      <p class="py-1.5 px-2">Caso não queira ver a timeline completa, você pode
-        <a custom-btn class="inline-flex items-start py-1 px-2 !rounded-lg text-xl cursor-pointer text-xs"
-        variant="outline">
-          <span>Pular para a próxima seção!</span>
-        </a>
-      </p>
-    </div>
-  </div>
+    </li>
+  </ul>
 </div>
 
-<!--  -->
-
-<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(15 100% 60%)', to: 'hsl(210 80% 60.78%)' }"
-iconUrl="/icons/techs/portswigger.webp"
-size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(15 100% 80%)" glowBlur="1.9rem" glowSize="1.5rem"
+<app-timeline 
+  [isVisible]="block3Visible()"
+  [lineGradient]="{ type: 'linear', from: 'hsl(15 100% 60%)', to: 'hsl(210 80% 60.78%)' }"
+  iconUrl="/icons/techs/portswigger.webp"
+  size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(15 100% 80%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
-<div [class]="margin_b">
+<div [class]="margin_b" blockIntersection (visible)="block3Visible.set(true)">
   <div class="flex sm:flex-row flex-col sm:items-center gap-2 mb-6 sm:mb-4">
     <h1 class="text-2xl">Segurança da informação</h1>
-    <div class="h-px w-5 bg-neutral-400"></div>
-    <span class="text-neutral-400">2019</span>
+    <div class="h-px w-5 bg-neutral-400 separator"></div>
+    <span class="text-neutral-400 year">2019</span>
   </div>
   <ul class="{{space_y}} sm:text-lg">
     <li>
@@ -89,18 +102,17 @@ size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(15 100% 80%)" glowBlur="1.
   </ul>
 </div>
 
-
-<!--  -->
-
-<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(210 80% 60.78%)', to: 'oklch(59.6% 0.145 163.225)' }"
-iconUrl="/icons/techs/photoshop.webp"
-size="1.5rem" margin=".5rem 0 .5rem 0"  glowColor="hsl(210 80% 70.78%)" glowBlur="1.9rem" glowSize="1.5rem"
+<app-timeline 
+  [isVisible]="block4Visible()"
+  [lineGradient]="{ type: 'linear', from: 'hsl(210 80% 60.78%)', to: 'oklch(59.6% 0.145 163.225)' }"
+  iconUrl="/icons/techs/photoshop.webp"
+  size="1.5rem" margin=".5rem 0 .5rem 0"  glowColor="hsl(210 80% 70.78%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
-<div [class]="margin_b">
+<div [class]="margin_b" blockIntersection (visible)="block4Visible.set(true)">
   <div class="flex sm:flex-row flex-col sm:items-center gap-2 mb-6 sm:mb-4">
     <h1 class="text-2xl">Design Gráfico</h1>
-    <div class="h-px w-5 bg-neutral-400"></div>
-    <span class="text-neutral-400">2020</span>
+    <div class="h-px w-5 bg-neutral-400 separator"></div>
+    <span class="text-neutral-400 year">2020</span>
   </div>
   <ul class="{{space_y}} sm:text-lg">
     <li>
@@ -118,21 +130,18 @@ size="1.5rem" margin=".5rem 0 .5rem 0"  glowColor="hsl(210 80% 70.78%)" glowBlur
   </ul>
 </div>
 
-
-<!--  -->
-
-
-<app-timeline [lineGradient]="{ type: 'linear', from: 'oklch(59.6% 0.145 163.225)', to: 'hsl(136.07deg 75.83% 60.78%)' }"
-iconUrl="/icons/techs/pinescript.webp"
-size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="oklch(85.6% 0.145 163.225)" glowBlur="1.9rem" glowSize="1.5rem"
+<app-timeline 
+  [isVisible]="block5Visible()"
+  [lineGradient]="{ type: 'linear', from: 'oklch(59.6% 0.145 163.225)', to: 'hsl(136.07deg 75.83% 60.78%)' }"
+  iconUrl="/icons/techs/pinescript.webp"
+  size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="oklch(85.6% 0.145 163.225)" glowBlur="1.9rem" glowSize="1.5rem"
 />
-<div [class]="margin_b">
+<div [class]="margin_b" blockIntersection (visible)="block5Visible.set(true)">
   <div class="flex sm:flex-row flex-col sm:items-center gap-2 mb-6 sm:mb-4">
     <h1 class="text-2xl">Mercado Financeiro</h1>
-    <div class="h-px w-5 bg-neutral-400"></div>
-    <span class="text-neutral-400">2022</span>
+    <div class="h-px w-5 bg-neutral-400 separator"></div>
+    <span class="text-neutral-400 year">2022</span>
   </div>
-
   <ul class="{{space_y}} sm:text-lg">
     <li>
       <p class="text-neutral-400 leading-relaxed">Me fui apresentado ao mercado financeiro, explorando o ambiente <strong class="font-semibold">Web3.</strong></p>
@@ -150,19 +159,17 @@ size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="oklch(85.6% 0.145 163.225)" gl
   </ul>
 </div>
 
-
-<!--  -->
-
-
-<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(136.07deg 75.83% 60.78%)', to: 'hsl(306 91% 59%)' }"
-iconUrl="/icons/others/ifb.webp"
-size="1.1rem" margin=".7rem 0 .7rem 0" glowColor="hsl(136.07deg 75.83% 70.78%)" glowBlur="1.9rem" glowSize="1.5rem"
+<app-timeline 
+  [isVisible]="block6Visible()"
+  [lineGradient]="{ type: 'linear', from: 'hsl(136.07deg 75.83% 60.78%)', to: 'hsl(306 91% 59%)' }"
+  iconUrl="/icons/others/ifb.webp"
+  size="1.1rem" margin=".7rem 0 .7rem 0" glowColor="hsl(136.07deg 75.83% 70.78%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
-<div [class]="margin_b">
+<div [class]="margin_b" blockIntersection (visible)="block6Visible.set(true)">
   <div class="flex sm:flex-row flex-col sm:items-center gap-2 mb-6 sm:mb-4">
     <h1 class="text-2xl">Formação Acadêmica</h1>
-    <div class="h-px w-5 bg-neutral-400"></div>
-    <span class="text-neutral-400">2023 ~ 2025</span>
+    <div class="h-px w-5 bg-neutral-400 separator"></div>
+    <span class="text-neutral-400 year">2023 ~ 2025</span>
   </div>
   <ul class="{{space_y}} sm:text-lg">
     <li>
@@ -186,17 +193,17 @@ size="1.1rem" margin=".7rem 0 .7rem 0" glowColor="hsl(136.07deg 75.83% 70.78%)" 
   </ul>
 </div>
 
-<!--  -->
-
-<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(306 91% 59%)', to: 'hsl(76 76% 57%)' }"
-iconUrl="/icons/techs/angular.webp"
-size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(306 91% 68%)" glowBlur="1.9rem" glowSize="1.5rem"
+<app-timeline 
+  [isVisible]="block7Visible()"
+  [lineGradient]="{ type: 'linear', from: 'hsl(306 91% 59%)', to: 'hsl(76 76% 57%)' }"
+  iconUrl="/icons/techs/angular.webp"
+  size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(306 91% 68%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
-<div [class]="margin_b">
+<div [class]="margin_b" blockIntersection (visible)="block7Visible.set(true)">
   <div class="flex sm:flex-row flex-col sm:items-center gap-2 mb-6 sm:mb-4">
     <h1 class="text-2xl">Angular</h1>
-    <div class="h-px w-5 bg-neutral-400"></div>
-    <span class="text-neutral-400">2024</span>
+    <div class="h-px w-5 bg-neutral-400 separator"></div>
+    <span class="text-neutral-400 year">2024</span>
   </div>
   <ul class="{{space_y}} sm:text-lg">
     <li>
@@ -214,18 +221,17 @@ size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(306 91% 68%)" glowBlur="1.
   </ul>
 </div>
 
-<!--  -->
-
-
-<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(76 76% 57%)', to: 'hsl(42 76% 57%)' }"
-iconUrl="/icons/techs/spring-boot.webp"
-size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(76 76% 67%)" glowBlur="1.9rem" glowSize="1.5rem"
+<app-timeline 
+  [isVisible]="block8Visible()"
+  [lineGradient]="{ type: 'linear', from: 'hsl(76 76% 57%)', to: 'hsl(42 76% 57%)' }"
+  iconUrl="/icons/techs/spring-boot.webp"
+  size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(76 76% 67%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
-<div [class]="margin_b">
+<div [class]="margin_b" blockIntersection (visible)="block8Visible.set(true)">
   <div class="flex sm:flex-row flex-col sm:items-center gap-2 mb-6 sm:mb-4">
     <h1 class="text-2xl">Spring Boot</h1>
-    <div class="h-px w-5 bg-neutral-400"></div>
-    <span class="text-neutral-400">2025</span>
+    <div class="h-px w-5 bg-neutral-400 separator"></div>
+    <span class="text-neutral-400 year">2025</span>
   </div>
   <ul class="{{space_y}} sm:text-lg">
     <li>
@@ -243,14 +249,13 @@ size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(76 76% 67%)" glowBlur="1.9
   </ul>
 </div>
 
-
-<!--  -->
-
-<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(42 76% 57%)', to: 'hsl(0 0% 80%)' }"
-iconUrl="/icons/others/gear.webp"
-size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(42 76% 67%)" glowBlur="1.9rem" glowSize="1.5rem"
+<app-timeline 
+  [isVisible]="block9Visible()"
+  [lineGradient]="{ type: 'linear', from: 'hsl(42 76% 57%)', to: 'hsl(0 0% 80%)' }"
+  iconUrl="/icons/others/gear.webp"
+  size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(42 76% 67%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
-<div>
+<div blockIntersection (visible)="block9Visible.set(true)">
   <h1 class="text-2xl mb-4">Boas Práticas</h1>
   <div class="{{margin_b}}">
     <ul class="{{space_y}} sm:text-lg">
@@ -279,19 +284,17 @@ size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(42 76% 67%)" glowBlur="1.9
           Convido você a conferir meus projetos, acessando a aba <a routerLink="../../projects" class="text-yellow-500 hover:text-yellow-400 transition-colors">Projetos</a>!
         </p>
       </li>
-      
     </ul>
   </div>
 </div>
 
-<!--  -->
-
-
-<app-timeline [lineGradient]="{ type: 'custom-middle', middleColors: ['hsl(0 0% 70%)', 'hsl(0 0% 70%)', 'transparent'] }"
-iconUrl="/icons/others/rocket.webp"
-size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(0 0% 80%)" glowBlur="1.9rem" glowSize="1.5rem"
+<app-timeline 
+  [isVisible]="block10Visible()"
+  [lineGradient]="{ type: 'custom-middle', middleColors: ['hsl(0 0% 70%)', 'hsl(0 0% 70%)', 'transparent'] }"
+  iconUrl="/icons/others/rocket.webp"
+  size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(0 0% 80%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
-<div>
+<div blockIntersection (visible)="block10Visible.set(true)">
   <h1 class="text-2xl font-semibold mb-4">E o futuro?</h1>
   <div class="{{margin_b}}">
     <ul class="{{space_y}} sm:text-lg">
@@ -313,4 +316,3 @@ size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(0 0% 80%)" glowBlur="1.9re
     </ul>
   </div>
 </div>
-

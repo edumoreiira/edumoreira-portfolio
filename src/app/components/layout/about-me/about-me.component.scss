@@ -1,0 +1,42 @@
+// initial state for elements inside the content div before it becomes visible
+div[blockIntersection],
+div[data-first-item] {
+  h1, li, .separator, .year {
+    filter:blur(5px);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.5s ease-out, transform 0.5s ease-out;
+    transition-property: opacity, transform, filter;
+  }
+}
+
+// final state when the content div is visible
+div[blockIntersection].is-visible,
+div[data-first-item].is-visible {
+  h1, .separator, .year {
+    filter:blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .separator {
+    transition-delay: 100ms;
+  }
+  .year {
+    transition-delay: 200ms;
+  }
+  
+  // apply staggered delay to list items
+  li {
+    opacity: 1;
+    transform: translateY(0);
+    filter:blur(0);
+    
+    @for $i from 1 through 10 {
+      $delay: 300; // base delay
+
+      &:nth-child(#{$i}) {
+        transition-delay: #{$delay +($i * 75)}ms;
+      }
+    }
+  }
+}
