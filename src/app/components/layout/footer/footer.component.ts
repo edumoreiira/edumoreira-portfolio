@@ -19,7 +19,7 @@ import { IntersectionObserverDirective } from '../../../directives/intersection-
         <li aria-hidden="true" class="delay-2 h-px xs:w-[1.5rem] w-[1rem] bg-neutral-900"></li>
         <li class="delay-3"> <app-social-icon icon="flex fi fi-brands-twitter-alt-circle" url="https://x.com/edumoreira_dev" description="Twitter"/> </li>
         <li aria-hidden="true" class="delay-3 h-px xs:w-[1.5rem] w-[1rem] bg-neutral-900"></li>
-        <li class="delay-4"> <app-social-icon icon="ri-linkedin-fill text-lg" description="Linkedin"/> </li>
+        <li class="delay-4"> <app-social-icon icon="ri-linkedin-fill text-lg" url="https://www.linkedin.com/in/eduardo-moreira-475b76368/" description="Linkedin"/> </li>
         <li aria-hidden="true" class="delay-4 h-px xs:w-[1.5rem] w-[1rem] bg-neutral-900"></li>
         <li class="delay-5"> <app-social-icon icon="fi fi-brands-github flex" url="https://github.com/edumoreiira" description="Github"/> </li>
         <li aria-hidden="true" class="delay-5 h-px xs:w-[1.5rem] w-[1rem] bg-neutral-900"></li>

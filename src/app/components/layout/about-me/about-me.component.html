@@ -1,9 +1,9 @@
-@let margin_b = 'mb-10';
+@let margin_b = 'mb-16 sm:mb-10';
 @let space_y = 'space-y-2';
 
 <app-timeline [lineGradient]="{ type: 'custom-middle', middleColors: ['transparent', 'hsl(60, 40%, 60%)', 'transparent'] }"
-size="1rem" margin="1rem 0 0 0" iconClass="opacity-30" glowColor="transparent"
-iconUrl="https://i.pinimgproxy.com/?url=aHR0cHM6Ly9jZG4taWNvbnMtcG5nLmZsYXRpY29uLmNvbS8yNTYvODA4LzgwODU2OS5wbmc=&ts=1758559902&sig=fc816e7001a76953fc6869786ef755f4a67faebac8cacb69934fde45c548e8b7"
+size="1.2rem" margin="1rem 0 0 0" iconClass="opacity-30" glowColor="transparent"
+iconUrl="/icons/others/circle.webp"
 />
 <div>
   <h1 class="text-4xl font-semibold mb-4">Informações principais</h1>
@@ -13,6 +13,20 @@ iconUrl="https://i.pinimgproxy.com/?url=aHR0cHM6Ly9jZG4taWNvbnMtcG5nLmZsYXRpY29u
     <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Localização:</span> Brasília-DF, Brasil</p>
     <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Profissão:</span> Desenvolvedor Full Stack</p>
     <p class="text-lg text-neutral-400 leading-relaxed"><span class="font-semibold text-neutral-300">Principais Tecnologias:</span> Angular, Java Spring Boot, PostgresSQL </p>
+    <div class="flex items-center gap-6 mt-6 flex-wrap">
+      <button custom-btn class="flex items-center gap-2 px-3 py-1 !rounded-lg" >
+        <i class="fi fi-sr-resume flex"></i>
+        Baixar Currículo
+      </button>
+      <div class="inline-flex xs:text-xl divide-x divide-neutral-600 items-center flex-wrap">
+        <app-social-icon class="xs:pr-4 pr-3 flex" variant="none" icon="fi fi-sr-envelope-plus flex" url="mailto:edumoreira.dev@gmail.com" description="Email" />
+        <app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi fi-brands-github flex" url="https://github.com/edumoreiira" description="GitHub" />
+        <app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi fi-brands-linkedin flex" url="https://www.linkedin.com/in/eduardo-moreira-475b76368/" description="LinkedIn" />
+        <app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi fi-brands-twitter-alt flex"  url="https://twitter.com/edumoreira_dev" description="Twitter" />
+        <app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="flex fi fi-brands-behance" url="https://www.behance.net/eduumoreira" description="Behance" />
+        <app-social-icon class="xs:pl-4 pl-3 flex" variant="none" icon="ri-instagram-fill text-lg xs:text-2xl" url="https://www.instagram.com/edumoreira.dev/" description="Instagram" />
+      </div>
+    </div>
   </div>
 </div>
 
@@ -20,7 +34,7 @@ iconUrl="https://i.pinimgproxy.com/?url=aHR0cHM6Ly9jZG4taWNvbnMtcG5nLmZsYXRpY29u
 
 <app-timeline [lineGradient]="{ type: 'custom-middle', middleColors: ['transparent', 'hsl(60, 40%, 60%)', 'hsl(15 100% 60%)'] }"
 size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(60, 40%, 60%)" glowBlur="1.9rem" glowSize="1.5rem" 
-iconUrl="https://i.pinimgproxy.com/?url=aHR0cHM6Ly9jZG4taWNvbnMtcG5nLmZsYXRpY29uLmNvbS8yNTYvMzUwMy8zNTAzNzg2LnBuZw==&ts=1758561302&sig=9f74691938e8c4857124d0eb83b5f8910daae2962d81613fdfe34c9de97529d3"
+iconUrl="/icons/others/history.webp"
 />
 <div>
   <h1 class="text-2xl font-semibold mb-4">Minha história e experiências</h1>
@@ -46,11 +60,11 @@ iconUrl="https://i.pinimgproxy.com/?url=aHR0cHM6Ly9jZG4taWNvbnMtcG5nLmZsYXRpY29u
 <!--  -->
 
 <app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(15 100% 60%)', to: 'hsl(210 80% 60.78%)' }"
-iconUrl="https://img.icons8.com/?size=512&id=41078&format=png"
+iconUrl="/icons/techs/portswigger.webp"
 size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(15 100% 80%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
 <div [class]="margin_b">
-  <div class="flex items-center gap-2 mb-4">
+  <div class="flex sm:flex-row flex-col sm:items-center gap-2 mb-6 sm:mb-4">
     <h1 class="text-2xl">Segurança da informação</h1>
     <div class="h-px w-5 bg-neutral-400"></div>
     <span class="text-neutral-400">2019</span>
@@ -83,7 +97,7 @@ iconUrl="/icons/techs/photoshop.webp"
 size="1.5rem" margin=".5rem 0 .5rem 0"  glowColor="hsl(210 80% 70.78%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
 <div [class]="margin_b">
-  <div class="flex items-center gap-2 mb-4">
+  <div class="flex sm:flex-row flex-col sm:items-center gap-2 mb-6 sm:mb-4">
     <h1 class="text-2xl">Design Gráfico</h1>
     <div class="h-px w-5 bg-neutral-400"></div>
     <span class="text-neutral-400">2020</span>
@@ -113,7 +127,7 @@ iconUrl="/icons/techs/pinescript.webp"
 size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="oklch(85.6% 0.145 163.225)" glowBlur="1.9rem" glowSize="1.5rem"
 />
 <div [class]="margin_b">
-  <div class="flex items-center gap-2 mb-4">
+  <div class="flex sm:flex-row flex-col sm:items-center gap-2 mb-6 sm:mb-4">
     <h1 class="text-2xl">Mercado Financeiro</h1>
     <div class="h-px w-5 bg-neutral-400"></div>
     <span class="text-neutral-400">2022</span>
@@ -141,11 +155,11 @@ size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="oklch(85.6% 0.145 163.225)" gl
 
 
 <app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(136.07deg 75.83% 60.78%)', to: 'hsl(306 91% 59%)' }"
-iconUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Logotipo_IFET.svg/250px-Logotipo_IFET.svg.png"
+iconUrl="/icons/others/ifb.webp"
 size="1.1rem" margin=".7rem 0 .7rem 0" glowColor="hsl(136.07deg 75.83% 70.78%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
 <div [class]="margin_b">
-  <div class="flex items-center gap-2 mb-4">
+  <div class="flex sm:flex-row flex-col sm:items-center gap-2 mb-6 sm:mb-4">
     <h1 class="text-2xl">Formação Acadêmica</h1>
     <div class="h-px w-5 bg-neutral-400"></div>
     <span class="text-neutral-400">2023 ~ 2025</span>
@@ -179,7 +193,7 @@ iconUrl="/icons/techs/angular.webp"
 size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(306 91% 68%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
 <div [class]="margin_b">
-  <div class="flex items-center gap-2 mb-4">
+  <div class="flex sm:flex-row flex-col sm:items-center gap-2 mb-6 sm:mb-4">
     <h1 class="text-2xl">Angular</h1>
     <div class="h-px w-5 bg-neutral-400"></div>
     <span class="text-neutral-400">2024</span>
@@ -208,7 +222,7 @@ iconUrl="/icons/techs/spring-boot.webp"
 size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(76 76% 67%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
 <div [class]="margin_b">
-  <div class="flex items-center gap-2 mb-4">
+  <div class="flex sm:flex-row flex-col sm:items-center gap-2 mb-6 sm:mb-4">
     <h1 class="text-2xl">Spring Boot</h1>
     <div class="h-px w-5 bg-neutral-400"></div>
     <span class="text-neutral-400">2025</span>
@@ -233,8 +247,8 @@ size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(76 76% 67%)" glowBlur="1.9
 <!--  -->
 
 <app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(42 76% 57%)', to: 'hsl(0 0% 80%)' }"
-iconUrl="https://icons.veryicon.com/png/o/miscellaneous/font_awesome/gear-38.png"
-size="1.5rem" margin=".5rem 0 0 0" glowColor="hsl(42 76% 67%)" glowBlur="1.9rem" glowSize="1.5rem"
+iconUrl="/icons/others/gear.webp"
+size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(42 76% 67%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
 <div>
   <h1 class="text-2xl mb-4">Boas Práticas</h1>
@@ -274,8 +288,8 @@ size="1.5rem" margin=".5rem 0 0 0" glowColor="hsl(42 76% 67%)" glowBlur="1.9rem"
 
 
 <app-timeline [lineGradient]="{ type: 'custom-middle', middleColors: ['hsl(0 0% 70%)', 'hsl(0 0% 70%)', 'transparent'] }"
-iconUrl="https://static.thenounproject.com/png/152486-200.png"
-size="1.5rem" margin=".5rem 0 0 0" glowColor="hsl(0 0% 80%)" glowBlur="1.9rem" glowSize="1.5rem"
+iconUrl="/icons/others/rocket.webp"
+size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(0 0% 80%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
 <div>
   <h1 class="text-2xl font-semibold mb-4">E o futuro?</h1>
