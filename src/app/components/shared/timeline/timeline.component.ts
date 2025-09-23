@@ -25,7 +25,6 @@ export type LineGradient =
         [src]="iconUrl()"
         alt=""
         [style.width]="size()"
-        [style.height]="size()"
         class="brightness-0 invert"
         [class]="iconClass()">
     </div>
@@ -69,7 +68,7 @@ export class TimelineComponent {
     let backgroundImage = '';
 
     if (gradient.type === 'linear') {
-      backgroundImage = `linear-gradient(to bottom, ${gradient.from}, ${gradient.to})`;
+      backgroundImage = `linear-gradient(to bottom, ${gradient.from} 35%, ${gradient.to})`;
     } else {
       const [color1, color2, color3] = gradient.middleColors;
       backgroundImage = `linear-gradient(to bottom, ${color1}, ${color2}, ${color3})`;

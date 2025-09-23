@@ -61,7 +61,7 @@ html {
   }
 }
 
-body, html, app-root { display: block; height: 100%; }
+body, html, app-root { display: block; min-height: 100%; }
 
 app-pages-layout { height: 100%; display: flex; flex-direction: column; }
 

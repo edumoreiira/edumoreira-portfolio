@@ -1,4 +1,5 @@
 @let margin_b = 'mb-10';
+@let space_y = 'space-y-2';
 
 <app-timeline [lineGradient]="{ type: 'custom-middle', middleColors: ['transparent', 'hsl(60, 40%, 60%)', 'transparent'] }"
 size="1rem" margin="1rem 0 0 0" iconClass="opacity-30" glowColor="transparent"
@@ -44,9 +45,9 @@ iconUrl="https://i.pinimgproxy.com/?url=aHR0cHM6Ly9jZG4taWNvbnMtcG5nLmZsYXRpY29u
 
 <!--  -->
 
-<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(15 100% 60%)', to: 'hsl(240, 40%, 60%)' }"
+<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(15 100% 60%)', to: 'hsl(210 80% 60.78%)' }"
 iconUrl="https://img.icons8.com/?size=512&id=41078&format=png"
-size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(15 100% 60%)" glowBlur="1.9rem" glowSize="1.5rem"
+size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(15 100% 80%)" glowBlur="1.9rem" glowSize="1.5rem"
 />
 <div [class]="margin_b">
   <div class="flex items-center gap-2 mb-4">
@@ -54,23 +55,248 @@ size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(15 100% 60%)" glowBlur="1.
     <div class="h-px w-5 bg-neutral-400"></div>
     <span class="text-neutral-400">2019</span>
   </div>
-  <ul class="space-y-1">
+  <ul class="{{space_y}} sm:text-lg">
     <li>
-      <p class="text-lg text-neutral-300 leading-relaxed">Minha porta de entrada foi através da segurança da informação.</p>
+      <p class="text-neutral-300 leading-relaxed">Minha porta de entrada foi através da segurança da informação.</p>
     </li>
     <li>
-      <p class="text-lg text-neutral-400 leading-relaxed">Em 2019, Descobri a <a class="text-orange-400 hover:text-orange-300 transition-colors"
+      <p class="text-neutral-400 leading-relaxed">Em 2019, Descobri a <a class="text-orange-400 hover:text-orange-300 transition-colors"
         href="https://portswigger.net/web-security" target="_blank" rel="noopener noreferrer">PortSwigger Academy</a> e fiz os cursos gratuitos da plataforma.</p>
     </li>
     <li>
-      <p class="text-lg text-neutral-400 leading-relaxed">Aprendi a usar o Burp Suite para explorar falhas como <strong class="font-semibold">SQL Injection, XSS, CSRF</strong> e outras vulnerabilidades.</p>
+      <p class="text-neutral-400 leading-relaxed">Aprendi a usar o Burp Suite para explorar falhas como <strong class="font-semibold">SQL Injection, XSS, CSRF</strong> e outras vulnerabilidades.</p>
     </li>
     <li>
-      <p class="text-lg text-neutral-400 leading-relaxed">Conforme fui avançando, a lógica de programação era cada vez mais essencial para entender essas falhas.</p>
+      <p class="text-neutral-400 leading-relaxed">Conforme fui avançando, a lógica de programação era cada vez mais essencial para entender essas falhas.</p>
     </li>
     <li>
-      <p class="text-lg text-neutral-400 leading-relaxed">Sem base em código, não consegui me aprofundar e acabei pausando o curso.</p>
+      <p class="text-neutral-400 leading-relaxed">Sem base em código, não consegui me aprofundar e acabei pausando o curso.</p>
     </li>
   </ul>
+</div>
+
+
+<!--  -->
+
+<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(210 80% 60.78%)', to: 'oklch(59.6% 0.145 163.225)' }"
+iconUrl="/icons/techs/photoshop.webp"
+size="1.5rem" margin=".5rem 0 .5rem 0"  glowColor="hsl(210 80% 70.78%)" glowBlur="1.9rem" glowSize="1.5rem"
+/>
+<div [class]="margin_b">
+  <div class="flex items-center gap-2 mb-4">
+    <h1 class="text-2xl">Design Gráfico</h1>
+    <div class="h-px w-5 bg-neutral-400"></div>
+    <span class="text-neutral-400">2020</span>
+  </div>
+  <ul class="{{space_y}} sm:text-lg">
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Durante a pandemia, eu e um grupo de amigos decidimos criar diversos projetos juntos.</p>
+    </li>
+    <li>
+      <p class="text-neutral-300 leading-relaxed">Eu fiquei responsável pela parte visual dos projetos, aprendendo a usar o <strong class="font-semibold">Photoshop</strong> e <strong class="font-semibold">Illustrator</strong>.</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Criei logos, banners, posts para redes sociais e outros materiais gráficos.</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Essa experiência me ajudou a entender os conceitos do design e a sua importância na comunicação visual.</p>
+    </li>
+  </ul>
+</div>
+
+
+<!--  -->
+
+
+<app-timeline [lineGradient]="{ type: 'linear', from: 'oklch(59.6% 0.145 163.225)', to: 'hsl(136.07deg 75.83% 60.78%)' }"
+iconUrl="/icons/techs/pinescript.webp"
+size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="oklch(85.6% 0.145 163.225)" glowBlur="1.9rem" glowSize="1.5rem"
+/>
+<div [class]="margin_b">
+  <div class="flex items-center gap-2 mb-4">
+    <h1 class="text-2xl">Mercado Financeiro</h1>
+    <div class="h-px w-5 bg-neutral-400"></div>
+    <span class="text-neutral-400">2022</span>
+  </div>
+
+  <ul class="{{space_y}} sm:text-lg">
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Me fui apresentado ao mercado financeiro, explorando o ambiente <strong class="font-semibold">Web3.</strong></p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Me aprofundei em analise técnica e passei a criar meus próprios indicadores e estratégias usando
+        <a class="text-emerald-600 hover:text-emerald-500 transition-colors" href="https://www.tradingview.com/pine-script-reference/v5/" target="_blank" rel="noopener noreferrer">Pine Script</a> na plataforma <strong class="font-semibold">TradingView.</strong></p>
+    </li>
+    <li>
+      <p class="text-neutral-300 leading-relaxed">Foi minha primeira experiência sólida com programação, onde pude conhecer os principais operadores, como: <strong class="font-semibold">if</strong>, <strong class="font-semibold">else</strong> e <strong class="font-semibold">for</strong>.</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Embora eu tenha criado meus proprios indicadores, meu foco não era a programação, e sim a criação de estratégias de investimento.</p>
+    </li>
+  </ul>
+</div>
+
+
+<!--  -->
+
+
+<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(136.07deg 75.83% 60.78%)', to: 'hsl(306 91% 59%)' }"
+iconUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Logotipo_IFET.svg/250px-Logotipo_IFET.svg.png"
+size="1.1rem" margin=".7rem 0 .7rem 0" glowColor="hsl(136.07deg 75.83% 70.78%)" glowBlur="1.9rem" glowSize="1.5rem"
+/>
+<div [class]="margin_b">
+  <div class="flex items-center gap-2 mb-4">
+    <h1 class="text-2xl">Formação Acadêmica</h1>
+    <div class="h-px w-5 bg-neutral-400"></div>
+    <span class="text-neutral-400">2023 ~ 2025</span>
+  </div>
+  <ul class="{{space_y}} sm:text-lg">
+    <li>
+      <p class="text-neutral-300 leading-relaxed">Iniciei o curso de <strong class="font-semibold">Desenvolvimento de Software</strong> no <strong class="font-semibold">Instituto Federal de Educação, Ciência e Tecnologia de Brasília - IFB</strong>.</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Foi onde eu descobri que tudo que tinha praticado até então havia um conceito por trás: a <strong class="font-semibold">Lógica de Programação</strong>.</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Aprendi sobre a história da programação, desde os primeiros computadores até as linguagens modernas.</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Através do Java, entendi <strong class="font-semibold">POO</strong> e suas principais características, como encapsulamento, herança e polimorfismo.</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Estudei banco de dados, redes de computadores, engenharia de software e outros conceitos importantes para a área de TI, me permitindo entender mais a fundo tudo que eu havia praticado nos últimos anos sem me importar com a teoria.</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Mas o que mais me chamava atenção era a parte de Desenvolvimento Web, então me aprofundei nas particularidades da base que são utilizadas (<strong class="font-semibold">HTML, CSS e JavaScript</strong>).</p>
+    </li>
+  </ul>
+</div>
+
+<!--  -->
+
+<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(306 91% 59%)', to: 'hsl(76 76% 57%)' }"
+iconUrl="/icons/techs/angular.webp"
+size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(306 91% 68%)" glowBlur="1.9rem" glowSize="1.5rem"
+/>
+<div [class]="margin_b">
+  <div class="flex items-center gap-2 mb-4">
+    <h1 class="text-2xl">Angular</h1>
+    <div class="h-px w-5 bg-neutral-400"></div>
+    <span class="text-neutral-400">2024</span>
+  </div>
+  <ul class="{{space_y}} sm:text-lg">
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Após entender bem <strong class="font-semibold">JavaScript</strong> e manipulação do DOM, escolhi <strong class="font-semibold">Angular</strong> como primeiro framework front-end.</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Com o Angular em fase de transformação, acabei aprendendo suas particularidades antigas e novas.</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Comecei a construir vários projetos pessoais utilizando Angular, e postando no meu <a href="https://github.com/edumoreiira" target="_blank" class="text-fuchsia-500 hover:text-fuchsia-400 transition-colors">GitHub</a>.</p>
+    </li>
+    <li>
+      <p class="text-neutral-300 leading-relaxed">Hoje <small class="text-neutral-400">(set/2025)</small>, com quase <strong class="font-semibold">2 anos de experiência com Angular</strong>, entendo muito bem suas boas práticas e funcionalidades.</p>
+    </li>
+  </ul>
+</div>
+
+<!--  -->
+
+
+<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(76 76% 57%)', to: 'hsl(42 76% 57%)' }"
+iconUrl="/icons/techs/spring-boot.webp"
+size="1.5rem" margin=".5rem 0 .5rem 0" glowColor="hsl(76 76% 67%)" glowBlur="1.9rem" glowSize="1.5rem"
+/>
+<div [class]="margin_b">
+  <div class="flex items-center gap-2 mb-4">
+    <h1 class="text-2xl">Spring Boot</h1>
+    <div class="h-px w-5 bg-neutral-400"></div>
+    <span class="text-neutral-400">2025</span>
+  </div>
+  <ul class="{{space_y}} sm:text-lg">
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Escolhi <strong class="font-semibold">Spring Boot</strong> como meu primeiro framework backend.</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Foquei na criação de <strong class="font-semibold">APIs RESTful</strong> e autenticação usando <strong class="font-semibold">JWT</strong>.</p>
+    </li>
+    <li>
+      <p class="text-neutral-400 leading-relaxed">Foi interessante criar do zero um backend, pois pude revisitar e aplicar os <strong class="font-semibold">conceitos de segurança</strong> que aprendi no início.</p>
+    </li>
+    <li>
+      <p class="text-neutral-300 leading-relaxed">Hoje, consigo integrar o backend com o frontend em Angular, criando aplicações completas.</p>
+    </li>
+  </ul>
+</div>
+
+
+<!--  -->
+
+<app-timeline [lineGradient]="{ type: 'linear', from: 'hsl(42 76% 57%)', to: 'hsl(0 0% 80%)' }"
+iconUrl="https://icons.veryicon.com/png/o/miscellaneous/font_awesome/gear-38.png"
+size="1.5rem" margin=".5rem 0 0 0" glowColor="hsl(42 76% 67%)" glowBlur="1.9rem" glowSize="1.5rem"
+/>
+<div>
+  <h1 class="text-2xl mb-4">Boas Práticas</h1>
+  <div class="{{margin_b}}">
+    <ul class="{{space_y}} sm:text-lg">
+      <li>
+        <p class="text-neutral-400 leading-relaxed">
+          Durante minha jornada, aprendi a importância de seguir boas práticas de desenvolvimento.
+        </p>
+      </li>
+      <li>
+        <p class="text-neutral-400 leading-relaxed">
+          Busco sempre escrever códigos coerentes, fáceis de ler e entender.
+        </p>
+      </li>
+      <li>
+        <p class="text-neutral-400 leading-relaxed">
+          Todo o versionamento dos meus códigos seguem as boas práticas do Conventional Commits, com descrições claras e objetivas.
+        </p>
+      </li>
+      <li>
+        <p class="text-neutral-400 leading-relaxed">
+          Embora hoje eu utilize mais o <strong class="font-semibold">Tailwind</strong> para estilização, tenho conhecimento na metodologia <strong class="font-semibold">BEM</strong> (Bloco, Elemento, Modificador) no CSS.
+        </p>
+      </li>
+      <li>
+        <p class="text-neutral-300 leading-relaxed">
+          Convido você a conferir meus projetos, acessando a aba <a routerLink="../../projects" class="text-yellow-500 hover:text-yellow-400 transition-colors">Projetos</a>!
+        </p>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<!--  -->
+
+
+<app-timeline [lineGradient]="{ type: 'custom-middle', middleColors: ['hsl(0 0% 70%)', 'hsl(0 0% 70%)', 'transparent'] }"
+iconUrl="https://static.thenounproject.com/png/152486-200.png"
+size="1.5rem" margin=".5rem 0 0 0" glowColor="hsl(0 0% 80%)" glowBlur="1.9rem" glowSize="1.5rem"
+/>
+<div>
+  <h1 class="text-2xl font-semibold mb-4">E o futuro?</h1>
+  <div class="{{margin_b}}">
+    <ul class="{{space_y}} sm:text-lg">
+      <li>
+        <p class="text-neutral-400 leading-relaxed">
+          Estou sempre criando projetos full-stacks, aprimorando minhas habilidades tanto no front-end quanto no back-end.
+        </p>
+      </li>
+      <li>
+        <p class="text-neutral-400 leading-relaxed">
+          Pretendo explorar outras tecnologias e frameworks, como <strong class="font-semibold">React</strong> e <strong class="font-semibold">Node.js</strong>, para ampliar meu leque de conhecimentos.
+        </p>
+      </li>
+      <li>
+        <p class="text-neutral-300 leading-relaxed">
+          Além disso, quero continuar aprendendo sobre boas práticas de desenvolvimento, arquitetura de software e metodologias ágeis.
+        </p>
+      </li>
+    </ul>
+  </div>
 </div>
 
