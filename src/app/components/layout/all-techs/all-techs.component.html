@@ -3,17 +3,17 @@
 xs:[grid-template-columns:repeat(auto-fit,minmax(5.5rem,min(1fr,100%)))] xs:[grid-auto-rows:5.5rem] 
 [grid-template-columns:repeat(auto-fit,minmax(5rem,min(1fr,100%)))] [grid-auto-rows:5rem]
 sm:overflow-auto transition-all duration-300
-py-12 md:py-20"
-InterObs intersectChild="true" obsClass="fadeIn"
+"
+InterObs intersectChild="true" obsClass="fadeIn" rootMargin="-200px"
 app-glowing-border glowColor="hsla(0, 0%, 25%, 0.1)" borderColor="var(--color-neutral-900)" borderGlowSize="450px" glowSize="600px"
 [ngClass]="opened() ? 'max-h-[50rem]' : 'max-h-[28rem] sm:max-h-[50rem] overflow-hidden'">
     <!-- header -->
     <div class="col-span-4 inline-flex w-max items-start mx-auto sm:mx-0 flex-col gap-1 sm:gap-4">
         <h1 class="inline text-[1.75rem] sm:text-4xl font-semibold"> {{ techs.title }} </h1>
         <div class="flex w-full gap-2 items-center">
-            <span class="text-[1.75rem] sm:text-4xl font-semibold uppercase leading-none">{{ techs.year }}</span>
-            <div class="h-px bg-neutral-800 flex-1"></div>
             <span class="text-lg leading-none italic">{{ techs.misc }}</span>
+            <div class="h-px bg-neutral-800 flex-1"></div>
+            <span class="text-[1.75rem] sm:text-4xl font-semibold uppercase leading-none">{{ techs.year }}</span>
         </div>
     </div>
     <!-- /header -->

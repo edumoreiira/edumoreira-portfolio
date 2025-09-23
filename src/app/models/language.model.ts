@@ -152,7 +152,7 @@ export const language_pt_br: LanguageApllication = {
     techs: {
         title: "Tecnologias que eu domino",
         year: "2025",
-        misc: "Eduardo Moreira"
+        misc: "2023"
     },
     cta: {
         title: ["Seu site nas mãos de quem tem o" , "molho", "do design" ],
@@ -262,7 +262,7 @@ export const language_en_us: LanguageApllication = {
     techs: {
         title: "Technologies I'm skilled at",
         year: "2025",
-        misc: "Eduardo Moreira"
+        misc: "2023"
     },
     cta: {
         title: ["Your site with a dash of design", "sauce", "expertise" ],

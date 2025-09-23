@@ -13,6 +13,9 @@ export interface Tech {
 }
 @Component({
   selector: 'app-all-techs',
+  host: {
+    class: 'block my-12 md:my-20'
+  },
   imports: [TechComponent, NgClass, GlowingBorderItemDirective, GlowingBorderDirective, IntersectionObserverDirective],
   templateUrl: './all-techs.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush

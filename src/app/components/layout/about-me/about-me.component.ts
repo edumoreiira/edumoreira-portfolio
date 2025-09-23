@@ -35,7 +35,7 @@ export class AboutMeComponent {
   }
 
   private animateFirstBlock() {
-    timer(350).pipe(
+    timer(100).pipe(
       takeUntilDestroyed()
     )
     .subscribe(() => {
