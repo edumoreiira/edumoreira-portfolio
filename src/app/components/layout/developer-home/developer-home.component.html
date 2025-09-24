@@ -1,11 +1,25 @@
 <section>
-  <app-about-me class="page-container py-20"/>
+  <!-- <app-about-me class="page-container py-20"/> -->
 </section>
 
 <section id="techs">
-    <div class="page-container">
+    <!-- <div class="page-container">
         @defer (on immediate) {
             <app-all-techs />
         }
+    </div> -->
+</section>
+
+<section>
+    <div class="page-container">
+        <app-infinite-scrolling>
+            <div #item class="item h-20 w-60 bg-red-500"></div>
+            <div #item class="item h-20 w-60 bg-blue-500"></div>
+            <div #item class="item h-20 w-60 bg-green-500"></div>
+            <div #item class="item h-20 w-60 bg-fuchsia-500"></div>
+            <!-- <div #item class="item h-20 w-60 bg-yellow-500"></div>
+            <div #item class="item h-20 w-60 bg-indigo-500"></div>
+            <div #item class="item h-20 w-60 bg-sky-500"></div> -->
+        </app-infinite-scrolling>
     </div>
 </section>

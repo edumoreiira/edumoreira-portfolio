@@ -20,10 +20,10 @@ div[data-first-item].is-visible {
     transform: translateX(0);
   }
   .separator {
-    transition-delay: #{$titleDelay + 100ms};
+    transition-delay: #{$titleDelay + 75ms};
   }
   .year {
-    transition-delay: #{$titleDelay + 200ms};
+    transition-delay: #{$titleDelay + 160ms};
   }
   
   // apply staggered delay to list items
