@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, computed, contentChildren, ElementRef, inject, input, OnInit, Renderer2, viewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, computed, contentChildren, effect, ElementRef, inject, input, OnInit, Renderer2, untracked, viewChild } from '@angular/core';
 
 @Component({
   selector: 'app-infinite-scrolling',
@@ -16,7 +16,8 @@ import { AfterContentInit, Component, computed, contentChildren, ElementRef, inj
       <ng-content></ng-content>
     </div>
   `,
-  styleUrl: './infinite-scrolling.component.scss'
+  styleUrl: './infinite-scrolling.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InfiniteScrollingComponent implements AfterContentInit{
   private readonly renderer = inject(Renderer2);
@@ -34,11 +35,22 @@ export class InfiniteScrollingComponent implements AfterContentInit{
   }) 
   private readonly items = contentChildren('item', { read: ElementRef });
 
+  constructor() {
+    // update styles when items are changed
+    effect(() => {
+      const items = this.items(); 
+      untracked(() => {
+        this.updateSliderParams();
+        this.setItemParams();
+      })
+    })
+  }
+
 
   ngAfterContentInit(): void {
     setTimeout(() => { // await a tick to ensure items are rendered
       this.updateSliderParams();
-      this.setItemPosition();
+      this.setItemParams();
     });
   }
 
@@ -71,10 +83,11 @@ export class InfiniteScrollingComponent implements AfterContentInit{
     this.renderer.setAttribute(sliderEl, 'style', styles);
   }
 
-  private setItemPosition() {
+  private setItemParams() {
     this.items().forEach((item, index) => {
       const itemEl = item.nativeElement as HTMLElement;
       itemEl.style.setProperty('--position', (index + 1).toString());
+      itemEl.classList.add('item');
     });
   }
   
