@@ -5,6 +5,10 @@ import { AfterContentInit, Component, computed, contentChildren, ElementRef, inj
   host: {
     class: 'slider',
     '[class.fade-corner]': 'fadeCorner()',
+    '[class.pause-on-hover]': 'pauseOnHover()',
+    '[class.vertical]': 'direction() === "vertical"',
+    '[class.horizontal]': 'direction() === "horizontal"',
+    '[style]': 'sliderStyles()',
   },
   imports: [],
   template: `
@@ -22,6 +26,8 @@ export class InfiniteScrollingComponent implements AfterContentInit{
   readonly gap = input<number>(0);
   readonly fadeCorner = input<boolean>(true);
   readonly reverse = input<boolean>(false);
+  readonly pauseOnHover = input<boolean>(true);
+  readonly direction = input<'horizontal' | 'vertical'>('horizontal');
   // 
   sliderStyles = computed(() => {
     return this.getSliderParams();
@@ -54,6 +60,8 @@ export class InfiniteScrollingComponent implements AfterContentInit{
     --gap: ${this.gap()}px;
     --animation-duration: ${this.speed()}s;
     --animation-direction: ${this.reverse() ? 'reverse' : 'normal'};
+    width: ${this.direction() === 'horizontal' ? '100%' : `${width}px`};
+    height: ${this.direction() === 'vertical' ? '100%' : `${height}px`};
     `
   }
 
