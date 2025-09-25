@@ -3,31 +3,37 @@ import { AfterContentInit, Component, computed, contentChildren, ElementRef, inj
 @Component({
   selector: 'app-infinite-scrolling',
   host: {
-
+    class: 'slider',
+    '[class.fade-corner]': 'fadeCorner()',
   },
   imports: [],
   template: `
-    <div #slider class="slider">
+    <div class="list">
       <ng-content></ng-content>
     </div>
   `,
   styleUrl: './infinite-scrolling.component.scss'
 })
 export class InfiniteScrollingComponent implements AfterContentInit{
-  renderer = inject(Renderer2);
+  private readonly renderer = inject(Renderer2);
+  private readonly slider = inject(ElementRef);
   // 
-  speed = input<number>(3);
-  items = contentChildren('item', { read: ElementRef });
-  slider = viewChild.required('slider', { read: ElementRef });
-
+  readonly speed = input<number>(20);
+  readonly gap = input<number>(0);
+  readonly fadeCorner = input<boolean>(true);
+  readonly reverse = input<boolean>(false);
+  // 
   sliderStyles = computed(() => {
     return this.getSliderParams();
   }) 
+  private readonly items = contentChildren('item', { read: ElementRef });
 
 
   ngAfterContentInit(): void {
-    this.updateSliderParams();
-    this.setItemPosition();
+    setTimeout(() => { // await a tick to ensure items are rendered
+      this.updateSliderParams();
+      this.setItemPosition();
+    });
   }
 
   private getItemParams(): [width: number, height: number, quantity: number] {
@@ -45,12 +51,14 @@ export class InfiniteScrollingComponent implements AfterContentInit{
     --item-width: ${width}px;
     --item-height: ${height}px;
     --quantity: ${quantity};
-    --animation-duration: ${10}s;
+    --gap: ${this.gap()}px;
+    --animation-duration: ${this.speed()}s;
+    --animation-direction: ${this.reverse() ? 'reverse' : 'normal'};
     `
   }
 
   private updateSliderParams() {
-    const sliderEl = this.slider().nativeElement;
+    const sliderEl = this.slider.nativeElement;
     const styles = this.getSliderParams();
     this.renderer.setAttribute(sliderEl, 'style', styles);
   }
