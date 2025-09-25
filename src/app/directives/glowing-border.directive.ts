@@ -153,7 +153,7 @@ export class GlowingBorderDirective implements OnInit, OnDestroy, AfterContentIn
     if (!isPlatformBrowser(this.platformId)) return;
     // runs listeners outside angular zone to avoid change detection on every mouse move
     this.zone.runOutsideAngular(() => {
-      const host = this.el.nativeElement;
+      const hostElement = this.el.nativeElement;
       const onMouseMove = (event: MouseEvent) => {
         // only updates the target coordinates
         this.items.forEach(item => {
@@ -167,15 +167,15 @@ export class GlowingBorderDirective implements OnInit, OnDestroy, AfterContentIn
       // stops the animation loop when the mouse leaves
       const onMouseLeave = () => { this.stopAnimationLoop(); };
 
-      host.addEventListener('mousemove', onMouseMove);
-      host.addEventListener('mouseenter', onMouseEnter);
-      host.addEventListener('mouseleave', onMouseLeave);
+      hostElement.addEventListener('mousemove', onMouseMove);
+      hostElement.addEventListener('mouseenter', onMouseEnter);
+      hostElement.addEventListener('mouseleave', onMouseLeave);
 
       // stores the functions to be able to remove them later
       this.listeners.push(
-        () => host.removeEventListener('mousemove', onMouseMove),
-        () => host.removeEventListener('mouseenter', onMouseEnter),
-        () => host.removeEventListener('mouseleave', onMouseLeave)
+        () => hostElement.removeEventListener('mousemove', onMouseMove),
+        () => hostElement.removeEventListener('mouseenter', onMouseEnter),
+        () => hostElement.removeEventListener('mouseleave', onMouseLeave)
       );
     });
   }

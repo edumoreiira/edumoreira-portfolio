@@ -37,7 +37,6 @@
       top: 100%;
       animation: autoRunVertical var(--animation-duration) linear infinite;
       animation-direction: var(--animation-direction);
-      transition: filter 0.5s;
       animation-delay: calc( (var(--animation-duration) / var(--quantity)) * var(--position) - var(--animation-duration))!important;
     }
     @keyframes autoRunVertical{
@@ -58,7 +57,6 @@
     left: 100%;
     animation: autoRunHorizontal var(--animation-duration) linear infinite;
     animation-direction: var(--animation-direction);
-    transition: filter 0.5s;
     animation-delay: calc( (var(--animation-duration) / var(--quantity)) * var(--position) - var(--animation-duration))!important;
     }
     @keyframes autoRunHorizontal{
