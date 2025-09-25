@@ -6,6 +6,7 @@ import { GlowingBorderDirective, GlowingBorderItemDirective } from '../../../dir
 import { InfiniteScrollingComponent } from '../../utils/infinite-scrolling/infinite-scrolling.component';
 import { Project } from '../../../models/project.model';
 import { RouterLink } from '@angular/router';
+import { DocumentListenerService } from '../../../services/document-listener.service';
 
 interface ProjectColumn {
   column: Project[];
@@ -22,6 +23,7 @@ interface ProjectColumn {
 })
 export class ProjectsCTAComponent {
   private readonly projectsService = inject(ProjectsService);
+  protected readonly documentListener = inject(DocumentListenerService)
   protected readonly projects = toSignal(this.projectsService.getProjects());
 
   protected projectColumns = computed<ProjectColumn[]>(() => {
