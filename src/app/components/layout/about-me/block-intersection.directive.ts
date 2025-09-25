@@ -29,6 +29,13 @@ export class BlockIntersectionDirective implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      const el = this.elementRef.nativeElement as HTMLElement;
+      const height = el.offsetHeight;
+      
+      // adjust threshold based on element height
+      const threshold = height > 320 ? 0.3 : 0.6; // 30% for taller elements, 60% for shorter ones
+
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -40,10 +47,10 @@ export class BlockIntersectionDirective implements AfterViewInit {
             }
           });
         },
-        { threshold: 0.4 }
+        { threshold }
       );
 
-      observer.observe(this.elementRef.nativeElement);
+      observer.observe(el);
     }
   }
 }
