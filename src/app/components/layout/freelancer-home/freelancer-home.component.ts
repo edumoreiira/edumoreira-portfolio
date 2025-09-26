@@ -54,7 +54,7 @@ export class FreelancerHomeComponent {
       description: this.lg().works.accordions[2].description,
       button: this.lg().works.accordions[2].button,
       imgUrl: "./website-preview/aju-films.jpeg",
-      websiteUrl: "https://edumoreiira.github.io/aju-films/"
+      websiteUrl: "https://ajufilms.com.br/"
     },
   ]);
 

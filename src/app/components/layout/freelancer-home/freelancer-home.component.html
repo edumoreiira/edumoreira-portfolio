@@ -27,16 +27,25 @@
                 [borderColor]="currentSiteIndex() === $index ? 'var(--color-neutral-600)' : 'var(--color-neutral-800)'">
                     <div class="flex flex-col gap-4 items-start">
                         <p class="text-neutral-400">{{ item.description }}</p>
-                        <a [href]="item.websiteUrl" target="_blank" rel="noopener"
-                        class="text-white italic text-shadow-[0_2px_16px] text-shadow-white/25 
-                        hover:text-neutral-400 transition-colors sm:text-sm self-end"
-                        > {{ item.button }} </a>
+                        <div class="flex w-full items-center justify-between">
+                            <a [href]="item.websiteUrl" target="_blank" rel="noopener"
+                            class="text-white text-shadow-[0_2px_16px] text-shadow-white/25 
+                            hover:text-neutral-400 transition-colors sm:text-sm self-end"
+                            > {{ item.button }} </a>
+                            <button
+                            class="flex items-center gap-2 text-white text-shadow-[0_2px_16px] text-shadow-white/25 
+                            hover:text-neutral-400 transition-colors sm:text-sm self-end"
+                            (click)="sitePreviewer.open()"
+                            > 
+                                <i class="fi fi-rr-expand flex"></i> Preview 
+                            </button>
+                        </div>
                     </div>
                 </accordion>
             }
         </div>
         <div class="aspect-video sm:aspect-auto delay-4 rounded-xl out-of-view" app-glowing-border-item>
-            <app-site-previewer [borderless]="true" [websites]="websites()"/>
+            <app-site-previewer #sitePreviewer [borderless]="true" [websites]="websites()"/>
         </div>
     </div>
 </section>
