@@ -60,10 +60,11 @@
           <i class="fi fi-rr-comment-info text-orange-200 flex"></i>
         </div>
         <p class="py-1.5 px-2">Caso não queira ver a timeline completa, você pode
-          <a custom-btn class="inline-flex items-start py-1 px-2 !rounded-lg text-xl cursor-pointer text-xs"
+          <button custom-btn (click)="scrollTo('projects')"
+          class="inline-flex items-start py-1 px-2 !rounded-lg text-xl cursor-pointer text-xs"
           variant="outline">
             <span>Pular para a próxima seção!</span>
-          </a>
+          </button>
         </p>
       </div>
     </li>
@@ -296,7 +297,7 @@
 />
 <div blockIntersection (visible)="block10Visible.set(true)">
   <h1 class="text-2xl font-semibold mb-4">E o futuro?</h1>
-  <div class="{{margin_b}}">
+  <div class="mb-24">
     <ul class="{{space_y}} sm:text-lg">
       <li>
         <p class="text-neutral-400 leading-relaxed">

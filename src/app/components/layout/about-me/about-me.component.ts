@@ -42,4 +42,10 @@ export class AboutMeComponent {
       this.block1Visible.set(true);
     });
   }
+
+  protected scrollTo(elementId: string): void {
+    // Garante que o código só rode no navegador
+      const element = document.getElementById(elementId);
+      element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 }

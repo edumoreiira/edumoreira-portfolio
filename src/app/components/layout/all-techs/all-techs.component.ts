@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, inject, input, signal } from '@angular/core';
 import { TechComponent } from '../../shared/tech/tech.component';
 import { NgClass } from '@angular/common';
 import { LANGUAGE_APPLICATION } from '../../../tokens/language.tokens';
@@ -13,9 +13,6 @@ export interface Tech {
 }
 @Component({
   selector: 'app-all-techs',
-  host: {
-    class: 'block my-12 md:my-20'
-  },
   imports: [TechComponent, NgClass, GlowingBorderItemDirective, GlowingBorderDirective, IntersectionObserverDirective],
   templateUrl: './all-techs.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -24,6 +21,7 @@ export class AllTechsComponent {
   lg = inject(LANGUAGE_APPLICATION);
   // 
   opened = signal(false);
+  containerClass = input('');
 
   technologiesArr: Tech[] = [
     {

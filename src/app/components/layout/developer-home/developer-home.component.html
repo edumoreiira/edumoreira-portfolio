@@ -1,11 +1,13 @@
 <section>
-  <app-about-me class="page-container py-12 md:py-20"/>
+  <app-about-me class="page-container pt-12 md:pt-20"/>
 </section>
 
-<section>
+<section id="projects">
     @defer(on immediate) {
         <div class="page-container">
-            <app-projects-cta></app-projects-cta>
+            <div InterObs selfIntersect="true" rootMargin="-200px">
+                <app-projects-cta containerClass="pb-12 md:pb-20"/>
+            </div>
         </div>
     }
 </section>
@@ -13,7 +15,7 @@
 <section id="techs">
     <div class="page-container">
         @defer {
-            <app-all-techs />
+            <app-all-techs containerClass="py-12 md:py-20" />
         }
     </div>
 </section>

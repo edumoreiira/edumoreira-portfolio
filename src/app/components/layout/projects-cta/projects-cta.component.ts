@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { ProjectsService } from '../../../services/projects.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ProjectCardComponent } from '../../shared/project-card/project-card.component';
@@ -11,12 +11,8 @@ import { DocumentListenerService } from '../../../services/document-listener.ser
 interface ProjectColumn {
   column: Project[];
 }
-
 @Component({
   selector: 'app-projects-cta',
-  host: {
-    class: 'transform-3d'
-  },
   imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective, InfiniteScrollingComponent, RouterLink],
   templateUrl: './projects-cta.component.html',
   styleUrl: './projects-cta.component.scss'
@@ -27,6 +23,7 @@ export class ProjectsCTAComponent {
   protected readonly projects = toSignal(this.projectsService.getProjects());
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  readonly containerClass = input('');
 
   protected projectColumns = computed<ProjectColumn[]>(() => {
     const allProjects = this.projects();
