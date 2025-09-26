@@ -50,13 +50,11 @@ export class ProjectsCTAComponent {
     // it takes the newest available from each list, ensuring no repeats
     if (highlighted.length > 0) column1.push(highlighted.shift()!);
     if (normal.length > 0) column1.push(normal.shift()!);
-    if (highlighted.length > 0) column1.push(highlighted.shift()!);
     if (normal.length > 0) column1.push(normal.shift()!);
 
     // 4. build column 2 with the pattern [normal, normal, highlight]
     if (highlighted.length > 0) column2.push(highlighted.shift()!);
     if (normal.length > 0) column2.push(normal.shift()!);
-    if (highlighted.length > 0) column2.push(highlighted.shift()!);
     if (normal.length > 0) column2.push(normal.shift()!);
     
     // 5. build column 3 with the rest, sorted by date

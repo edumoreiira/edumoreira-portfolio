@@ -12,7 +12,8 @@ import { AfterContentInit, ChangeDetectionStrategy, Component, computed, content
   },
   imports: [],
   template: `
-    <div class="list">
+    <div class="list"
+    [style.padding]="padding()">
       <ng-content></ng-content>
     </div>
   `,
@@ -29,6 +30,8 @@ export class InfiniteScrollingComponent implements AfterContentInit{
   readonly reverse = input<boolean>(false);
   readonly pauseOnHover = input<boolean>(true);
   readonly direction = input<'horizontal' | 'vertical'>('horizontal');
+  readonly autoSetWidthHeight = input<boolean>(false);
+  readonly padding = input<string | null>(null);
   // 
   sliderStyles = computed(() => {
     return this.getSliderParams();
@@ -65,6 +68,10 @@ export class InfiniteScrollingComponent implements AfterContentInit{
 
   private getSliderParams() {
     const [width, height, quantity] = this.getItemParams();
+    const size = 
+    `width: ${this.direction() === 'horizontal' ? '100%' : `${width}px`};
+     height: ${this.direction() === 'vertical' ? '100%' : `${height}px`};`
+
     return `
     --item-width: ${width}px;
     --item-height: ${height}px;
@@ -72,8 +79,7 @@ export class InfiniteScrollingComponent implements AfterContentInit{
     --gap: ${this.gap()}px;
     --animation-duration: ${this.speed()}s;
     --animation-direction: ${this.reverse() ? 'reverse' : 'normal'};
-    width: ${this.direction() === 'horizontal' ? '100%' : `${width}px`};
-    height: ${this.direction() === 'vertical' ? '100%' : `${height}px`};
+    ${this.autoSetWidthHeight() ? size : ''}
     `
   }
 
