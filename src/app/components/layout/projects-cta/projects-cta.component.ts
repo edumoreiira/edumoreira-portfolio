@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { ProjectsService } from '../../../services/projects.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ProjectCardComponent } from '../../shared/project-card/project-card.component';
@@ -15,7 +15,8 @@ interface ProjectColumn {
   selector: 'app-projects-cta',
   imports: [ProjectCardComponent, GlowingBorderDirective, GlowingBorderItemDirective, InfiniteScrollingComponent, RouterLink],
   templateUrl: './projects-cta.component.html',
-  styleUrl: './projects-cta.component.scss'
+  styleUrl: './projects-cta.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectsCTAComponent {
   private readonly projectsService = inject(ProjectsService);

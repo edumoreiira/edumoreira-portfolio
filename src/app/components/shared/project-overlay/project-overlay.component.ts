@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, model, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, model, output, signal } from '@angular/core';
 import { Project } from '../../../models/project.model';
 import { DatePipe, NgClass, NgTemplateOutlet } from '@angular/common';
 import { MarkdownComponent } from 'ngx-markdown';
@@ -32,7 +32,8 @@ interface MarkdownSection {
   styleUrl: './project-overlay.component.scss',
   animations: [
     createAnimation('fadeIn', { animateY: true, duration: '400ms' })
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectOverlayComponent {
   private readonly projectOverlayService = inject(ProjectOverlayService);

@@ -14,7 +14,6 @@ export type LineGradient =
   selector: 'app-timeline',
   standalone: true,
   imports: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'class': 'flex flex-col items-center',
     '[class.is-visible]': 'isVisible()',
@@ -30,11 +29,12 @@ export type LineGradient =
     </div>
 
     <div
-      class="timeline-line w-[3px] my-2 rounded-full flex-1"
-      [style]="lineStyles()">
-    </div>
+    class="timeline-line w-[3px] my-2 rounded-full flex-1"
+    [style]="lineStyles()">
+  </div>
   `,
   styleUrl: './timeline.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimelineComponent {
   // general inputs

@@ -311,9 +311,35 @@
       </li>
       <li>
         <p class="text-neutral-300 leading-relaxed">
-          Além disso, quero continuar aprendendo sobre boas práticas de desenvolvimento, arquitetura de software e metodologias ágeis.
+          Além disso, quero continuar aprendendo sobre boas práticas de desenvolvimento e arquitetura de software.
         </p>
       </li>
     </ul>
   </div>
+</div>
+
+<app-timeline
+[isVisible]="block11Visible()"
+[lineGradient]="{ type: 'custom-middle', middleColors: ['transparent', 'hsl(0 0% 70%)', 'transparent'] }"
+size="1.5rem" margin=".3rem 0 0 0" glowColor="hsl(60 80% 80%)" glowBlur="0" glowSize="0rem"
+iconClass="opacity-20"
+iconUrl="/icons/others/pen.webp"
+/>
+<div blockIntersection (visible)="block11Visible.set(true)">
+  <ul class="inline-flex xs:text-xl divide-x divide-neutral-600 items-center flex-wrap">
+
+      <!-- <li>
+        <button custom-btn class="flex items-center gap-2 px-3 py-1 !rounded-lg" >
+          <i class="fi fi-sr-resume flex"></i>
+          Baixar Currículo
+        </button>
+      </li> -->
+      <li><app-social-icon class="xs:pr-4 pr-3 flex" variant="none" icon="fi fi-sr-envelope-plus flex" url="mailto:edumoreira.dev@gmail.com" description="Email" /></li>
+      <li><app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi fi-brands-github flex" url="https://github.com/edumoreiira" description="GitHub" /></li>
+      <li><app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi ri-linkedin-fill flex text-lg xs:text-2xl" url="https://www.linkedin.com/in/eduardo-moreira-475b76368/" description="LinkedIn" /></li>
+      <li><app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi fi-brands-twitter-alt flex"  url="https://twitter.com/edumoreira_dev" description="Twitter" /></li>
+      <li><app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="flex fi fi-brands-behance" url="https://www.behance.net/eduumoreira" description="Behance" /></li>
+      <li><app-social-icon class="xs:pl-4 pl-3 flex" variant="none" icon="ri-instagram-fill text-lg xs:text-2xl" url="https://www.instagram.com/edumoreira.dev/" description="Instagram" /></li>
+    </ul>
+
 </div>

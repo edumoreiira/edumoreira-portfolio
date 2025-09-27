@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectorRef, Component, ElementRef, inject, input, OnInit, signal, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, input, OnInit, signal, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { createAnimation } from '../../../animations/default-transitions.animations';
 import { LANGUAGE_APPLICATION } from '../../../tokens/language.tokens';
@@ -8,6 +8,7 @@ import { take, timer } from 'rxjs';
   imports: [],
   animations: [createAnimation('fade', { opacity: '0', duration: '500ms'}),],
   templateUrl: './iframe-loader.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IframeLoaderComponent implements OnInit, AfterContentInit {
   private cdr = inject(ChangeDetectorRef)

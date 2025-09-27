@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, viewChild } from '@angular/core';
 import { WebSites } from '../site-previewer.component';
 import { IframeLoaderComponent } from '../../../utils/iframe-loader/iframe-loader.component';
 import { LANGUAGE_APPLICATION } from '../../../../tokens/language.tokens';
@@ -11,6 +11,7 @@ import { LANGUAGE_APPLICATION } from '../../../../tokens/language.tokens';
   },
   imports: [IframeLoaderComponent],
   templateUrl: './overlay-content.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OverlayContentComponent {
   lg = inject(LANGUAGE_APPLICATION);

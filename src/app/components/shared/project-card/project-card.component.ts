@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, input, output, signal } from '@angular/core';
 import { ButtonComponent } from '../../base/button.component';
 import { Project } from '../../../models/project.model';
 import { DatePipe, NgClass } from '@angular/common';
@@ -13,6 +13,7 @@ import { LANGUAGE_APPLICATION } from '../../../tokens/language.tokens';
   },
   imports: [ButtonComponent, DatePipe, NgClass, MarkdownComponent, MatTooltipModule],
   templateUrl: './project-card.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectCardComponent {
   readonly lg = inject(LANGUAGE_APPLICATION);

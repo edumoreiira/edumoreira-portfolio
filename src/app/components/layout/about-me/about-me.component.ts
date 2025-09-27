@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, inject, NgZone, signal } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, inject, NgZone, signal } from '@angular/core';
 import { TimelineComponent } from '../../shared/timeline/timeline.component';
 import { ButtonComponent } from '../../base/button.component';
 import { RouterLink } from '@angular/router';
@@ -14,7 +14,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   },
   imports: [TimelineComponent, ButtonComponent, RouterLink, SocialIconComponent, BlockIntersectionDirective],
   templateUrl: './about-me.component.html',
-  styleUrl: './about-me.component.scss'
+  styleUrl: './about-me.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AboutMeComponent {
   private readonly zone = inject(NgZone);
@@ -29,6 +30,7 @@ export class AboutMeComponent {
   block8Visible = signal(false);
   block9Visible = signal(false);
   block10Visible = signal(false);
+  block11Visible = signal(false);
 
   constructor() {
     this.zone.runOutsideAngular(() => this.animateFirstBlock());

@@ -29,7 +29,6 @@ export class HomeComponent {
   protected lg = inject(LANGUAGE_APPLICATION);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  private readonly destroyRef = inject(DestroyRef);
   private readonly userPreference = inject(UserPreferenceService)
   // 
   homePageSelector = signal<HomeView | ''>('');
@@ -47,11 +46,11 @@ export class HomeComponent {
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       startWith(null), //starts with null, forcing subscribe when page loads for the first time.
-      takeUntilDestroyed(this.destroyRef)
+      takeUntilDestroyed()
     ).subscribe(() => {
       const childRoute = this.route.firstChild;
       if (childRoute) {
-        const currentView = childRoute.snapshot.url[0]?.path as HomeView;
+        const currentView = childRoute.snapshot?.url[0]?.path as HomeView;
         // prevents infinite loop with effect
         if(currentView && this.homePageSelector() !== currentView) {
           this.homePageSelector.set(currentView);
