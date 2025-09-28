@@ -17,9 +17,19 @@
                 </h1>
             </div>
             <div class="w-[min(35rem,100%)] mx-auto delay-2 out-of-view">
-                <p class="text-xl text-neutral-400 text-center">
-                    {{ main.description }}
-                </p>
+                @if(homePageSelector() === 'freelancer') {
+                    <p class="text-xl text-neutral-400 text-center" @textAnimate>
+                        {{ main.description }}
+                    </p>
+                } @else if (homePageSelector() === 'developer') {
+                    <p class="text-xl text-neutral-400 text-center" @textAnimate>
+                        Trabalho com desenvolvimento web há mais de 2 anos. Esta página foi feita no intuito de mostrar um pouco mais sobre minhas habilidades e experiências na área.
+                    </p>
+                } @else {
+                    <p class="text-xl text-neutral-400 text-center" @textAnimate>
+                        Este portal contém duas seções distintas. Uma dedicada aos meus serviços como freelancer, e outra que destaca minhas habilidades e experiências como desenvolvedor.
+                    </p>
+                }
             </div>
             
             <!-- <div class="flex items-center sm:gap-8 gap-6 delay-4 out-of-view">
@@ -35,7 +45,7 @@
                 {{ main.button2 }}
             </button>
         </div> -->
-        <div class="flex flex-col delay-4 out-of-view max-w-[25.8rem]">
+        <div class="flex flex-col delay-4 out-of-view max-w-[23rem] sm:max-w-[25.8rem]">
             <em-button-toggle-group name="home-page-selector" #toggleElement
                 em-button-toggle-animation
                 [(ngModel)]="homePageSelector"
@@ -76,7 +86,7 @@
                     <p class="text-center text-neutral-400 text-sm"
                     @textAnimate
                     >
-                        Selecione <strong class="font-semibold text-neutral-200">"Quero um website"</strong> caso você queira contratar meus serviços como freelancer, ou <strong class="font-semibold text-neutral-200">"Sou um recrutador"</strong> caso você tenha interesse em me contratar como um desenvolvedor.
+                        Selecione <strong class="font-semibold text-neutral-200">"Quero um website"</strong> caso queira contratar meus serviços como freelancer, ou <strong class="font-semibold text-neutral-200">"Sou um recrutador"</strong> caso tenha interesse em me contratar como um desenvolvedor.
                     </p>
                 }
             </div>
@@ -85,6 +95,6 @@
 
         </div>
     </section>
-    </main>
+</main>
 
 <router-outlet></router-outlet>

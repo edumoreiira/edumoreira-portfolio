@@ -61,12 +61,7 @@ export class HomeComponent {
 
 
 
-
-
-  
   // Methods
-
-
   scrollTo(id: string) {
     const element = document.getElementById(id);
     if (element) {
