@@ -6,19 +6,22 @@ import { SocialIconComponent } from '../../shared/social-icon/social-icon.compon
 import { BlockIntersectionDirective } from './block-intersection.directive';
 import { timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LANGUAGE_APPLICATION } from '../../../tokens/language.tokens';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'app-about-me',
   host: {
     class: 'grid sm:grid-cols-[6rem_1fr] sm:gap-x-0 gap-x-4 grid-cols-[2.5rem_1fr]'
   },
-  imports: [TimelineComponent, ButtonComponent, RouterLink, SocialIconComponent, BlockIntersectionDirective],
+  imports: [TimelineComponent, ButtonComponent, RouterLink, SocialIconComponent, BlockIntersectionDirective, MarkdownComponent],
   templateUrl: './about-me.component.html',
   styleUrl: './about-me.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AboutMeComponent {
   private readonly zone = inject(NgZone);
+  protected readonly lg = inject(LANGUAGE_APPLICATION);
   // 
   block1Visible = signal(false);
   block2Visible = signal(false);
@@ -50,4 +53,5 @@ export class AboutMeComponent {
       const element = document.getElementById(elementId);
       element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
+  
 }

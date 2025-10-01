@@ -116,6 +116,32 @@ button {
     @apply mb-2;
   }
 }
+.about-me-markdown {
+  strong {
+    font-weight: 600;
+  }
+  &--main {
+    strong {
+      color: var(--color-neutral-300);
+      font-weight: 700;
+    }
+  }
+  &--security {
+    a {
+      @apply text-orange-400 hover:text-orange-300 hover:underline transition-colors;
+    }
+  }
+  &--financial {
+    a {
+      @apply text-emerald-600 hover:text-emerald-500 hover:underline transition-colors;
+    }
+  }
+  &--angular {
+    a {
+      @apply text-fuchsia-400 hover:text-fuchsia-300 hover:underline transition-colors;
+    }
+  }
+}
 
 // ::view-transition-image-pair(project-card-*) {
 //   z-index: 9999;

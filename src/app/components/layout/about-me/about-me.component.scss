@@ -36,7 +36,7 @@ div[data-first-item].is-visible {
       $delay: 200; // base delay
 
       &:nth-child(#{$i}) {
-        transition-delay: #{$delay +($i * 50)}ms;
+        transition-delay: #{$delay + ($i * 50)}ms;
       }
     }
   }

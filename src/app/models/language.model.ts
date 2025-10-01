@@ -1,4 +1,5 @@
 import { PredefinedMessage } from "../components/layout/chat-mail/chat-mail.component";
+import { developer_en_us, developer_pt_br } from "./about_me.model";
 
 export interface LanguageApllication {
     navbar: {
@@ -51,7 +52,7 @@ export interface LanguageApllication {
     },
     footer: {
         copyright: string;
-    }
+    },
 
     projects: {
         title: string;
@@ -67,6 +68,27 @@ export interface LanguageApllication {
                 preview: string;
             }
         }
+    },
+
+    developer: {
+        main_info: {
+            title: string;
+            descriptions: string[];
+            cv_button: string;
+        }
+        explanation: {
+            title: string;
+            description: string;
+            warn_box: {
+                text: string;
+                button: string;
+            }
+        },
+        timeline_items: {
+            title: { text: string; year: string; };
+            descriptions: { text: string; highlight: boolean; }[];
+            bonus_info?: string | string[];
+        }[]
     }
 }
 
@@ -150,7 +172,7 @@ export const language_pt_br: LanguageApllication = {
         email_subject: "Olá, quero fazer o orçamento de um site"
     },
     techs: {
-        title: "Tecnologias que eu domino",
+        title: "Tecnologias que eu utilizo",
         year: "2025",
         misc: "2023"
     },
@@ -177,7 +199,8 @@ export const language_pt_br: LanguageApllication = {
                 preview: "Preview"
             }
         }
-    }
+    },
+    developer: developer_pt_br
 }
 
 export const language_en_us: LanguageApllication = {
@@ -260,7 +283,7 @@ export const language_en_us: LanguageApllication = {
         email_subject: "Hello, I want to get a website quote"
     },
     techs: {
-        title: "Technologies I'm skilled at",
+        title: "Technologies that I use",
         year: "2025",
         misc: "2023"
     },
@@ -286,6 +309,7 @@ export const language_en_us: LanguageApllication = {
                 preview: "Preview"
             }
         }
-    }
+    },
+    developer: developer_en_us
 
 }
