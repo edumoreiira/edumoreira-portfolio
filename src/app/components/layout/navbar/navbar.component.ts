@@ -16,7 +16,9 @@ import { ActivatedRoute, RouterLink, RouterLinkActive } from "@angular/router";
         class: 'flex items-center justify-between py-3 px-4 sm:px-8 lg:px-12 gap-6 backdrop-blur bg-neutral-950/80 sticky top-0 w-full z-20 relative'
     },
     template: `
-    <span class="font-medium font-[Kanit] cursor-default text-2xl">[edumoreira]</span>
+    <a class="font-medium font-[Kanit] cursor-default text-2xl cursor-pointer"
+    routerLink="./home"
+    >[edumoreira]</a>
     
     @if((isNavbarExpanded() === true && screenWidth() <= 640) || screenWidth() > 640) {
         <nav #navContainer class="ml-auto sm:static absolute max-w-[calc(100%-1.5rem)] right-0 top-full sm:py-0 sm:px-0 py-6 px-8 sm:bg-transparent bg-neutral-950/95 

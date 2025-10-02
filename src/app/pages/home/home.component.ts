@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
 import { LANGUAGE_APPLICATION } from '../../tokens/language.tokens';
-import { ButtonComponent } from '../../components/base/button.component';
 import { createAnimation } from '../../animations/default-transitions.animations';
 import { IntersectionObserverDirective } from '../../directives/intersection-observer.directive';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
@@ -58,6 +57,9 @@ export class HomeComponent {
         if(currentView && this.homePageSelector() !== currentView) {
           this.homePageSelector.set(currentView);
         }
+      } else {
+        this.homePageSelector.set('');
+        this.userPreference.setHomeView(''); // clear preference when on /home only
       }
     });
   }
