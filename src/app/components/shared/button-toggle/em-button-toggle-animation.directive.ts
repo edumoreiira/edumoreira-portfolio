@@ -32,11 +32,11 @@ export class EmButtonToggleAnimationDirective implements OnInit, OnDestroy {
 
   constructor() {
     effect(() => {
-      const activeIndex = this.activeButtonIndex();
-      // only run if activeIndex is set and on browser
-      if (activeIndex === -1 || !isPlatformBrowser(this.platformId)) {
+      if (!isPlatformBrowser(this.platformId)) {
         return;
       }
+      const activeIndex = this.activeButtonIndex();
+      // only run if activeIndex is set and on browser
       this.updateButtonBackgroundPosition();
     });
   }
@@ -70,7 +70,11 @@ export class EmButtonToggleAnimationDirective implements OnInit, OnDestroy {
 
   private setClassVariables(): void {
     const activeIndex = this.activeButtonIndex();
-    if (activeIndex < 0 || !this.state[activeIndex]) return;
+    if( activeIndex < 0 ) { // when no button is selected
+      this.el.nativeElement.style.setProperty('--top', `-150%`); // hide the background
+      return;
+    }
+    if (!this.state[activeIndex]) return;
 
     const activeState = this.state[activeIndex];
     this.el.nativeElement.style.setProperty('--left', `${activeState.offsetX}px`);

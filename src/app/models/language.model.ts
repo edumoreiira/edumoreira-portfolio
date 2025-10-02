@@ -133,7 +133,7 @@ export const language_pt_br: LanguageApllication = {
                 developer: "Sou um recrutador"
             },
             description: {
-                home: ["Selecione ", '"Quero um Website "', "caso queira contratar meus serviços como freelancer, ou ", '"Sou um recrutador "', "caso tenha interesse em me contratar como um desenvolvedor."  ],
+                home: ["Selecione ", '"Quero um Website"', "caso queira contratar meus serviços como freelancer, ou ", '"Sou um recrutador"', "caso tenha interesse em me contratar como um desenvolvedor."  ],
                 freelancer: ["Caso você seja um recrutador e está buscando um desenvolvedor, alterne para a aba ", '"Sou um recrutador"', "." ],
                 developer: ["Caso você queira contratar meus serviços como freelancer, alterne para a aba ", '"Quero um Website"', "."]
             }
