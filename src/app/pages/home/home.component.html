@@ -1,4 +1,4 @@
-@let main = lg().main;
+@let home = lg().home;
 
 <main class="relative overflow-hidden" id="home">
 
@@ -9,43 +9,31 @@
         <div class="flex gap-6 flex-col items-center justify-center" InterObs [intersectChild]="true">
             <div class="flex flex-col items-center text-center out-of-view">
                 <span class="flex flex-col items-center gap-2 sm:mb-0 mb-2 sm:font-medium">
-                    {{ main.misc }}
+                    {{ home.misc }}
                     <span class="inline-block h-[1px] w-[3rem] bg-neutral-800"></span> 
                 </span>
                 <h1 class="sm:text-6xl text-5xl w-[min(60rem,100%)] leading-tight">
-                    {{ main.title[0] }} <b class="font-semibold"> {{ main.title[1] }} </b>
+                    {{ home.title[0] }} <b class="font-semibold"> {{ home.title[1] }} </b>
                 </h1>
             </div>
             <div class="w-[min(35rem,100%)] mx-auto delay-2 out-of-view">
                 @if(homePageSelector() === 'freelancer') {
                     <p class="text-xl text-neutral-400 text-center" @textAnimate>
-                        {{ main.description }}
+                        {{ home.description.freelancer }}
                     </p>
                 } @else if (homePageSelector() === 'developer') {
                     <p class="text-xl text-neutral-400 text-center" @textAnimate>
-                        Trabalho com desenvolvimento web há mais de 2 anos. Esta página foi feita no intuito de mostrar um pouco mais sobre minhas habilidades e experiências na área.
+                        {{ home.description.developer }}
                     </p>
                 } @else {
                     <p class="text-xl text-neutral-400 text-center" @textAnimate>
-                        Este portal contém duas seções distintas. Uma dedicada aos meus serviços como freelancer, e outra que destaca minhas habilidades e experiências como desenvolvedor.
+                        {{ home.description.home }}
                     </p>
                 }
             </div>
             
-            <!-- <div class="flex items-center sm:gap-8 gap-6 delay-4 out-of-view">
-                <button custom-btn variant="contained"
-                class="text-lg min-w-[11rem] py-2 px-4 rounded-xl font-semibold flex items-center justify-center gap-2"
-                (click)="scrollTo('contact')">
-                <i class="fi fi-sr-rocket-lunch flex"></i>
-                    {{ main.button1 }}
-                </button>
-                <button custom-btn variant="outline"
-                class="text-lg min-w-[11rem] py-2 px-4 rounded-xl hidden sm:block"
-                (click)="scrollTo('my-works')">
-                {{ main.button2 }}
-            </button>
-        </div> -->
-        <div class="flex flex-col delay-4 out-of-view max-w-[23.5rem] sm:max-w-[25.8rem]">
+        <div [class]="currentLanguage() === 'pt-br' ? 'max-w-[23.5rem] sm:max-w-[25.8rem]' : 'max-w-[20.7rem] sm:max-w-[22rem] ' "
+        class="flex flex-col delay-4 out-of-view">
             <em-button-toggle-group name="home-page-selector" #toggleElement
                 em-button-toggle-animation
                 [(ngModel)]="homePageSelector"
@@ -57,14 +45,14 @@
                     hover="text-neutral-300"
                     active="text-neutral-950">
                     <i class="fi fi-sr-browser flex"></i>
-                        Quero um website
+                        {{ home.selector.label.freelancer }}
                     </button>
                     <button em-button-toggle value="developer"
                     class="flex items-center gap-2"
                     hover="text-neutral-300"
                     active="text-neutral-950">
                     <i class="fi fi-sr-employee-man flex"></i>
-                    Sou um recrutador
+                    {{ home.selector.label.developer }}
                 </button>
             </em-button-toggle-group>
             <div class="py-3 px-2 border border-neutral-800 rounded-xl rounded-t-none relative overflow-hidden">
@@ -72,21 +60,25 @@
                     <p class="text-center text-neutral-400 text-sm"
                     @textAnimate
                     >
-                        Caso você seja um recrutador e está buscando um desenvolvedor, alterne para o 
-                        <strong class="font-semibold text-neutral-200">"Sou um recrutador"</strong>.
+                        {{ home.selector.description.freelancer[0] }}
+                        <strong class="font-semibold text-neutral-200">{{ home.selector.description.freelancer[1] }}</strong>{{ home.selector.description.freelancer[2] }}
                     </p>
                 }@else if(homePageSelector() === 'developer') {
                     <p class="text-center text-neutral-400 text-sm"
                     @textAnimate
                     >
-                        Caso você queira contratar meus serviços como freelancer, alterne para o 
-                        <strong class="font-semibold text-neutral-200">"Quero um website"</strong>.
+                        {{ home.selector.description.developer[0] }}
+                        <strong class="font-semibold text-neutral-200">{{ home.selector.description.developer[1] }}</strong>{{ home.selector.description.developer[2] }}
                     </p>
                 }@else {
                     <p class="text-center text-neutral-400 text-sm"
                     @textAnimate
                     >
-                        Selecione <strong class="font-semibold text-neutral-200">"Quero um website"</strong> caso queira contratar meus serviços como freelancer, ou <strong class="font-semibold text-neutral-200">"Sou um recrutador"</strong> caso tenha interesse em me contratar como um desenvolvedor.
+                    {{ home.selector.description.home[0] }}    
+                    <strong class="font-semibold text-neutral-200">{{ home.selector.description.home[1] }}</strong>
+                    {{ home.selector.description.home[2] }}
+                    <strong class="font-semibold text-neutral-200">{{ home.selector.description.home[3] }}</strong>
+                    {{ home.selector.description.home[4] }}
                     </p>
                 }
             </div>

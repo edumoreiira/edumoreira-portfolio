@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
 import { LANGUAGE_APPLICATION } from '../../tokens/language.tokens';
 import { ButtonComponent } from '../../components/base/button.component';
 import { createAnimation } from '../../animations/default-transitions.animations';
@@ -11,6 +11,7 @@ import { HomeView, UserPreferenceService } from '../../services/user-preference.
 import { FormsModule } from '@angular/forms';
 import { filter, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-home',
@@ -27,10 +28,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class HomeComponent {
   protected lg = inject(LANGUAGE_APPLICATION);
+  protected languageService = inject(LanguageService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly userPreference = inject(UserPreferenceService)
   // 
+  currentLanguage = computed(() => this.languageService.$currentLanguageUrlKey());
   homePageSelector = signal<HomeView | ''>('');
 
   changeRoute = effect(() => {

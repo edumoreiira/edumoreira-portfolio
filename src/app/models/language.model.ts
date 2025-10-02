@@ -10,12 +10,25 @@ export interface LanguageApllication {
         }
         contact: string;
     },
-    main: {
+    home: {
         misc: string;
         title: string[];
-        description: string;
-        button1: string;
-        button2: string;
+        description: { 
+            freelancer: string;
+            developer: string;
+            home: string;
+        };
+        selector: {
+            label: {
+                freelancer: string;
+                developer: string;
+            }
+            description: {
+                freelancer: string[];
+                developer: string[];
+                home: string[];
+            }
+        }
     },
     works: {
         title: string;
@@ -101,12 +114,25 @@ export const language_pt_br: LanguageApllication = {
         },
         contact: "Entrar em contato",
     },
-    main: {
+    home: {
         misc: "Muito Prazer!",
         title: ["Meu nome é", "Eduardo!"],
-        description: "Sou desenvolvedor e designer, crio sites modernos, rápidos e com design de impacto. Transformo ideias em páginas que valorizam seu negócio e destacam sua marca na internet.",
-        button1: "Fale comigo",
-        button2: "Meus trabalhos",
+        description: {
+            freelancer: "Sou desenvolvedor e designer, crio sites modernos, rápidos e com design de impacto. Transformo ideias em páginas que valorizam seu negócio e destacam sua marca na internet.",
+            developer: "Trabalho com desenvolvimento web há mais de 2 anos. Esta página foi feita com o intuito de mostrar um pouco mais sobre minhas habilidades e experiências na área.",
+            home: "Este portal reúne duas seções: uma com meus serviços de freelancer e outra com minhas principais habilidades e experiências como desenvolvedor."
+        },
+        selector: {
+            label: {
+                freelancer: "Quero um website",
+                developer: "Sou um recrutador"
+            },
+            description: {
+                home: ["Selecione ", '"Quero um Website "', "caso queira contratar meus serviços como freelancer, ou ", '"Sou um recrutador "', "caso tenha interesse em me contratar como um desenvolvedor."  ],
+                freelancer: ["Caso você seja um recrutador e está buscando um desenvolvedor, alterne para a aba ", '"Sou um recrutador"', "." ],
+                developer: ["Caso você queira contratar meus serviços como freelancer, alterne para a aba ", '"Quero um Website"', "."]
+            }
+        }
     },
     works: {
         title: "Meus Trabalhos",
@@ -212,12 +238,39 @@ export const language_en_us: LanguageApllication = {
         },
         contact: "Get in touch",
     },
-    main: {
+    home: {
         misc: "Nice to meet you!",
         title: ["My name is", "Eduardo!"],
-        description: "I'm a developer and designer creating modern, fast websites with impactful design. I turn ideas into pages that add value to your business and highlight your brand on the internet.",
-        button1: "Get in touch",
-        button2: "My works",
+        "description": {
+          "freelancer": "I am a developer and designer, I create modern, fast websites with impactful design. I transform ideas into pages that add value to your business and make your brand stand out online.",
+          "developer": "I have been working with web development for over 2 years. This page was created to showcase a bit more about my skills and experience.",
+          "home": "This portal brings together two sections: one with my services as a freelancer, and another with my main skills and experience as a developer."
+        },
+        "selector": {
+          "label": {
+            "freelancer": "I want a website",
+            "developer": "I'm a recruiter"
+          },
+          "description": {
+            "home": [
+              "Select ",
+              "\"I want a website\" ",
+              "if you want to hire my services as a freelancer, or ",
+              "\"I'm a recruiter\" ",
+              "if you are interested in hiring me as a developer."
+            ],
+            "freelancer": [
+              "If you are a recruiter looking for a developer, switch to the ",
+              "\"I'm a recruiter\"",
+              " tab."
+            ],
+            "developer": [
+              "If you want to hire my services as a freelancer, switch to the ",
+              "\"I want a website\"",
+              " tab."
+            ]
+          }
+        }
     },
     works: {
         title: "My Works",
