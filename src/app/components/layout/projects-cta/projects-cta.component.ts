@@ -7,6 +7,7 @@ import { InfiniteScrollingComponent } from '../../utils/infinite-scrolling/infin
 import { Project } from '../../../models/project.model';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DocumentListenerService } from '../../../services/document-listener.service';
+import { LANGUAGE_APPLICATION } from '../../../tokens/language.tokens';
 
 interface ProjectColumn {
   column: Project[];
@@ -20,6 +21,7 @@ interface ProjectColumn {
 })
 export class ProjectsCTAComponent {
   private readonly projectsService = inject(ProjectsService);
+  protected readonly lg = inject(LANGUAGE_APPLICATION);
   protected readonly documentListener = inject(DocumentListenerService)
   protected readonly projects = toSignal(this.projectsService.getProjects());
   private readonly router = inject(Router);

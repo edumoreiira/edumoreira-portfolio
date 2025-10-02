@@ -102,6 +102,11 @@ export interface LanguageApllication {
             descriptions: { text: string; highlight: boolean; }[];
             bonus_info?: string | string[];
         }[]
+    },
+
+    project_cta: {
+        title: string;
+        button: string;
     }
 }
 
@@ -226,7 +231,11 @@ export const language_pt_br: LanguageApllication = {
             }
         }
     },
-    developer: developer_pt_br
+    developer: developer_pt_br,
+    project_cta: {
+        title: "Portfólio",
+        button: "Confira todos os meus trabalhos"
+    }
 }
 
 export const language_en_us: LanguageApllication = {
@@ -363,6 +372,10 @@ export const language_en_us: LanguageApllication = {
             }
         }
     },
-    developer: developer_en_us
+    developer: developer_en_us,
+    project_cta: {
+        title: "Portfolio",
+        button: "Check out all my works"
+    }
 
 }
