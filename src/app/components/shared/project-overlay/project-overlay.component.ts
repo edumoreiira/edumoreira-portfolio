@@ -11,6 +11,7 @@ import { ProjectOverlayService } from '../../../services/project-overlay.service
 import { createAnimation } from '../../../animations/default-transitions.animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LANGUAGE_APPLICATION } from '../../../tokens/language.tokens';
+import { A11yModule } from '@angular/cdk/a11y';
 
 interface MarkdownSection {
   title: string;
@@ -23,11 +24,11 @@ interface MarkdownSection {
   selector: 'app-project-overlay',
   host: {
     '[class]': 'class()',
-    '[style]': '"view-transition-name: project-card-" + (project().id)'
+    '[style]': '"view-transition-name: project-card-" + (project().id)',
+    '(document:keydown.escape)': 'closeButton.emit()'
   },
   imports: [NgClass, DatePipe, MarkdownComponent, EmButtonToggleGroupComponent, EmButtonToggleDirective,
-    EmButtonToggleAnimationDirective, FormsModule, IframeLoaderComponent, NgTemplateOutlet, MatTooltipModule
-  ],
+    EmButtonToggleAnimationDirective, FormsModule, IframeLoaderComponent, NgTemplateOutlet, MatTooltipModule, A11yModule],
   templateUrl: './project-overlay.component.html',
   styleUrl: './project-overlay.component.scss',
   animations: [
@@ -49,7 +50,7 @@ export class ProjectOverlayComponent {
       { key: 'best-practices', title: this.lg().projects.card.titles[2], icon: 'fi fi-sr-rocket-lunch', content: this.project().good_practices }
     ]
   })
-
+  
   constructor() {
     effect(() => {
       this.selectedView() === 'details' ?

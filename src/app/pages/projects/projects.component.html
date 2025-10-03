@@ -29,6 +29,8 @@
           @if(openedProjectId() !== item.id) {
             <article app-project-card app-glowing-border-item #projectCard
             (animate.enter)="onEntryAnimation($event)"
+            [style.animation]="this.isEntryAnimated() ? 'none' : null"
+            [style.opacity]="this.isEntryAnimated() ? 1 : 0"
             [style.view-transition-name]="'project-card-' + item.id"
             class="h-full delay-{{3 + $index}}"
             [project]="item"
