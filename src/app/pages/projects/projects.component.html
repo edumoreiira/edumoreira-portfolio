@@ -24,8 +24,8 @@
   @defer(when isLoading() === false) {
     @for (item of filteredProjects(); track item.id) {
       <!-- exlude README -->
-      @let readmeRepository = item.repository_url !== 'https://github.com/edumoreiira/edumoreiira';
-        @if(readmeRepository) {
+      @let readmeRepository = item.repository_url === 'https://github.com/edumoreiira/edumoreiira';
+        @if(!readmeRepository) {
           @if(openedProjectId() !== item.id) {
             <article app-project-card app-glowing-border-item #projectCard
             (animate.enter)="onEntryAnimation($event)"
@@ -44,7 +44,7 @@
           }
         }
       }
-  } @placeholder(minimum 1700ms) {
+  } @placeholder(minimum 1.2s) {
     @for (item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]; track $index) {
       <app-project-card-skeleton class="h-full delay-{{3 + $index}} out-of-view"
       animate.leave="project-fade-out" />

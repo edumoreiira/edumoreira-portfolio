@@ -103,7 +103,7 @@ export class ProjectsComponent{
     }
   }
 
-  onEntryAnimation(event: AnimationCallbackEvent) {
+  protected onEntryAnimation(event: AnimationCallbackEvent) {
     if (this.isEntryAnimated()) return;
     event.target.classList.add('project-fade-in');
     event.target.addEventListener('animationend', () => {

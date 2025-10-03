@@ -8,14 +8,14 @@
   // initial animation state for the icon
   opacity: 0;
   transform: scale(0);
-  transition: all 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+  transition: all 0.4s ease-out;
 }
 
 .timeline-line {
   // initial animation state for the line
   transform-origin: top;
   transform: scaleY(0);
-  transition: transform 0.5s 0.3s ease-out;
+  transition: transform 0.6s 0.4s ease-out;
 }
 
 :host(.is-visible) {

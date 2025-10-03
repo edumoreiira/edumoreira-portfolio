@@ -15,6 +15,7 @@
         [matTooltip]="projectLanguage.tooltips.link + ' ' +  item.title" matTooltipPosition="above" [matTooltipShowDelay]="tooltipDelay"
         href="{{ item.repository_url }}" target="_blank" rel="noopener noreferrer">
           <i class="fi fi-rr-link flex text-xs"></i>
+          <span class="sr-only">Link to {{ item.repo_title }} repository</span>
         </a>
       </div>
       <div [ngClass]="item.commit_count >= 15 ? 'text-[hsl(48,15%,56%)]' : 'text-neutral-500'"
