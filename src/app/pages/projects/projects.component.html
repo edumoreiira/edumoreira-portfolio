@@ -31,7 +31,7 @@
             (animate.enter)="onEntryAnimation($event)"
             [style.animation]="this.isEntryAnimated() ? 'none' : null"
             [style.opacity]="this.isEntryAnimated() ? 1 : 0"
-            [style.view-transition-name]="'project-card-' + item.id"
+            [style.view-transition-name]="viewTransitionItems().has(item.id) ? 'project-card-' + item.id : null"
             class="h-full delay-{{3 + $index}}"
             [project]="item"
             [borderGlowColor]="item.is_highlight ? 'hsla(48, 40%, 60%, .7)' : undefined"

@@ -30,6 +30,7 @@ export class ProjectsComponent{
   private renderer = inject(Renderer2);
   // 
   readonly projects = toSignal(this.projectService.getProjects());
+  readonly viewTransitionItems = signal<Set<string>>(new Set());
   readonly openedProjectId = signal<string | null>(null);
   readonly projectFilter = signal<'pinned' | 'criacao' | 'commit'>('criacao');
   readonly isLoading = computed(() => this.projects() === undefined);
@@ -68,19 +69,21 @@ export class ProjectsComponent{
       this.projectFilter.set(newFilter);
       return;
     }
+    this.addAllViewTransitionItems();
     document.startViewTransition(() => {
       this.projectFilter.set(newFilter);
-    });
+    }).finished.then(() => this.removeAllViewTransitionItems());
   }
 
   openOverlay(project: Project, initialView: 'details' | 'preview' = 'details', projectCard: ProjectCardComponent): void {
     const element = projectCard.el.nativeElement;
     projectCard.readyToOpen.set(true);
+    this.addViewTransitionItem(project.id);
     this.renderer.setStyle(element, 'z-index', '9999'); // to ensure the element is above others during the transition
     // no need to reset z-index, as the openedProjectId signal change will trigger a re-render of the project card component
     if (document.startViewTransition) {
       document.startViewTransition(() => {
-        this.openedProjectId.set(project.id);
+        this.openedProjectId.set(project.id); // it removes the opened project card from DOM to animate the project overlay
         this.projectOverlay.openOverlay(project, initialView);
         this.appRef.tick();
       })
@@ -96,7 +99,7 @@ export class ProjectsComponent{
         this.openedProjectId.set(null);
         this.projectOverlay.disposeOverlay();
         this.appRef.tick();
-      });
+      }).finished.then(() => this.removeAllViewTransitionItems());
     }else {
       this.openedProjectId.set(null);
       this.projectOverlay.disposeOverlay();
@@ -110,5 +113,30 @@ export class ProjectsComponent{
       this.isEntryAnimated.set(true);
       event.animationComplete();
     }, { once: true });
+  }
+
+  private addViewTransitionItem(id: string): void {
+    const currentSet = this.viewTransitionItems();
+    const newSet = new Set(currentSet);
+    newSet.add(id);
+    this.viewTransitionItems.set(newSet);
+  }
+
+  private addAllViewTransitionItems(): void {
+    const projects = this.projects();
+    if (!projects) return;
+    const newSet = new Set<string>();
+    projects.forEach(p => newSet.add(p.id));
+    this.viewTransitionItems.set(newSet);
+  }
+
+  private removeViewTransitionItem(id: string): void {
+    const currentSet = this.viewTransitionItems();
+    currentSet.delete(id);
+    this.viewTransitionItems.set(currentSet);
+  }
+
+  private removeAllViewTransitionItems(): void {
+    this.viewTransitionItems.set(new Set());
   }
 }
