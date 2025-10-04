@@ -50,8 +50,8 @@
     </div>
 </section>
 
-@defer {
-    <section id="contact">
+<section id="contact" #contactSection>
+@defer(on idle) {
         <div class="page-container py-12 md:py-20" app-glowing-border
         glowColor="hsla(0, 0%, 18%, 0.1)" [glowDelay]="15">
             <div class="grid sm:grid-cols-2 grid-cols-1 sm:gap-4 md:gap-12 rounded-3xl"
@@ -79,87 +79,92 @@
                 </div>
             </div>
         </div>
-    </section>
-} @placeholder { <section id="contact" class="py-12 md:py-20"></section> }
+    } @placeholder { <section id="contact" class="py-12 md:py-20"></section> }
+</section>
 
 
-<section id="techs">
+<section id="techs" #techsSection>
+    @defer (on viewport(contactSection)) {
     <div class="page-container">
-        @defer (on immediate) {
             <app-all-techs containerClass="my-12 sm:my-0 py-0 sm:py-12 md:py-20" />
-        }
-    </div>
+        </div>
+    } @placeholder { <section class="h-[400px] my-12 sm:my-0 py-0 sm:py-12 md:py-20"></section> }
 </section>
 
 
 
-<section>
-    <div class="page-container py-12 md:py-20" app-glowing-border glowColor="hsla(0, 0%, 25%, 0.1)"
-    glowSize="600px" borderGlowSize="400px" >
-        <h1 class="text-3xl sm:text-4xl font-semibold mb-6 sm:mb-8 text-center"
-        InterObs>{{ advantages.title }}</h1>
-        <div class="flex flex-col gap-4"
-        InterObs intersectChild="true">
-            <div class="flex items-start justify-center gap-4 md:flex-row flex-col">
-                <app-tag class="bg-gradient-to-bl from-0% to-40% from-blue-800/5 to-transparent" [borderless]="true"
-                app-glowing-border-item borderGlowColor="hsla(230, 100%, 80%, 0.3)"
-                    [title]="advantages.items[0].title"
-                    [description]="advantages.items[0].description"
-                    icon="fi-rr-time-fast" 
-                />
-                <app-tag class="bg-gradient-to-bl from-0% to-40% from-violet-800/5 to-transparent" [borderless]="true"
-                app-glowing-border-item borderGlowColor="hsla(270, 100%, 80%, 0.3)"
-                    [title]="advantages.items[1].title"
-                    [description]="advantages.items[1].description"
-                    icon="fi-rr-palette" 
-                />
-            </div>
-            <div class="flex items-start justify-center gap-4 md:flex-row flex-col delay-2">
-                <app-tag class="bg-gradient-to-bl from-0% to-40% from-sky-800/5 to-transparent" [borderless]="true"
-                app-glowing-border-item borderGlowColor="hsla(190, 100%, 80%, 0.3)"
-                    [title]="advantages.items[2].title"
-                    [description]="advantages.items[2].description"
-                    icon="fi-rr-laptop-mobile" 
-                />
-                <app-tag class="bg-gradient-to-bl from-0% to-40% from-lime-800/5 to-transparent" [borderless]="true"
-                app-glowing-border-item borderGlowColor="hsla(90, 100%, 80%, 0.3)"
-                    [title]="advantages.items[3].title"
-                    [description]="advantages.items[3].description"
-                    icon="fi-rr-bubble-discussion" 
-                />
-            </div>
-            <div class="flex items-start justify-center gap-4 md:flex-row flex-col delay-4">
-                <app-tag class="bg-gradient-to-bl from-0% to-40% from-red-800/5 to-transparent" [borderless]="true"
-                app-glowing-border-item borderGlowColor="hsla(0, 100%, 80%, 0.3)"
-                    [title]="advantages.items[4].title"
-                    [description]="advantages.items[4].description"
-                    icon="fi-rr-discover" 
-                />
+<section id="advantages" #advantagesSection>
+    @defer(on viewport(techsSection)) {
+        <div class="page-container py-12 md:py-20" app-glowing-border glowColor="hsla(0, 0%, 25%, 0.1)"
+        glowSize="600px" borderGlowSize="400px" >
+            <h1 class="text-3xl sm:text-4xl font-semibold mb-6 sm:mb-8 text-center"
+            InterObs>{{ advantages.title }}</h1>
+            <div class="flex flex-col gap-4"
+            InterObs intersectChild="true">
+                <div class="flex items-start justify-center gap-4 md:flex-row flex-col">
+                    <app-tag class="bg-gradient-to-bl from-0% to-40% from-blue-800/5 to-transparent" [borderless]="true"
+                    app-glowing-border-item borderGlowColor="hsla(230, 100%, 80%, 0.3)"
+                        [title]="advantages.items[0].title"
+                        [description]="advantages.items[0].description"
+                        icon="fi-rr-time-fast" 
+                    />
+                    <app-tag class="bg-gradient-to-bl from-0% to-40% from-violet-800/5 to-transparent" [borderless]="true"
+                    app-glowing-border-item borderGlowColor="hsla(270, 100%, 80%, 0.3)"
+                        [title]="advantages.items[1].title"
+                        [description]="advantages.items[1].description"
+                        icon="fi-rr-palette" 
+                    />
+                </div>
+                <div class="flex items-start justify-center gap-4 md:flex-row flex-col delay-2">
+                    <app-tag class="bg-gradient-to-bl from-0% to-40% from-sky-800/5 to-transparent" [borderless]="true"
+                    app-glowing-border-item borderGlowColor="hsla(190, 100%, 80%, 0.3)"
+                        [title]="advantages.items[2].title"
+                        [description]="advantages.items[2].description"
+                        icon="fi-rr-laptop-mobile" 
+                    />
+                    <app-tag class="bg-gradient-to-bl from-0% to-40% from-lime-800/5 to-transparent" [borderless]="true"
+                    app-glowing-border-item borderGlowColor="hsla(90, 100%, 80%, 0.3)"
+                        [title]="advantages.items[3].title"
+                        [description]="advantages.items[3].description"
+                        icon="fi-rr-bubble-discussion" 
+                    />
+                </div>
+                <div class="flex items-start justify-center gap-4 md:flex-row flex-col delay-4">
+                    <app-tag class="bg-gradient-to-bl from-0% to-40% from-red-800/5 to-transparent" [borderless]="true"
+                    app-glowing-border-item borderGlowColor="hsla(0, 100%, 80%, 0.3)"
+                        [title]="advantages.items[4].title"
+                        [description]="advantages.items[4].description"
+                        icon="fi-rr-discover" 
+                    />
+                </div>
             </div>
         </div>
-    </div>
+    } @placeholder { <section class="h-[400px] py-12 md:py-20"></section> }
 </section>
 
 
-<section>
-    <div class="page-container pt-12 md:pt-20 pb-24 md:pb-40">
-        <div class="glow-fx flex w-full items-center gap-4 relative">
-            <span class="h-[1px] flex-grow bg-gradient-to-r from-transparent via-neutral-100 to-neutral-100 opacity-5"></span>
-            
-            <i class="fi fi-tr-pen-swirl flex text-yellow-500 text-3xl text-primary p-4 rounded-full" InterObs obsClass="fadeIn"></i>
-            
-            <span class="h-[1px] flex-grow bg-gradient-to-l from-transparent via-neutral-100 to-neutral-100 opacity-5"></span>
+<section id="cta">
+    @defer(on viewport(advantagesSection)) {
+        <div class="page-container pt-12 md:pt-20 pb-24 md:pb-40">
+            <div class="glow-fx flex w-full items-center gap-4 relative">
+                <span class="h-[1px] flex-grow bg-gradient-to-r from-transparent via-neutral-100 to-neutral-100 opacity-5"></span>
+                
+                <i class="fi fi-tr-pen-swirl flex text-yellow-500 text-3xl text-primary p-4 rounded-full" InterObs obsClass="fadeIn"></i>
+                
+                <span class="h-[1px] flex-grow bg-gradient-to-l from-transparent via-neutral-100 to-neutral-100 opacity-5"></span>
+            </div>
+            <div class="text-center flex flex-col items-center gap-4"
+            InterObs intersectChild="true">
+                <h1 class="sm:text-4xl text-3xl font-semibold text-center fadeUp">{{ cta.title[0] }} <i class="text-yellow-500 font-normal">{{ cta.title[1] }}</i> {{ cta.title[2] }}</h1>
+                <p class="text-lg text-neutral-400 w-[min(38rem,90%)] delay-3">
+                    {{ cta.description }}
+                </p>
+                <button custom-btn class="text-lg px-6 py-2 min-w-[8rem] flex items-center gap-2 delay-5"
+                (click)="scrollTo('contact')">
+                    <i class="fi-sr-hand-horns flex"></i>
+                    {{ cta.button }}
+                </button>
+            </div>
         </div>
-        <div class="text-center flex flex-col items-center gap-4"
-        InterObs intersectChild="true">
-            <h1 class="sm:text-4xl text-3xl font-semibold text-center fadeUp">{{ cta.title[0] }} <i class="text-yellow-500 font-normal">{{ cta.title[1] }}</i> {{ cta.title[2] }}</h1>
-            <p class="text-lg text-neutral-400 w-[min(38rem,90%)] delay-3">
-                {{ cta.description }}
-            </p>
-            <button custom-btn class="text-lg px-6 py-2 min-w-[8rem] flex items-center gap-2 delay-5"
-            (click)="scrollTo('contact')">
-                <i class="fi-sr-hand-horns flex"></i>
-                {{ cta.button }}
-            </button>
-        </div>
-    </div>
+    } @placeholder { <section class="h-[300px] pt-12 md:pt-20 pb-24 md:pb-40"></section> }
+</section>
