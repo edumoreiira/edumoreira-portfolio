@@ -22,6 +22,11 @@
       <i class="fi fi-sr-resume flex"></i>
       {{ about_me.main_info.cv_button }}
     </button>
+    <a routerLink="../../projects"
+    custom-btn variant="outline" class="flex items-center gap-2 px-3 py-1 !rounded-lg" >
+      <i class="fi fi-tr-folder-open flex"></i>
+      {{ about_me.main_info.portfolio_button }}
+    </a>
     <ul id="contact" class="inline-flex xs:text-xl divide-x divide-neutral-600 items-center flex-wrap">
       <li><app-social-icon class="xs:pr-4 pr-3 flex" variant="none" icon="fi fi-sr-envelope-plus flex" url="mailto:edumoreira.dev@gmail.com" description="Email" /></li>
       <li><app-social-icon class="xs:px-4 px-3 flex" variant="none" icon="fi fi-brands-github flex" url="https://github.com/edumoreiira" description="GitHub" /></li>

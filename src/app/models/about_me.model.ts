@@ -10,6 +10,7 @@ export const developer_pt_br = {
       '**Línguas:** Português, Inglês (Intermediário)',
     ],
     cv_button: 'Baixar Currículo',
+    portfolio_button: 'Portfólio'
   },
   explanation: {
     title: 'Minha história e experiências',
@@ -114,6 +115,7 @@ export const developer_en_us = {
       '**Languages:** Portuguese, English (Intermediate)',
     ],
     cv_button: 'Download CV',
+    portfolio_button: 'Portfolio'
   },
   explanation: {
     title: 'My History and Experience',

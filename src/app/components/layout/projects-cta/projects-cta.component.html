@@ -6,20 +6,22 @@ app-glowing-border glowColor="hsla(0, 0%, 25%, 0.1)" borderColor="var(--color-ne
     <div 
     class="grid grid-cols-[1fr] sm:grid-cols-[1fr_4fr] grid-rows-[200px] md:grid-rows-[220px] rounded-2xl overflow-hidden m-px relative
     mask-y-from-80% mask-y-to-100% mask-r-from-95% mask-r-to-100%">
-      <div class="flex flex-col justify-center sm:items-start items-center sm:ml-12 lg:ml-24 z-20">
-        <h1 class="text-4xl sm:text-[2.4rem] md:text-5xl lg:text-6xl font-semibold text-nowrap">
+      <a [routerLink]="['../../projects']"
+      class="flex flex-col justify-center sm:items-start items-center sm:ml-12 lg:ml-24 z-20 group">
+        <h1 class="text-4xl sm:text-[2.4rem] md:text-5xl lg:text-6xl font-semibold text-nowrap
+        group-hover:text-white transition-colors">
           {{ project.title }}
         </h1>
-        <a [routerLink]="['../../projects']"
-        class="text-lg sm:text-base md:text-lg lg:text-xl text-neutral-500 flex items-center gap-1 leading-none group
-        hover:text-neutral-200 transition-colors whitespace-nowrap
+        <p
+        class="text-lg sm:text-base md:text-lg lg:text-xl text-neutral-500 flex items-center gap-1 leading-none
+        group-hover:text-neutral-200 transition-colors whitespace-nowrap
         py-2 sm:mt-2">
           {{ project.button }}
           <i class="fi fi-rr-angle-small-right flex
           group-hover:translate-x-1 transition-all"></i>
-        </a>
+        </p>
   
-      </div>
+      </a>
       
       <div class="m-px rounded-2xl sm:relative absolute inset-[0] overflow-hidden sm:overflow-visible
        sm:opacity-100 opacity-20">

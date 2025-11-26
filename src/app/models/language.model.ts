@@ -88,6 +88,7 @@ export interface LanguageApllication {
             title: string;
             descriptions: string[];
             cv_button: string;
+            portfolio_button: string;
         }
         explanation: {
             title: string;
@@ -114,7 +115,7 @@ export const language_pt_br: LanguageApllication = {
     navbar: {
         menu: {
             home: "Home",
-            works: "Trabalhos",
+            works: "Portfólio",
             techs: "Tecnologias",
         },
         contact: "Entrar em contato",
@@ -242,7 +243,7 @@ export const language_en_us: LanguageApllication = {
     navbar: {
         menu: {
             home: "Home",
-            works: "Works",
+            works: "Portfolio",
             techs: "Technologies",
         },
         contact: "Get in touch",
