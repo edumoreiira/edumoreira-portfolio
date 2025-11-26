@@ -64,7 +64,7 @@ export interface LanguageApllication {
         button: string;
     },
     footer: {
-        copyright: string;
+        copyright: string[];
     },
 
     projects: {
@@ -214,7 +214,7 @@ export const language_pt_br: LanguageApllication = {
         button: "Vamos lá!"
     },
     footer: {
-        copyright: "Desenvolvido com carinho e café por mim © 2025"
+        copyright: ["Desenvolvido com", "Angular", "© 2025"]
     },
 
     projects: {
@@ -356,7 +356,7 @@ export const language_en_us: LanguageApllication = {
         button: "Let's go!"
     },
     footer: {
-        copyright: "Developed with love and coffee by me © 2025"
+        copyright: ["Developed with", "Angular", "© 2025"]
     },
     projects: {
         title: "My Projects",

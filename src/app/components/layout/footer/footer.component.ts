@@ -25,7 +25,14 @@ import { IntersectionObserverDirective } from '../../../directives/intersection-
         <li aria-hidden="true" class="delay-5 h-px xs:w-[1.5rem] w-[1rem] bg-neutral-900"></li>
         <li class="delay-5"> <app-social-icon icon="fi fi-sr-envelope-plus flex" url="mailto:edumoreira.dev@gmail.com" description="Email"/> </li>
     </ul>
-    <p class="text-neutral-300 text-sm delay-8">{{ lg().footer.copyright }}</p>
+    <p class="text-neutral-300 text-sm delay-8">
+      {{ lg().footer.copyright[0] }}
+      <img src="/icons/techs/angular.webp" alt="Angular Icon" class="size-3 ml-1 inline-block brightness-0 invert" />
+      {{ lg().footer.copyright[1] }}
+      <span class="inline-flex items-center justify-center py-0.5 px-2 border border-neutral-800 rounded-full">
+      {{ lg().footer.copyright[2] }}
+      </span>
+    </p>
     `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
