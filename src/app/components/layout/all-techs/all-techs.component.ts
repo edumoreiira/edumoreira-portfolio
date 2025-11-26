@@ -31,10 +31,16 @@ export class AllTechsComponent {
       hoveredColor: 'var(--color-pink-500)'
     },
     {
-      class: 'col-span-2 delay-1',
+      class: 'delay-1',
       iconUrl: './icons/techs/html.webp',
       title: 'HTML',
       hoveredColor: 'var(--color-amber-700)'
+    },
+    {
+      class: 'delay-1',
+      iconUrl: './icons/techs/supabase.webp',
+      title: 'Supabase',
+      hoveredColor: 'var(--color-green-700)'
     },
     {
       class: 'delay-2',
