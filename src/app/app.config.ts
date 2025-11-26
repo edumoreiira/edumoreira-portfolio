@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
@@ -7,6 +7,12 @@ import { provideLanguage } from './tokens/language.tokens';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideBaseUrl } from './tokens/general.tokens';
 import { provideMarkdown } from 'ngx-markdown';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import localeEn from '@angular/common/locales/en';
+
+registerLocaleData(localePt, 'pt-BR');
+registerLocaleData(localeEn, 'en-US');
 
 export const appConfig: ApplicationConfig = {
   providers: [

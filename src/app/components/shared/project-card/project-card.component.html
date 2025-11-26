@@ -29,7 +29,7 @@
   </div>
   <span class="text-sm shrink-0" [style.view-transition-name]="readyToOpen() ? 'pc-date-' + item.id : null"
   [ngClass]="item.is_highlight ? 'text-[hsl(48,10%,50%)]' : 'text-neutral-500'">
-    {{ item.created_at | date: 'dd MMM. yyyy' }}
+    {{ item.created_at | date: dateFormat() : undefined : dateLocale() }}
   </span>
 </div>
 
