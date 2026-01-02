@@ -89,6 +89,11 @@ export class GlowingBorderDirective implements OnInit, OnDestroy, AfterContentIn
   private animationFrameId: number | null = null;
   private listeners: (() => void)[] = [];
 
+  // store last known mouse position to use during scroll events
+  // necessary to fix the issue where scroll didn't update glow position
+  private lastX = 0;
+  private lastY = 0;
+
   // inputs for the parent directive
   backgroundColor = input<string>('var(--color-neutral-950)');
   borderColor = input<string>('var(--color-neutral-800)');
@@ -154,18 +159,59 @@ export class GlowingBorderDirective implements OnInit, OnDestroy, AfterContentIn
     // runs listeners outside angular zone to avoid change detection on every mouse move
     this.zone.runOutsideAngular(() => {
       const hostElement = this.el.nativeElement;
-      const onMouseMove = (event: MouseEvent) => {
-        // only updates the target coordinates
+
+      // reuse calculation logic for both mousemove and scroll
+      const calculateTargets = (clientX: number, clientY: number) => {
         this.items.forEach(item => {
           const rect = item.elementRef.nativeElement.getBoundingClientRect();
-          item.targetX = event.clientX - rect.left;
-          item.targetY = event.clientY - rect.top;
+          item.targetX = clientX - rect.left;
+          item.targetY = clientY - rect.top;
         });
       };
+
+      const onMouseMove = (event: MouseEvent) => {
+        // saves global coordinates to be used by the scroll listener
+        this.lastX = event.clientX;
+        this.lastY = event.clientY;
+
+        // only updates the target coordinates
+        calculateTargets(this.lastX, this.lastY);
+      };
+      
+      // handler for scroll using last known coordinates
+      const onScroll = () => {
+        calculateTargets(this.lastX, this.lastY);
+      };
+
       // starts the animation loop when the mouse enters the area
-      const onMouseEnter = () => { this.startAnimationLoop(); };
+      const onMouseEnter = (event: MouseEvent) => { 
+        // capture immediate position to avoid 0px bug
+        this.lastX = event.clientX;
+        this.lastY = event.clientY;
+        calculateTargets(this.lastX, this.lastY);
+
+        // snap current to target immediately to prevent "fly-in" from 0px
+        this.items.forEach(item => {
+          item.currentX = item.targetX;
+          item.currentY = item.targetY;
+          // manually update styles immediately for the first frame
+          const el = item.elementRef.nativeElement;
+          el.style.setProperty('--mouse-x', `${item.currentX}px`);
+          el.style.setProperty('--mouse-y', `${item.currentY}px`);
+        });
+
+        this.startAnimationLoop(); 
+        
+        // add scroll listener only when hovering (performance optimization)
+        window.addEventListener('scroll', onScroll, { capture: true, passive: true });
+      };
+      
       // stops the animation loop when the mouse leaves
-      const onMouseLeave = () => { this.stopAnimationLoop(); };
+      const onMouseLeave = () => { 
+        this.stopAnimationLoop(); 
+        // remove scroll listener when leaving
+        window.removeEventListener('scroll', onScroll, { capture: true } as any);
+      };
 
       hostElement.addEventListener('mousemove', onMouseMove);
       hostElement.addEventListener('mouseenter', onMouseEnter);
@@ -175,7 +221,9 @@ export class GlowingBorderDirective implements OnInit, OnDestroy, AfterContentIn
       this.listeners.push(
         () => hostElement.removeEventListener('mousemove', onMouseMove),
         () => hostElement.removeEventListener('mouseenter', onMouseEnter),
-        () => hostElement.removeEventListener('mouseleave', onMouseLeave)
+        () => hostElement.removeEventListener('mouseleave', onMouseLeave),
+        // ensure cleanup if component is destroyed while hovering
+        () => window.removeEventListener('scroll', onScroll, { capture: true } as any)
       );
     });
   }
