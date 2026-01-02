@@ -7,6 +7,9 @@
                 @if(website().technologies.includes('angular')) {
                     <span class="px-2 text-red-100" [style.view-transition-name]="'angular'">Angular</span>
                 }
+                @if(website().technologies.includes('supabase')) {
+                    <span class="px-2 text-emerald-100" [style.view-transition-name]="'supabase'">Supabase</span>
+                }
                 @if(website().technologies.includes('tailwind')) {
                     <span class="px-2 text-cyan-100" [style.view-transition-name]="'tailwind'">Tailwind</span>
                 }

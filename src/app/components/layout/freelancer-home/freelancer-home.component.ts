@@ -34,27 +34,30 @@ export class FreelancerHomeComponent {
   websites = computed<WebSites[]>(() => [
     {
       technologies: ["angular", "tailwind", "html", "css", "js"],
-      title: "Bera Pools",
-      description: this.lg().works.accordions[0].description,
-      button: this.lg().works.accordions[0].button,
-      imgUrl: "./website-preview/bera-pools.jpeg",
-      websiteUrl: "https://ysociety-eth.github.io/web3-wallet-manager/"
-    },
-    {
-      technologies: ["html", "css", "js"],
-      title: "e-art",
-      description: this.lg().works.accordions[1].description,
-      button: this.lg().works.accordions[1].button,
-      imgUrl: "./website-preview/e-art.jpeg",
-      websiteUrl: "https://edumoreiira.github.io/e-art/"
-    },
-    {
-      technologies: ["angular", "tailwind", "html", "css", "js"],
       title: "Aju Films",
       description: this.lg().works.accordions[2].description,
       button: this.lg().works.accordions[2].button,
       imgUrl: "./website-preview/aju-films.jpeg",
-      websiteUrl: "https://ajufilms.com.br/"
+      websiteUrl: "https://ajufilms.com.br/",
+      type: 'Website'
+    },
+    {
+      technologies: ["angular", "tailwind", "supabase", "html", "css", "js"],
+      title: "litteraleo",
+      description: this.lg().works.accordions[1].description,
+      button: this.lg().works.accordions[1].button,
+      imgUrl: "./website-preview/litteraleo.jpeg",
+      websiteUrl: "https://litteraleo.com.br/",
+      type: 'Blog'
+    },
+    {
+      technologies: ["angular", "tailwind", "html", "css", "js"],
+      title: "Bera Pools",
+      description: this.lg().works.accordions[0].description,
+      button: this.lg().works.accordions[0].button,
+      imgUrl: "./website-preview/bera-pools.jpeg",
+      websiteUrl: "https://ysociety-eth.github.io/web3-wallet-manager/",
+      type: 'Website'
     },
   ]);
 

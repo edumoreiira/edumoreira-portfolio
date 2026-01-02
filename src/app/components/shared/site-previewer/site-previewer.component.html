@@ -7,6 +7,9 @@
                 @if(websites()[currentIndex()].technologies.includes('angular')) {
                     <span class="px-2 text-red-100" [ngStyle]="{'view-transition-name': 'angular'}" @slide>Angular</span>
                 }
+                @if(websites()[currentIndex()].technologies.includes('supabase')) {
+                    <span class="px-2 text-emerald-100" [ngStyle]="{'view-transition-name': 'supabase'}" @slide>Supabase</span>
+                }
                 @if(websites()[currentIndex()].technologies.includes('tailwind')) {
                     <span class="px-2 text-cyan-100" [ngStyle]="{'view-transition-name': 'tailwind'}" @slide>Tailwind</span>
                 }
@@ -25,7 +28,7 @@
             <div class="sm:flex hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex-col items-center opacity-90 
             group-hover:opacity-0 transition-all duration-500 pointer-events-none">
                 <h2 class="text-4xl font-semibold whitespace-nowrap"> {{ websites()[currentIndex()].title }} </h2>
-                <span>Website</span>
+                <span>{{ websites()[currentIndex()].type }}</span>
             </div>
             <button class="absolute top-1/2 left-1/13 -translate-y-1/2 bg-neutral-900/15 backdrop-blur rounded-full p-3 border border-neutral-100/10 sm:opacity-20 group-hover:opacity-100
             hover:bg-neutral-900/30 hover:border-neutral-100/30 transition-all z-10"

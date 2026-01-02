@@ -146,13 +146,13 @@ export const language_pt_br: LanguageApllication = {
         accordions: [
             {
                 title: "Bera Pools",
-                description: "Website oficial desenvolvido para Bera Pools, um projeto de portfólio e gerenciamento de carteiras Web3 na rede Berachain.",
+                description: "Website desenvolvido para Bera Pools, um projeto de portfólio e gerenciamento de carteiras Web3 na rede Berachain.",
                 button: "Visitar Website"
             },
             {
-                title: "e-art",
-                description: "Website criado para e-art, uma vitrine digital pensado para a exposição e apreciação de obras artísticas no ambiente online.",
-                button: "Visitar Website"
+                title: "litteraleo",
+                description: "Blog pessoal de literatura focado em resenhas, ensaios e discussões literárias.",
+                button: "Visitar Blog"
             },
             {
                 title: "Aju Films",
@@ -205,7 +205,7 @@ export const language_pt_br: LanguageApllication = {
     },
     techs: {
         title: "Tecnologias que eu utilizo",
-        year: "2025",
+        year: "2026",
         misc: "2023"
     },
     cta: {
@@ -214,7 +214,7 @@ export const language_pt_br: LanguageApllication = {
         button: "Vamos lá!"
     },
     footer: {
-        copyright: ["Desenvolvido com", "Angular", "© 2025"]
+        copyright: ["Desenvolvido com", "Angular", "© 2026"]
     },
 
     projects: {
@@ -288,13 +288,13 @@ export const language_en_us: LanguageApllication = {
         accordions: [
             {
                 title: "Bera Pools",
-                description: "Oficial website developed for Bera Pools, a portfolio and Web3 wallet management project on the Berachain network.",
+                description: "Website developed for Bera Pools, a portfolio and Web3 wallet management project on the Berachain network.",
                 button: "Visit Website"
             },
             {
-                title: "e-art",
-                description: "Website created for e-art, a digital showcase designed for the exhibition and appreciation of artistic works in the online environment.",
-                button: "Visit Website"
+                title: "litteraleo",
+                description: "Personal literature blog focused on reviews, essays, and literary discussions.",
+                button: "Visit Blog"
             },
             {
                 title: "Aju Films",
@@ -347,7 +347,7 @@ export const language_en_us: LanguageApllication = {
     },
     techs: {
         title: "Technologies that I use",
-        year: "2025",
+        year: "2026",
         misc: "2023"
     },
     cta: {
@@ -356,7 +356,7 @@ export const language_en_us: LanguageApllication = {
         button: "Let's go!"
     },
     footer: {
-        copyright: ["Developed with", "Angular", "© 2025"]
+        copyright: ["Developed with", "Angular", "© 2026"]
     },
     projects: {
         title: "My Projects",

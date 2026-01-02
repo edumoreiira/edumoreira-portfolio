@@ -11,9 +11,10 @@ export interface WebSites {
     button: string;
     imgUrl: string;
     websiteUrl: string;
+    type: 'Website' | 'Blog';
 }
 
-type technologies = "angular" | "html" | "css" | "js" | "tailwind"
+type technologies = "angular" | "html" | "css" | "js" | "tailwind" | "supabase";
 
 @Component({
     selector: 'app-site-previewer',
